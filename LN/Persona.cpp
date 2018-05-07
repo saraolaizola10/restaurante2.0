@@ -46,7 +46,3 @@ int Persona::getDni()
 	return this->dni;
 }
 
-void Point::print() const
-{
-	cout << this->nombre << " "<< this->apellido << " , tel: " << this->tel << " , dni: "<< this->dni << endl;
-}

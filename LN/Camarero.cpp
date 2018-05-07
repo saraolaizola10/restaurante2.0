@@ -16,8 +16,3 @@ Camarero::~Camarero()
 {
 
 }
-
-void Point::print() const
-{
-	cout << this->nombre << " "<< this->apellido << " , tel: " << this->tel << " , dni: "<< this->dni << endl;
-}

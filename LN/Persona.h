@@ -1,5 +1,5 @@
-#ifndef _PERSONA_H_
-#define _PERSONA_H_
+#ifndef _PERSONA_H
+#define _PERSONA_H
 
 class Persona
 {
@@ -18,7 +18,6 @@ class Persona
 	int getTel();
 	int getDni();
 
-	void print() const;
 };
 
 #endif

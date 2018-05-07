@@ -1,4 +1,4 @@
-#include "utilidades.h"
+#include "Utilidades.h"
 #include <stdio.h>
 #include <ctype.h>
 #include <string.h>
@@ -13,56 +13,6 @@ void clear_if_needed(char *str)
 		int c;    
     	while ( (c = getchar()) != EOF && c != '\n');
     }
-}
-
-char* quitarEspacio (char* input)                                         
-{
-    int i,j;
-    char *output=input;
-    for (i = 0, j = 0; i<strlen(input); i++,j++)          
-    {
-        if (input[i]!=' ')                           
-            output[j]=input[i];                     
-        else
-            j--;                                     
-    }
-    output[j]=0;
-    return output;
-}
-
-char* EspacioA_ (char* input)                                         
-{
-    int i;
-   	for (i = 0; i<strlen(input); i++)          
-    {
-        if (input[i]==' ')  
-        {
-        	input[i]='_';
-        }                                           
-    }
-   	return input;
-}
-
-char* _AEspacio (char* input)                                         
-{
-    int i;
-   	for (i = 0; i<strlen(input); i++)          
-    {
-        if (input[i]=='_')  
-        {
-        	input[i]=' ';
-        }                                           
-    }
-   	return input;
-}
-
-char * toUpper (char *input)
-{
-	int i;
-	for (i=0;i<strlen(input);i++)
-	{
-      toupper(input[i]);
-   	}
 }
 
 char* ComaAPunto (char* input)                                         
@@ -115,38 +65,41 @@ float pedirFloat ()
 	return input;
 }
 
-int pedirNumero ()
+int pedirNumero (int condicion)
 {
 	char str[MAX_LEN];
-	int input,lenght,num;;
+	int input,length,num;;
 
 	do
 	{
 		num=0;
 		fgets(str,50,stdin);
-		lenght = strlen (str)-1;
+		length = strlen(str)-1;
 
-		for (int i=0;i<lenght;i++)
+		for (int i=0;i<length;i++)
 		{
 			if (!isdigit(str[i]))
 			{
 				num=1;
 				break;
 			}	
-
 		}
 		if (num!=0)
+		{
 			printf("Error. Asegurate de introducir un numero\n");
+		}
+		if (condicion!=0)
+		{
+			if (length!=condicion)
+			{
+				num=1;
+				printf("Error. Introducir %d numeros\n",condicion);
+			}
+		}
 
 	} while (num!=0);
 	
 	clear_if_needed(str);
 	sscanf(str,"%d",&input);
 	return input;
-}
-
-
-void linea()
-{
-	printf("\n _______________________________________ \n");
 }

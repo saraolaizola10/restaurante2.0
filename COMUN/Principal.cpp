@@ -1,7 +1,8 @@
-#include "Persona.h"
-#include "Camarero.h"
-#include "utilidades.h"
-#include "Pantalla.h"
+#include "../LN/Persona.h"
+#include "../LN/Camarero.h"
+#include "Utilidades.h"
+#include "../LP/frAdministrador.h"
+#include "../LP/frCamarero.h"
 #include <iostream>
 #include <stdio.h>
 #include <string.h>
@@ -45,13 +46,12 @@ int main (int argc, char *argv[])
 	}
 	else
 	{
-		c = comprobarClave();
-				
-		if (c==0)
+		c = comprobarClave();	//NO FUNCIONA
+		//if (c==0)	
 		{
 			do
 			{
-				cout << "\n 1. Consultar estad "<< char(161) << "sticas" << endl;
+				cout << "\n 1. Consultar estad"<< char(161) << "sticas" << endl;
 				cout <<"\n 2. A"<< char(164) << "adir camarero" << endl;
 				cout <<"\n 3. A"<< char(164) << "adir categoria" << endl;
 				cout <<"\n 4. A"<< char(164) << "adir producto"<< endl;
@@ -109,15 +109,15 @@ int main (int argc, char *argv[])
 					break;
 
 					case 2:
-					
+					AltaCamarero();
 					break;
 
 					case 3:
-					
+					AltaCategoria();
 					break;
 
 					case 4:	
-					
+					AltaProducto();
 					break;
 
 					case 5:
