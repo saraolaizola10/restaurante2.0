@@ -9,13 +9,14 @@ using namespace std;
 class Camarero: public Persona
 {
 private:
-	char* nombre;
-	char* apellido;
+	string nombre;
+	string apellido;
 	int tel;
 	int dni;
+	float salario;
 
 public:
-	Camarero(const char* nombre, const char* apellido, int tel, int dni);
+	Camarero(const string nombre, const string apellido, int tel, int dni, float salario);
 	Camarero(const Camarero &c);
 	virtual ~Camarero();
 };

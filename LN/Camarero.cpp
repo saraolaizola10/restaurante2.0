@@ -2,9 +2,9 @@
 #include <iostream>
 using namespace std;
 
-Camarero::Camarero(const char* nombre, const char* apellido, int tel, int dni): Persona(nombre, apellido, tel, dni)
+Camarero::Camarero(const string nombre, const string apellido, int tel, int dni, float salario): Persona(nombre, apellido, tel, dni)
 {
-	
+	this-> salario = salario;
 }
 
 Camarero::Camarero(const Camarero &c) : Persona(c)

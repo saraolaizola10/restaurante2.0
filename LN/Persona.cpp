@@ -4,34 +4,38 @@
 #include <iostream>
 using namespace std;
 
-Persona::Persona(const char *nombre, const char *apellido, int tel, int dni)
+Persona::Persona(const string nombre, const string apellido, int tel, int dni)
 {
-	this->nombre = new char[strlen(nombre) + 1];
-	strcpy(this->nombre, nombre);
-	this ->apellido = new char[strlen(apellido)+1];
-	strcpy(this->apellido, apellido);
+//	this->nombre = new char[strlen(nombre) + 1];
+//	strcpy(this->nombre, nombre);
+//	this ->apellido = new char[strlen(apellido)+1];
+//	strcpy(this->apellido, apellido);
+	this->nombre = nombre;
+	this->apellido = apellido;
 	this->tel = tel;
 	this->dni = dni;
+
 }
 
 Persona::Persona(const Persona& p)
 {
-	this->nombre = new char[strlen(p.nombre) + 1];
-	strcpy(this->nombre, p.nombre);
+//	this->nombre = new char[strlen(p.nombre) + 1];
+//	strcpy(this->nombre, p.nombre);
+	this->nombre = p.nombre;
 }
 
 Persona::~Persona()
 {
-	delete[] this->nombre;
-	delete[] this->apellido;
+//	delete[] this->nombre;
+//	delete[] this->apellido;
 }
 
-const char* Persona::getNombre()
+const string Persona::getNombre()
 {
 	return this->nombre;
 }
 
-const char* Persona::getApellido()
+const string Persona::getApellido()
 {
 	return this->apellido;
 }

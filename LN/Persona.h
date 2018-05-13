@@ -1,21 +1,24 @@
 #ifndef _PERSONA_H
 #define _PERSONA_H
 
+#include <iostream>
+using namespace std;
+
 class Persona
 {
 private:
-	char *nombre;
-	char *apellido;
+	string nombre;
+	string apellido;
 	int tel;
 	int dni;
 	
 public:
-	Persona(const char* nombre, const char* apellido, int tel, int dni);
+	Persona(const string nombre, const string apellido, int tel, int dni);
 	Persona(const Persona &p);
 	virtual ~Persona();
 
-	const char* getNombre();
-	const char* getApellido();
+	const string getNombre();
+	const string getApellido();
 	int getTel();
 	int getDni();
 
