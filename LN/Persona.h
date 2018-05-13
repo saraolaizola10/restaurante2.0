@@ -3,12 +3,13 @@
 
 class Persona
 {
+private:
 	char *nombre;
 	char *apellido;
 	int tel;
 	int dni;
 	
-	public:
+public:
 	Persona(const char* nombre, const char* apellido, int tel, int dni);
 	Persona(const Persona &p);
 	virtual ~Persona();

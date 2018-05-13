@@ -3,7 +3,7 @@
 
 class Cuenta
 {
-	
+public:
 };
 
 #endif
