@@ -7,12 +7,7 @@ Camarero::Camarero(const string nombre, const string apellido, int tel, int dni,
 	this-> salario = salario;
 }
 
-Camarero::Camarero(const Camarero &c) : Persona(c)
+void Camarero::diPuesto()
 {
-	
-}
-
-Camarero::~Camarero()
-{
-
+	cout << "Camarero" << endl;
 }

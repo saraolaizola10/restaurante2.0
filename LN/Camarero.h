@@ -8,17 +8,16 @@ using namespace std;
 
 class Camarero: public Persona
 {
-private:
-	string nombre;
-	string apellido;
-	int tel;
-	int dni;
-	float salario;
+	private:
+		string nombre;
+		string apellido;
+		int tel;
+		int dni;
+		float salario;
 
-public:
-	Camarero(const string nombre, const string apellido, int tel, int dni, float salario);
-	Camarero(const Camarero &c);
-	virtual ~Camarero();
+	public:
+		Camarero(const string nombre, const string apellido, int tel, int dni, float salario);
+		virtual void diPuesto();
 };
 
 #endif

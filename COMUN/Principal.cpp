@@ -1,11 +1,14 @@
+#include "Utilidades.h"
 #include "../LN/Persona.h"
 #include "../LN/Camarero.h"
-#include "Utilidades.h"
 #include "../LP/frAdministrador.h"
+#include "../LP/frComun.h"
 #include "../LP/frCamarero.h"
 #include <iostream>
 #include <stdio.h>
 #include <string.h>
+#include "sqlite3.h"
+
 using namespace std;
 
 #define PARAM "admin"
@@ -13,6 +16,15 @@ using namespace std;
 int main (int argc, char *argv[])
 {
 	int dni,n,m,mesa,c;
+
+	sqlite3 *db;
+
+	int result = sqlite3_open("test.sqlite", &db);
+	if (result != SQLITE_OK) 
+	{
+		printf("Error opening database\n");
+		return result;
+	}
 
 	cout << "Bienvenido al Restaurante" << endl;
 	
@@ -47,7 +59,7 @@ int main (int argc, char *argv[])
 	else
 	{
 		c = comprobarClave();	//NO FUNCIONA
-		//if (c==0)	
+		if (c==0)	
 		{
 			do
 			{
@@ -121,20 +133,28 @@ int main (int argc, char *argv[])
 					break;
 
 					case 5:
-					
+					EditarProducto();
 					break;
 
 					case 6:
-					
+					EliminarProducto();
 					break;
 
 					case 7:
-					
+					cambiarClave();
 					break;
 				}
 			} while (n!=8);
 		}
 	}	
+
+	result = sqlite3_close(db);
+	if (result != SQLITE_OK) 
+	{
+		printf("Error opening database\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return result;
+	}
 
 	return 0;
 }

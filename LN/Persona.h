@@ -14,14 +14,18 @@ private:
 	
 public:
 	Persona(const string nombre, const string apellido, int tel, int dni);
-	Persona(const Persona &p);
-	virtual ~Persona();
+
+	friend std::ostream &operator<<(std::ostream &os, Persona const &p) 
+	{ 
+        return os << p.nombre << " " << p.apellido << " , tel: " << p.tel << " dni: "<< p.dni << endl;
+    }
+
+    virtual void diPuesto();
 
 	const string getNombre();
 	const string getApellido();
 	int getTel();
 	int getDni();
-
 };
 
 #endif
