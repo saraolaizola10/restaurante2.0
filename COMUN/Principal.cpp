@@ -101,7 +101,7 @@ int main (int argc, char *argv[])
 						switch(m)
 						{
 							case 1:
-							
+							mostrarCamareros(db);
 							break;
 
 							case 2:

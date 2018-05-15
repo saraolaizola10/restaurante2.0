@@ -11,7 +11,7 @@ int mostrarCamareros(sqlite3 *db)
 {
 	sqlite3_stmt *stmt;
 
-	char sql[] = "SELECT DNI, NOMBRE, APELLIDO, TEL FROM CAMAREROS";
+	char sql[] = "SELECT DNI,NOMBRE,APELLIDO,TEL FROM CAMAREROS";
 
 	int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) ;
 	if (result != SQLITE_OK) 
