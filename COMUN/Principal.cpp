@@ -4,10 +4,13 @@
 #include "../LP/frAdministrador.h"
 #include "../LP/frComun.h"
 #include "../LP/frCamarero.h"
+#include "../LD/EscrituraBD.h"
+#include "../LD/LecturaBD.h"
+#include "../LD/sqlite3.h"
 #include <iostream>
 #include <stdio.h>
 #include <string.h>
-#include "sqlite3.h"
+
 
 using namespace std;
 
@@ -19,12 +22,20 @@ int main (int argc, char *argv[])
 
 	sqlite3 *db;
 
-	int result = sqlite3_open("test.sqlite", &db);
+	int result = sqlite3_open("BD.sqlite", &db);
 	if (result != SQLITE_OK) 
 	{
-		printf("Error opening database\n");
+		cout << "Error opening database\n" << endl;
 		return result;
 	}
+	else
+	{
+		cout << "Database Opened successfully\n" << endl;
+  	}
+
+	iniciarBD(db);
+
+	//crearTablaCamarero();
 
 	cout << "Bienvenido al Restaurante" << endl;
 	
@@ -58,8 +69,8 @@ int main (int argc, char *argv[])
 	}
 	else
 	{
-		c = comprobarClave();	//NO FUNCIONA
-		if (c==0)	
+		//c = comprobarClave();	//NO FUNCIONA
+		//if (c==0)	
 		{
 			do
 			{
@@ -121,7 +132,7 @@ int main (int argc, char *argv[])
 					break;
 
 					case 2:
-					AltaCamarero();
+					AltaCamarero(db);
 					break;
 
 					case 3:
@@ -144,17 +155,18 @@ int main (int argc, char *argv[])
 					cambiarClave();
 					break;
 				}
+
 			} while (n!=8);
 		}
 	}	
 
-	result = sqlite3_close(db);
-	if (result != SQLITE_OK) 
-	{
-		printf("Error opening database\n");
-		printf("%s\n", sqlite3_errmsg(db));
-		return result;
-	}
+	//result = sqlite3_close(db);
+	//if (result != SQLITE_OK) 
+	//{
+	//	printf("Error opening database\n");
+	//	printf("%s\n", sqlite3_errmsg(db));
+	//	return result;
+	//}
 
 	return 0;
 }

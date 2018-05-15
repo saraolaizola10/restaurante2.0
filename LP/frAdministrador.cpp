@@ -6,6 +6,8 @@
 #include "../LN/Cuenta.h"
 #include "../LN/Producto.h"
 #include "../LN/Categoria.h"
+#include "../LD/EscrituraBD.h"
+#include "../LD/LecturaBD.h"
 #include "frComun.h"
 #include <algorithm>
 #include <stdio.h>
@@ -74,7 +76,7 @@ void cambiarClave()
 	myfile.close();
 }
 
-void AltaCamarero()
+void AltaCamarero(sqlite3 *db)
 {
 	string nombre, apellido;
 	int dni,tel,unica;
@@ -105,7 +107,7 @@ void AltaCamarero()
 	cout << "Telefono:" <<endl;
 	tel = pedirNumero(9);
 
-	//BD: GUARDAR EN BASE DE DATOS
+	altaCamarero(db,dni,nombre,apellido,tel);
 }
 
 void AltaCategoria()
@@ -209,167 +211,4 @@ void EliminarProducto()
 	num = introducirOpcion(totalP)-1;
 
 	//BD: eliminar producto
-}
-
-// ESTADISTICAS
-
-void listaPlantilla()
-{
-	list <Persona> personas;
-
-	for (auto p: personas)
-	{
-		cout << p;
-		p.diPuesto();
-		cout << "\n" << endl;
-	}
-}
-
-void mediaCamarero()
-{
-    int dni,cantidad;
-    float total;
-
-    list <Camarero> camareros;
-    list <Comanda> comandas;
-    //BD: get listas 
-
-    linea();
-    cout << "\n   ** NOTA MEDIA DE LOS CAMAREROS ** \n\n" << endl;
-
-	for (auto c: camareros)
-	{
-        dni = c.getDni();
-        cantidad=0;
-        total=0,0;
-
-		for (auto co: comandas) 
-        {
-            if(dni==co.getDni())
-            {
-                total += co.getMedia();   
-                cantidad++;    
-            }
-        }
-        total= total/cantidad;
-        cout << c.getNombre() << " " << c.getApellido() << " " << total << endl;
-	}
-    linea();
-}
-
-void actividadCamarero ()
-{
-    int dni,cantidad;
-    float total;
-
-    list <Camarero> camareros;
-    list <Comanda> comandas;
-
-    //BD: inicializar y totales
-
-    linea();
-  	cout << "\n  ** ACTIVIDAD DE LOS CAMAREROS ** \n" << endl;
-    cout << " (Camarero/Num.Comandas/Imp.Total)\n\n" << endl;
-
-    for (auto c: camareros)
-    {
-        dni = c.getDni();
-        cantidad=0;
-        total=0,0;
-
-        for (auto co: comandas) 
-        {
-            if(dni==co.getDni())
-            {
-                total += co.getTotal();   
-                cantidad++;    
-            }
-        }
-        cout << c.getNombre() << " " << c.getApellido() <<"   x"<< cantidad << " " << total << "char(36)" << endl;
-    }
-    linea();
-}
-
-void valorMedioComandas ()
-{
-    float total, precio;
- 	
-    list <Comanda> comandas;
-    //BD: inicializar
-
-    linea();
-    cout << "\n  ** PRECIO MEDIO GASTADO POR MESA ** \n\n" << endl;
-        
-    total=0,0;
-
-    for (auto c: comandas)
-	{
-		total += c.getTotal();
-	}
-
-    precio= total/comandas.size();
-
-    cout << "\n  HAN GASTADO UNA MEDIA DE " << precio << " POR MESA \n" << endl;
-    linea();
-}
-
-void mediaServicio ()
-{
-    float total, media;
-    
-    list <Comanda> comandas;
-    //BD: inicializar
-
-    linea();
-    cout << "\n  ** MEDIA DEL SERVICIO DEL RESTAURANTE ** \n\n" << endl;
-        
-    total=0,0;
-
-    for (auto c: comandas)
-    {
-        total+=c.getMedia();
-        
-    }
-    media= total/comandas.size();
-
-    cout << " La valoracion del servicio por parte de los \n cliente ha logrado un "<< media/10 <<" de media \n" << endl;
-    linea();
-}
-
-void importeXmes ()
-{
-	//POR HACER
-}
-
-void PrecioMedioProductosxCategoria ()
-{
-    int cant;
-    float med, precioTot;
-
-    list <Producto> productos;
-    list <Categoria> categorias;
-    //BD: inicializar
-
-    linea();
-    cout << "\n   ** PRECIO MEDIO DE PRODUCTOS POR CATEGORIA ** \n\n" << endl;
-    
-    for (auto c: categorias)
-    {
-        med=0;
-        cant=0;
-        precioTot=0;
-
-        for (auto p: productos)
-        {
-            if ( strcmp(c.getNombre(),p.getCategoria())==0)
-            {
-                precioTot += p.getPrecio();
-                cant++;
-            }
-        }
-        med = precioTot/cant;
-        cout << " " <<c.getNombre() << " : " << med << char(36) << endl;
-    }
-
-    linea();
 }
