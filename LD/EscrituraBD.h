@@ -6,7 +6,7 @@
 #include "../LD/sqlite3.h"
 using namespace std;
 
-int iniciarBD(sqlite3 *db);
+void iniciarBD(sqlite3 *db);
 int altaCamarero (sqlite3 *db,int dni, std::string nombre, std::string apellido, int tel);
 
 #endif

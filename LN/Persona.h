@@ -13,11 +13,11 @@ private:
 	int dni;
 	
 public:
-	Persona(const string nombre, const string apellido, int tel, int dni);
+	Persona(const string nombre, const string apellido, int dni, int tel);
 
 	friend std::ostream &operator<<(std::ostream &os, Persona const &p) 
 	{ 
-        return os << p.nombre << " " << p.apellido << " , tel: " << p.tel << " dni: "<< p.dni << endl;
+        return os << p.nombre << " " << p.apellido << " , dni: " << p.dni << " tel: "<< p.tel << endl;
     }
 
     virtual void diPuesto();

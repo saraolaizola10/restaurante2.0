@@ -1,14 +1,9 @@
 #include "frAdministrador.h"
+#include "frComun.h"
+#include "frDatos.h"
 #include "../COMUN/Utilidades.h"
-#include "../LN/Persona.h"
-#include "../LN/Camarero.h"
-#include "../LN/Comanda.h"
-#include "../LN/Cuenta.h"
-#include "../LN/Producto.h"
-#include "../LN/Categoria.h"
 #include "../LD/EscrituraBD.h"
 #include "../LD/LecturaBD.h"
-#include "frComun.h"
 #include <algorithm>
 #include <stdio.h>
 #include <ctype.h>
@@ -93,16 +88,16 @@ void AltaCamarero(sqlite3 *db)
 	transform(apellido.begin(), apellido.end(), apellido.begin(), ::toupper);
 	
 	cout << "DNI (sin letra): " << endl;
-	//do
-	//{
+	do
+	{
 		dni = pedirNumero(8);
-
-		// BD: COMPROBAR EN BASE DE DATOS SI EL DNI ES UNICO (0 UNICA, 1 EXISTE)
-		//if (unica!=0)
-		//{
-		//	<< cout << "Error. DNI ya existente. "<<endl;
-		//}
-	//} while (unica!=0);
+		unica = nuevoCamarero(db,dni);
+		if (unica!=0)
+		{
+			//FALLAAAAA
+			cout << "Error. DNI ya existente. "<<endl;
+		}
+	} while (unica!=0);
 
 	cout << "Telefono:" <<endl;
 	tel = pedirNumero(9);

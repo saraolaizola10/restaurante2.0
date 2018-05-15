@@ -16,7 +16,7 @@ class Camarero: public Persona
 		float salario;
 
 	public:
-		Camarero(const string nombre, const string apellido, int tel, int dni, float salario);
+		Camarero(const string nombre, const string apellido, int dni, int tel, float salario);
 		virtual void diPuesto();
 };
 

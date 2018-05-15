@@ -2,7 +2,9 @@
 #define _LECTURABD_H
 
 #include "../LD/sqlite3.h"
+#include "../LN/Camarero.h"
+#include <list>
 
-int mostrarCamareros(sqlite3 *db);
+list <Camarero> getCamareros (sqlite3 *db);
 
 #endif

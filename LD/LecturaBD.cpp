@@ -1,37 +1,31 @@
 #include "LecturaBD.h"
+#include "../LN/Persona.h"
+#include "../LN/Camarero.h"
 #include "sqlite3.h"
 #include <fstream>
 #include <stdio.h>
 #include <ctype.h>
 #include <string.h>
 #include <iostream>
+#include <list>
 using namespace std;
 
-int mostrarCamareros(sqlite3 *db)
+list <Camarero> getCamareros (sqlite3 *db)
 {
 	sqlite3_stmt *stmt;
-
-	char sql[] = "SELECT DNI,NOMBRE,APELLIDO,TEL FROM CAMAREROS";
-
+	
+	char sql[] = "SELECT DNI,NOMBRE,APELLIDO,TEL,SALARIO FROM CAMAREROS";
 	int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) ;
 	if (result != SQLITE_OK) 
-	{
-		cout << "Error preparing statement (SELECT)\n" << endl;
 		cout << sqlite3_errmsg(db) << endl;
-		return result;
-	}
 
-	cout << "SQL query prepared (SELECT)\n"<< endl;
-
+	list <Camarero> listaCamareros;
 	int tel, dni;
+	float salario;
 	char str [100];
-
-	cout << "\n" << endl;
-	cout << "\n" << endl;
-	cout << "Mostrando camareros:\n" << endl;
 	do
 	{
-		result = sqlite3_step(stmt) ;
+		result = sqlite3_step(stmt);
 		if (result == SQLITE_ROW) 
 		{
 			dni = sqlite3_column_int(stmt, 0);
@@ -40,30 +34,18 @@ int mostrarCamareros(sqlite3 *db)
 			strcpy(str, (char *) sqlite3_column_text(stmt, 2));
 			string apellido (str);
 			tel = sqlite3_column_int(stmt, 3);
-			cout << nombre << " " << apellido << " , tel: " << tel << " dni: " << dni << endl;
+			salario = sqlite3_column_double(stmt,4);
+			Camarero a (nombre,apellido,dni,tel,salario);
+			listaCamareros.push_back(a);
 		}
 	} while (result == SQLITE_ROW);
 
-	cout << "\n" << endl;
-	cout << "\n" << endl;
 	result = sqlite3_finalize(stmt);
-	if (result != SQLITE_OK) {
-		cout << "Error finalizing statement (SELECT)\n" << endl;
+	if (result != SQLITE_OK) 
 		cout << sqlite3_errmsg(db) << endl;
-		return result;
-	}
 
-	cout << "Prepared statement finalized (SELECT)\n" << endl;
-
-	return SQLITE_OK;
+	return listaCamareros;
 }
-//MOSTRAR CAMAREROS
-//GET TOTAL CAMAREROS
-//GET CAMARERO
 
-//MOSTRAR PRODUCTOS
-//GET TOTAL PRODUCTOS
-//GET ID ULTIMO PRODUCTO
-
-//MOSTRAS CATEGORIAS
-//GET TOTAL CATEGORIAS
+//GET PRODUCTOS
+//...
