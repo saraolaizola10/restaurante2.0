@@ -14,40 +14,42 @@
 using namespace std;
 
 #define PARAM "admin"
+#define MESAS 20
+#define POSICIONES 50
 
 int main (int argc, char *argv[])
 {
 	int dni,n,m,mesa,c;
 
 	sqlite3 *db;
-
 	int result = sqlite3_open("BD.sqlite", &db);
 	if (result != SQLITE_OK) 
 	{
 		cout << "Error opening database\n" << endl;
 		return result;
 	}
-	else
+	iniciarBD(db);//CREACION DE TABLAS BD
+
+	int **cuentas;
+	cuentas = (int **) malloc (MESAS * sizeof (int*));
+	for (int i= 0; i<MESAS; i++)
 	{
-		cout << "Database Opened successfully\n" << endl;
-  	}
-
-	iniciarBD(db);
-
-	//crearTablaCamarero();
+		cuentas[i] = (int*) malloc (POSICIONES *sizeof (int));
+		cuentas[i][0] = 0; 
+	}
 
 	cout << "Bienvenido al Restaurante" << endl;
 	
 	if (((argc < 2)||strcmp(argv[1],PARAM)!=0))
 	{
-		//pedir dni 
-		//if (dni!=0)
-		//{
+		dni = pedirDNI(db);
+		if (dni!=0)
+		{
 			do
 			{
-				cout << "\n 1. Nueva comanda" << endl;
-				cout <<"\n 2. A" << char(164) << "adir a comanda" << endl;
-				cout <<"\n 3. Imprimir cuenta" << endl;
+				cout << "\n 1. Nueva comanda";
+				cout <<"\n 2. A" << char(164) << "adir a comanda";
+				cout <<"\n 3. Imprimir cuenta";
 				cout <<"\n 4. Salir" << endl;
 
 				n=introducirOpcion(4);
@@ -55,16 +57,36 @@ int main (int argc, char *argv[])
 				switch (n)
 				{
 					case 1:
+					mesa = getNumeroMesa(MESAS);
+					if (MesaOcupada(cuentas,mesa,1)==0)
+					{
+						AtenderMesa(cuentas);
+					}
 					break;
 
 					case 2:
+					mesa = getNumeroMesa(MESAS);
+					if (MesaOcupada(cuentas,mesa,0)==1)
+					{
+						AtenderMesa(cuentas);
+					}
 					break;
 
 					case 3:
+					mesa=getNumeroMesa(MESAS);
+					if (MesaOcupada(cuentas,mesa,0)==1)
+					{
+						AltaComanda(dni,cuentas,mesa);
+						ImprimirCuenta(cuentas,mesa);
+						for (int i=0;i<POSICIONES;i++)
+						{
+							cuentas[mesa][i]=0;
+						}
+					}
 					break;
 				}
 			} while (n!=4);
-		//}
+		}
 	}
 	else
 	{
@@ -73,13 +95,13 @@ int main (int argc, char *argv[])
 		{
 			do
 			{
-				cout << "\n 1. Consultar estad"<< char(161) << "sticas" << endl;
-				cout <<"\n 2. A"<< char(164) << "adir camarero" << endl;
-				cout <<"\n 3. A"<< char(164) << "adir categoria" << endl;
-				cout <<"\n 4. A"<< char(164) << "adir producto"<< endl;
-				cout <<"\n 5. Editar producto"<< endl;
-				cout <<"\n 6. Eliminar producto"<< endl;
-				cout <<"\n 7. Cambiar clave"<< endl;
+				cout << "\n 1. Consultar estad"<< char(161) << "sticas" ;
+				cout <<"\n 2. A"<< char(164) << "adir camarero" ;
+				cout <<"\n 3. A"<< char(164) << "adir categoria" ;
+				cout <<"\n 4. A"<< char(164) << "adir producto";
+				cout <<"\n 5. Editar producto";
+				cout <<"\n 6. Eliminar producto";
+				cout <<"\n 7. Cambiar clave";
 				cout <<"\n 8. Salir"<< endl;
 			
 				n=introducirOpcion(8);
@@ -88,13 +110,13 @@ int main (int argc, char *argv[])
 					case 1:
 					do
 					{
-						cout <<"\n 1. Lista de los camareros"<< endl;
-						cout <<"\n 2. Nota media camareros"<< endl;
-						cout <<"\n 3. Actividad camareros"<< endl;
-						cout <<"\n 4. Precio medio gastado por mesa"<< endl;
-						cout <<"\n 5. Media del servicio del restaurante"<< endl;
-						cout <<"\n 6. Ingresos por mes"<< endl;
-						cout <<"\n 7. Media de precios por categoria"<< endl;
+						cout <<"\n 1. Lista de los camareros";
+						cout <<"\n 2. Nota media camareros";
+						cout <<"\n 3. Actividad camareros";
+						cout <<"\n 4. Precio medio gastado por mesa";
+						cout <<"\n 5. Media del servicio del restaurante";
+						cout <<"\n 6. Ingresos por mes";
+						cout <<"\n 7. Media de precios por categoria";
 						cout <<"\n 8. Salir"<< endl;
 						m = introducirOpcion(8);
 						switch(m)
@@ -104,15 +126,15 @@ int main (int argc, char *argv[])
 							break;
 
 							case 2:
-							
+							//Nota media por camarero
 							break;
 
 							case 3:
-							
+							//Actividad camareros
 							break;
 
 							case 4:
-							
+							//Precio medio por mesa
 							break;
 
 							case 5:
@@ -159,13 +181,7 @@ int main (int argc, char *argv[])
 		}
 	}	
 
-	//result = sqlite3_close(db);
-	//if (result != SQLITE_OK) 
-	//{
-	//	printf("Error opening database\n");
-	//	printf("%s\n", sqlite3_errmsg(db));
-	//	return result;
-	//}
+	sqlite3_close(db);
 
 	return 0;
 }

@@ -4,7 +4,7 @@
 #include <iostream>
 using namespace std;
 
-Persona::Persona(const string nombre, const string apellido, int tel, int dni)
+Persona::Persona(const string nombre, const string apellido, int dni, int tel)
 {
 	this->nombre = nombre;
 	this->apellido = apellido;

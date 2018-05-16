@@ -13,10 +13,10 @@ void iniciarBD(sqlite3 *db)
 	char *err_message=0;
 	int rc;
 
-	const char *sql_query = "CREATE TABLE CAMAREROS(DNI INT PRIMARY KEY NOT NULL, NOMBRE TEXT, APELLIDO TEXT, TEL INT, SALARIO FLOAT);";
+	const char *sql_query = "CREATE TABLE CAMAREROS (DNI INT PRIMARY KEY NOT NULL, NOMBRE TEXT, APELLIDO TEXT, TEL INT, SALARIO FLOAT);";
   	rc = sqlite3_exec(db, sql_query, 0, 0, &err_message);
   	if (rc != SQLITE_OK ) 
-  		cout << sqlite3_errmsg(db) << endl;
+  		cout << sqlite3_errmsg(db);
 }
 
 
@@ -29,8 +29,7 @@ int altaCamarero (sqlite3 *db,int dni, string nombre,string apellido, int tel)
 	std::string ssql = ss.str();
 	char* sql = new char[ssql.length() + 1];
 	strcpy(sql, ssql.c_str());
-	cout << sql << endl;
-
+	
 	int result = sqlite3_prepare_v2(db,sql,-1,&stmt, NULL) ;
 	if (result != SQLITE_OK) 
 	{

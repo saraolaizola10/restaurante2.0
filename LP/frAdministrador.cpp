@@ -80,12 +80,12 @@ void AltaCamarero(sqlite3 *db)
 	cout << "Nombre: " << endl;
 	cin >> nombre;
 	cin.clear();
-	transform(nombre.begin(), nombre.end(), nombre.begin(), ::toupper);
+	transform(nombre.begin(), nombre.end(), nombre.begin(),::toupper);
 	
 	cout << "Apellido: " << endl;
 	cin >> apellido;
 	cin.clear();
-	transform(apellido.begin(), apellido.end(), apellido.begin(), ::toupper);
+	transform(apellido.begin(), apellido.end(), apellido.begin(),::toupper);
 	
 	cout << "DNI (sin letra): " << endl;
 	do
