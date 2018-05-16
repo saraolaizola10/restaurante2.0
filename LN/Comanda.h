@@ -14,6 +14,15 @@ public:
 	Comanda(const Comanda &c);
 	virtual ~Comanda();	
 
+	int getDni();
+	int getFechayhora();
+	float getTotal();
+	float getMedia();
+
+	void setDni(const int dni);
+	void setFechayhora(const int fyh);
+	void setTotal(const float tot);		
+	void setMedia(const float med);
 };
 
 #endif

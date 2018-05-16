@@ -15,7 +15,19 @@ private:
 public:
 	Producto(int id, string nombre, float precio, string categoria);
 	Producto(const Producto &p);
-	virtual ~Producto();	
+	virtual ~Producto();
+
+	int getId();
+	string getNombre();
+	float getPrecio();
+	string getCategoria();
+
+	void setId(const int id);
+	void setNombre(const string nom);
+	void setPrecio(const float precio);		
+	void setCategoria(const string cat);
+	
+
 
 };
 

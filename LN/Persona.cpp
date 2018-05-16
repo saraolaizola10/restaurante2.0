@@ -12,6 +12,19 @@ Persona::Persona(const string nombre, const string apellido, int dni, int tel)
 	this->dni = dni;
 }
 
+/*Persona::Persona(const Persona &p)
+{
+	this->nombre = p.nombre;
+	this->apellido = p.apellido;
+	this->tel = p.tel;
+	this->dni = p.dni;
+}*/
+
+Persona::~Persona()
+{
+
+}
+
 void Persona::diPuesto()
 {
 	cout << "Empleado" << endl;

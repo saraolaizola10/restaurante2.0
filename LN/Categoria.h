@@ -15,6 +15,14 @@ public:
 	Categoria(int id, const string nombre, int orden);
 	Categoria(const Categoria &c);
 	virtual ~Categoria();
+
+	int getId();
+	string getNombre();
+	int getOrden();
+
+	void setId(const int id);
+	void setNombre(const string nom);
+	void setOrden(const int orden);
 };
 
 #endif

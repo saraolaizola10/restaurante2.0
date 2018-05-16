@@ -14,6 +14,8 @@ private:
 	
 public:
 	Persona(const string nombre, const string apellido, int dni, int tel);
+	Persona(const Persona &p);
+	virtual ~Persona();
 
 	friend std::ostream &operator<<(std::ostream &os, Persona const &p) 
 	{ 
