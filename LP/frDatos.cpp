@@ -1,9 +1,9 @@
 #include "frDatos.h"
+#include "frComun.h"
 #include "../COMUN/Utilidades.h"
 #include "../LN/Persona.h"
 #include "../LN/Camarero.h"
 #include "../LN/Comanda.h"
-#include "../LN/Cuenta.h"
 #include "../LN/Producto.h"
 #include "../LN/Categoria.h"
 #include "../LD/EscrituraBD.h"
@@ -143,7 +143,7 @@ void ImprimirCuenta (sqlite3 *db,int **cuentas, int mesa)
     		}
     	}	
     }
-    total = totalCuenta(cuentas,mesa);
+    total = totalCuenta(db,cuentas,mesa);
     linea();
     cout << "     TOTAL = "<< total << char(36) << endl; 
    	linea();

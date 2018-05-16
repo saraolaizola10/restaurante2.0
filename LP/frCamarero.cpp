@@ -1,9 +1,13 @@
 #include "frCamarero.h"
 #include "frComun.h"
+#include "frDatos.h"
 #include "../COMUN/Utilidades.h"
 #include "../LD/sqlite3.h"
 #include "../LD/LecturaBD.h"
 #include "../LN/Camarero.h"
+#include "../LN/Producto.h"
+#include "../LN/Comanda.h"
+#include "../LN/Categoria.h"
 #include <fstream>
 #include <stdio.h>
 #include <ctype.h>
@@ -38,7 +42,7 @@ int getNumeroMesa(int MESAS)
 	cout << "Introducir el numero de la mesa (1-" << MESAS << "):" << endl;
 	do
 	{
-		mesa = pedirNumero();
+		mesa = pedirNumero(0);
 		if ((mesa<0)||(mesa>MESAS))
 		{
 			cout << "Error. Introducir un valor valido" << endl;
@@ -48,7 +52,7 @@ int getNumeroMesa(int MESAS)
 	return mesa;
 }
 
-void AtenderMesa(int *cuentas[],int mesa)
+void AtenderMesa(sqlite3 *db,int *cuentas[],int mesa)
 {
 	int opcion,id,totalPxCat,cantidad;
 	char str [4];
@@ -62,17 +66,17 @@ void AtenderMesa(int *cuentas[],int mesa)
 	{
 		do
 		{
-			totalPxCat = MostrarProductosxCategoria(c.getNombre());
+			totalPxCat = MostrarProductosxCategoria(db,c.getNombre());
 			opcion = introducirOpcion(totalPxCat+1);
 			
 			if ((totalPxCat+1)!=opcion)
 			{
-				id = getProducto(c.getNombre(),opcion);
+				id = getProducto(db,c.getNombre(),opcion);
 				posicion++;
 				cuentas[mesa][posicion]=id; 	
 				posicion++;
 				cout << " Cantidad: " << endl;
-				cantidad = pedirNumero();
+				cantidad = pedirNumero(0);
 				cuentas[mesa][posicion]=cantidad;	
 			}
 		} while ((totalPxCat+1)!=opcion);
@@ -80,15 +84,12 @@ void AtenderMesa(int *cuentas[],int mesa)
 	cuentas[mesa][0]=posicion;
 }
 
-void AltaComanda(int dni)
+void AltaComanda(sqlite3 *db,int dni,int **cuentas, int mesa)
 {
-	time_t now;
 	float total=0;
     float nota;
 
-    now = time(0);
-    fechayhora=(int)now;
-
+    int fechayhora; //Utilidades: devolver int con fecha
     cout << "Nota media del servicio (1-10):"<< endl;
     do
     {   

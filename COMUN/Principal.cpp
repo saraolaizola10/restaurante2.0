@@ -60,7 +60,7 @@ int main (int argc, char *argv[])
 					mesa = getNumeroMesa(MESAS);
 					if (MesaOcupada(cuentas,mesa,1)==0)
 					{
-						AtenderMesa(cuentas);
+						AtenderMesa(db,cuentas,mesa);
 					}
 					break;
 
@@ -68,7 +68,7 @@ int main (int argc, char *argv[])
 					mesa = getNumeroMesa(MESAS);
 					if (MesaOcupada(cuentas,mesa,0)==1)
 					{
-						AtenderMesa(cuentas);
+						AtenderMesa(db,cuentas,mesa);
 					}
 					break;
 
@@ -76,8 +76,8 @@ int main (int argc, char *argv[])
 					mesa=getNumeroMesa(MESAS);
 					if (MesaOcupada(cuentas,mesa,0)==1)
 					{
-						AltaComanda(dni,cuentas,mesa);
-						ImprimirCuenta(cuentas,mesa);
+						AltaComanda(db,dni,cuentas,mesa);
+						ImprimirCuenta(db,cuentas,mesa);
 						for (int i=0;i<POSICIONES;i++)
 						{
 							cuentas[mesa][i]=0;
@@ -90,8 +90,8 @@ int main (int argc, char *argv[])
 	}
 	else
 	{
-		//c = comprobarClave();	//NO FUNCIONA
-		//if (c==0)	
+		c = comprobarClave();	//NO FUNCIONA
+		if (c==0)	
 		{
 			do
 			{
