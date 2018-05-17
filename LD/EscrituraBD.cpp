@@ -173,3 +173,35 @@ int altaCategoria (sqlite3 *db,int id, string nombre, int orden)
 	return SQLITE_OK;
 }
 
+int altaComanda (sqlite3 *db,int dni, int fechayhora, float total, float media) 
+{
+	sqlite3_stmt *stmt;
+
+	std::stringstream ss;
+	ss << "INSERT INTO CAMAREROS (dni,fechayhora,total,media) values (" << dni << ",'" << fechayhora << "','" << total << "'," << media << ");";
+	std::string ssql = ss.str();
+	char* sql = new char[ssql.length() + 1];
+	strcpy(sql, ssql.c_str());
+	
+	int result = sqlite3_prepare_v2(db,sql,-1,&stmt, NULL) ;
+	if (result != SQLITE_OK) 
+	{
+		cout << sqlite3_errmsg(db) << endl;
+		return result;
+	}
+
+	result = sqlite3_step(stmt);
+	if (result != SQLITE_DONE) 
+	{
+		cout << "ERROR. El DNI ya existe.\n" << endl;
+		return result;
+	}
+
+	result = sqlite3_finalize(stmt);
+	if (result != SQLITE_OK) 
+	{
+		cout << sqlite3_errmsg(db) << endl;
+		return result;
+	}
+	return SQLITE_OK;
+}
