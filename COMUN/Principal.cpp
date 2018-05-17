@@ -157,19 +157,19 @@ int main (int argc, char *argv[])
 					break;
 
 					case 3:
-					AltaCategoria();
+					AltaCategoria(db);
 					break;
 
 					case 4:	
-					AltaProducto();
+					AltaProducto(db);
 					break;
 
 					case 5:
-					EditarProducto();
+					EditarProducto(db);
 					break;
 
 					case 6:
-					EliminarProducto();
+					EliminarProducto(db);
 					break;
 
 					case 7:

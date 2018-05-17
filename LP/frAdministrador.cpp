@@ -50,7 +50,6 @@ void cambiarClave()
 	cin >> clave;
 	cin.clear();
 
-	//NO ENTRAA
 	myfile << clave;
 	myfile.close();
 }
@@ -89,14 +88,13 @@ void AltaCamarero(sqlite3 *db)
 	altaCamarero(db,dni,nombre,apellido,tel);
 }
 
-void AltaCategoria()
+void AltaCategoria(sqlite3 *db)
 {
-	int orden;
-	int total;
+	int orden,total,id;
 	string nombre;
 
 	total = totalCategorias(db);
-	//id = ultimo id bd +1
+	id = ultimoIDCategoria(db)+1;
 
 	cout << "Nombre:" << endl;
 	cin >> nombre;
@@ -135,7 +133,7 @@ void AltaProducto(sqlite3 *db)
 	float precio;
 	int id,catnum;
 
-	//BD: id = GET ultimo id + 1
+	id = ultimoIDProducto(db)+1;
 
 	cout << "Nombre:" << endl;
 	cin >> nombre;
@@ -182,7 +180,7 @@ void EditarProducto(sqlite3 *db)
 	//BD: editar producto
 }
 
-void EliminarProducto()
+void EliminarProducto(sqlite3 *db)
 {
 	int num;
 	int totalP;

@@ -16,27 +16,27 @@ void iniciarBD(sqlite3 *db)
 	const char *sql_query = "CREATE TABLE CAMAREROS (DNI INT PRIMARY KEY NOT NULL, NOMBRE TEXT, APELLIDO TEXT, TEL INT, SALARIO FLOAT);";
   	rc = sqlite3_exec(db, sql_query, 0, 0, &err_message);
   	if (rc != SQLITE_OK ) 
-  		cout << sqlite3_errmsg(db);
+  		cout << sqlite3_errmsg(db) << endl;
 
-  	const char *sql_query = "CREATE TABLE PERSONAS (DNI INT PRIMARY KEY NOT NULL, NOMBRE TEXT, APELLIDO TEXT, TEL INT);";
-  	rc = sqlite3_exec(db, sql_query, 0, 0, &err_message);
+  	const char *sql_query1 = "CREATE TABLE PERSONAS (DNI INT PRIMARY KEY NOT NULL, NOMBRE TEXT, APELLIDO TEXT, TEL INT);";
+  	rc = sqlite3_exec(db, sql_query1, 0, 0, &err_message);
   	if (rc != SQLITE_OK ) 
-  		cout << sqlite3_errmsg(db);
+  		cout << sqlite3_errmsg(db) << endl;
 
-  	const char *sql_query = "CREATE TABLE PRODUCTOS (ID INT PRIMARY KEY NOT NULL, NOMBRE TEXT, CATEGORIA TEXT, PRECIO FLOAT);";
-  	rc = sqlite3_exec(db, sql_query, 0, 0, &err_message);
+  	const char *sql_query2 = "CREATE TABLE PRODUCTOS (ID INT PRIMARY KEY NOT NULL, NOMBRE TEXT, CATEGORIA TEXT, PRECIO FLOAT);";
+  	rc = sqlite3_exec(db, sql_query2, 0, 0, &err_message);
   	if (rc != SQLITE_OK ) 
-  		cout << sqlite3_errmsg(db);
+  		cout << sqlite3_errmsg(db) << endl;
 
-  	const char *sql_query = "CREATE TABLE CATEGORIAS (ID INT PRIMARY KEY NOT NULL, NOMBRE TEXT, ORDEN INT);";
-  	rc = sqlite3_exec(db, sql_query, 0, 0, &err_message);
+  	const char *sql_query3 = "CREATE TABLE CATEGORIAS (ID INT PRIMARY KEY NOT NULL, NOMBRE TEXT, ORDEN INT);";
+  	rc = sqlite3_exec(db, sql_query3, 0, 0, &err_message);
   	if (rc != SQLITE_OK ) 
-  		cout << sqlite3_errmsg(db);
+  		cout << sqlite3_errmsg(db) << endl;
 
-  	const char *sql_query = "CREATE TABLE COMANDAS (DNI INT PRIMARY KEY NOT NULL, FECHYHO INT, TOTAL FLOAT, MEDIA FLOAT);";
-  	rc = sqlite3_exec(db, sql_query, 0, 0, &err_message);
+  	const char *sql_query4 = "CREATE TABLE COMANDAS (DNI INT PRIMARY KEY NOT NULL, FECHYHO INT, TOTAL FLOAT, MEDIA FLOAT);";
+  	rc = sqlite3_exec(db, sql_query4, 0, 0, &err_message);
   	if (rc != SQLITE_OK ) 
-  		cout << sqlite3_errmsg(db);
+  		cout << sqlite3_errmsg(db) << endl;
 
 }
 
@@ -145,7 +145,7 @@ int altaCategoria (sqlite3 *db,int id, string nombre, int orden)
 	sqlite3_stmt *stmt;
 
 	std::stringstream ss;
-	ss << "INSERT INTO CAMAREROS (id,nombre,orden) values (" << id << ",'" << nombre << "','" << orden << ");";
+	ss << "INSERT INTO CAMAREROS (id,nombre,orden) values (" << id << ",'" << nombre << "'," << orden << ");";
 	std::string ssql = ss.str();
 	char* sql = new char[ssql.length() + 1];
 	strcpy(sql, ssql.c_str());
@@ -178,7 +178,7 @@ int altaComanda (sqlite3 *db,int dni, int fechayhora, float total, float media)
 	sqlite3_stmt *stmt;
 
 	std::stringstream ss;
-	ss << "INSERT INTO CAMAREROS (dni,fechayhora,total,media) values (" << dni << ",'" << fechayhora << "','" << total << "'," << media << ");";
+	ss << "INSERT INTO CAMAREROS (dni,fechayhora,total,media) values (" << dni << "," << fechayhora << "," << total << "," << media << ");";
 	std::string ssql = ss.str();
 	char* sql = new char[ssql.length() + 1];
 	strcpy(sql, ssql.c_str());

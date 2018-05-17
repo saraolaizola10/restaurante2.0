@@ -7,17 +7,9 @@ int comprobarClave();
 void cambiarClave();
 
 void AltaCamarero(sqlite3 *db);
-void AltaCategoria();
-void AltaProducto();
-void EditarProducto();
-void EliminarProducto();
-
-//void listaPlantilla();
-//void mediaCamarero ();
-//void actividadCamarero ();
-//void valorMedioComandas ();
-//void mediaServicio ();
-//void PrecioMedioProductosxCategoria ();
-//void importeXmes ();
+void AltaCategoria(sqlite3 *db);
+void AltaProducto(sqlite3 *db);
+void EditarProducto(sqlite3 *db);
+void EliminarProducto(sqlite3 *db);
 
 #endif
