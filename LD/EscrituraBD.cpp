@@ -107,3 +107,37 @@ int altaPersona (sqlite3 *db,int dni, string nombre,string apellido, int tel)
 	return SQLITE_OK;
 }
 
+int altaProducto (sqlite3 *db,int id, string nombre,string categoria, float precio) 
+{
+	sqlite3_stmt *stmt;
+
+	std::stringstream ss;
+	ss << "INSERT INTO CAMAREROS (id,nombre,categoria,precio) values (" << id << ",'" << nombre << "','" << categoria << "'," << precio << ");";
+	std::string ssql = ss.str();
+	char* sql = new char[ssql.length() + 1];
+	strcpy(sql, ssql.c_str());
+	
+	int result = sqlite3_prepare_v2(db,sql,-1,&stmt, NULL) ;
+	if (result != SQLITE_OK) 
+	{
+		cout << sqlite3_errmsg(db) << endl;
+		return result;
+	}
+
+	result = sqlite3_step(stmt);
+	if (result != SQLITE_DONE) 
+	{
+		cout << "ERROR. El ID ya existe.\n" << endl;
+		return result;
+	}
+
+	result = sqlite3_finalize(stmt);
+	if (result != SQLITE_OK) 
+	{
+		cout << sqlite3_errmsg(db) << endl;
+		return result;
+	}
+	return SQLITE_OK;
+}
+
+
