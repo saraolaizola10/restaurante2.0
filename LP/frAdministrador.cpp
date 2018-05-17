@@ -61,13 +61,13 @@ void AltaCamarero(sqlite3 *db)
 	float sueldo;
 
 	cout << "Nombre: " << endl;
-	cin >> nombre;
-	cin.clear();
+	getline(cin, nombre);
+	//cin.clear();
 	transform(nombre.begin(), nombre.end(), nombre.begin(),::toupper);
 	
 	cout << "Apellido: " << endl;
-	cin >> apellido;
-	cin.clear();
+	getline(cin, apellido);
+	//cin.clear();
 	transform(apellido.begin(), apellido.end(), apellido.begin(),::toupper);
 	
 	cout << "DNI (sin letra): " << endl;
@@ -97,8 +97,7 @@ void AltaCategoria(sqlite3 *db)
 	id = ultimoIDCategoria(db)+1;
 
 	cout << "Nombre:" << endl;
-	cin >> nombre;
-	cin.clear();
+	getline(cin, nombre);
 	transform(nombre.begin(), nombre.end(), nombre.begin(), ::toupper);
 
 	if (total!=0)
@@ -136,7 +135,7 @@ void AltaProducto(sqlite3 *db)
 	id = ultimoIDProducto(db)+1;
 
 	cout << "Nombre:" << endl;
-	cin >> nombre;
+	getline(cin, nombre);
 	cin.clear();
 	transform(nombre.begin(), nombre.end(), nombre.begin(), ::toupper);
 
@@ -164,7 +163,7 @@ void EditarProducto(sqlite3 *db)
 	num = introducirOpcion(totalP)-1;
 
 	cout << "Nombre:" << endl;
-	cin >> nombre;
+	getline(cin, nombre);
 	cin.clear();
 	transform(nombre.begin(), nombre.end(), nombre.begin(), ::toupper);
 

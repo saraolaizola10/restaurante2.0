@@ -79,7 +79,7 @@ int altaPersona (sqlite3 *db,int dni, string nombre,string apellido, int tel)
 	sqlite3_stmt *stmt;
 
 	std::stringstream ss;
-	ss << "INSERT INTO CAMAREROS (dni,nombre,apellido,tel) values (" << dni << ",'" << nombre << "','" << apellido << "'," << tel << ");";
+	ss << "INSERT INTO PERSONAS (dni,nombre,apellido,tel) values (" << dni << ",'" << nombre << "','" << apellido << "'," << tel << ");";
 	std::string ssql = ss.str();
 	char* sql = new char[ssql.length() + 1];
 	strcpy(sql, ssql.c_str());
@@ -112,7 +112,7 @@ int altaProducto (sqlite3 *db,int id, string nombre,string categoria, float prec
 	sqlite3_stmt *stmt;
 
 	std::stringstream ss;
-	ss << "INSERT INTO CAMAREROS (id,nombre,categoria,precio) values (" << id << ",'" << nombre << "','" << categoria << "'," << precio << ");";
+	ss << "INSERT INTO PRODUCTOS (id,nombre,categoria,precio) values (" << id << ",'" << nombre << "','" << categoria << "'," << precio << ");";
 	std::string ssql = ss.str();
 	char* sql = new char[ssql.length() + 1];
 	strcpy(sql, ssql.c_str());
@@ -145,7 +145,7 @@ int altaCategoria (sqlite3 *db,int id, string nombre, int orden)
 	sqlite3_stmt *stmt;
 
 	std::stringstream ss;
-	ss << "INSERT INTO CAMAREROS (id,nombre,orden) values (" << id << ",'" << nombre << "'," << orden << ");";
+	ss << "INSERT INTO CATEGORIAS (id,nombre,orden) values (" << id << ",'" << nombre << "'," << orden << ");";
 	std::string ssql = ss.str();
 	char* sql = new char[ssql.length() + 1];
 	strcpy(sql, ssql.c_str());
@@ -178,7 +178,7 @@ int altaComanda (sqlite3 *db,int dni, int fechayhora, float total, float media)
 	sqlite3_stmt *stmt;
 
 	std::stringstream ss;
-	ss << "INSERT INTO CAMAREROS (dni,fechayhora,total,media) values (" << dni << "," << fechayhora << "," << total << "," << media << ");";
+	ss << "INSERT INTO COMANDAS (dni,fechayhora,total,media) values (" << dni << "," << fechayhora << "," << total << "," << media << ");";
 	std::string ssql = ss.str();
 	char* sql = new char[ssql.length() + 1];
 	strcpy(sql, ssql.c_str());

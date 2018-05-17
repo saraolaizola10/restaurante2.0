@@ -69,14 +69,14 @@ float pedirFloat ()
 int pedirNumero (int condicion)
 {
 	char str[MAX_LEN];
-	int input,length,num;;
+	int input,length,num;
 
 	clear_if_needed(str);
-
 	do
 	{
 		num=0;
 		fgets(str,50,stdin);
+		printf("%s\n",str);
 		length = strlen(str)-1;
 
 		for (int i=0;i<length;i++)
@@ -101,8 +101,9 @@ int pedirNumero (int condicion)
 		}
 
 	} while (num!=0);
-	
-	clear_if_needed(str);
+
 	sscanf(str,"%d",&input);
+	clear_if_needed(str);
+
 	return input;
 }

@@ -51,6 +51,10 @@ int nuevoCamarero (sqlite3 *db, int dni)
 			}
 		}
 	}
+
+	cout << nuevo << endl;
+
+	return nuevo;
 }
 
 void mostrarCamareros(sqlite3 *db)
