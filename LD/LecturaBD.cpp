@@ -47,7 +47,7 @@ list <Camarero> getCamareros (sqlite3 *db)
 	return listaCamareros;
 }
 
-list <Persona> getPersona (sqlite3 *db)
+list <Persona> getPersonas (sqlite3 *db)
 {
 	sqlite3_stmt *stmt;
 	
@@ -82,7 +82,7 @@ list <Persona> getPersona (sqlite3 *db)
 	return listaPersonas;
 }
 
-list <Producto> getProducto (sqlite3 *db)
+list <Producto> getProductos (sqlite3 *db)
 {
 	sqlite3_stmt *stmt;
 	
@@ -118,7 +118,7 @@ list <Producto> getProducto (sqlite3 *db)
 	return listaProductos;
 }
 
-list <Camarero> getCategoria (sqlite3 *db)
+list <Categoria> getCategorias (sqlite3 *db)
 {
 	sqlite3_stmt *stmt;
 	
@@ -149,6 +149,40 @@ list <Camarero> getCategoria (sqlite3 *db)
 		cout << sqlite3_errmsg(db) << endl;
 
 	return listaCategorias;
+}
+
+list <Comanda> getComandas (sqlite3 *db)
+{
+	sqlite3_stmt *stmt;
+	
+	char sql[] = "SELECT DNI,FECHAYHO,TOTAL,MEDIA FROM COMANDAS";
+	int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) ;
+	if (result != SQLITE_OK) 
+		cout << sqlite3_errmsg(db) << endl;
+
+	list <Comanda> listaComandas;
+	int dni, fechayhora;
+	float total, media;
+	char str [100];
+	do
+	{
+		result = sqlite3_step(stmt);
+		if (result == SQLITE_ROW) 
+		{
+			dni = sqlite3_column_int(stmt, 0);
+			fechayhora = sqlite3_column_int(stmt, 1);
+			total = sqlite3_column_double(stmt,2);
+			media = sqlite3_column_double(stmt,3);
+			Comanda a (dni,fechayhora,total,media);
+			listaComandas.push_back(a);
+		}
+	} while (result == SQLITE_ROW);
+
+	result = sqlite3_finalize(stmt);
+	if (result != SQLITE_OK) 
+		cout << sqlite3_errmsg(db) << endl;
+
+	return listaComandas;
 }
 //GET PRODUCTOS
 //...
