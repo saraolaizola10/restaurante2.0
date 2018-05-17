@@ -21,6 +21,8 @@
 #include <time.h>
 using namespace std;
 
+//CAMAREROS
+
 int totalCamareros (sqlite3 *db)
 {
 	list <Camarero> camareros = getCamareros(db);
@@ -54,6 +56,49 @@ void mostrarCamareros(sqlite3 *db)
 	}
 }
 
+//PRODUCTOS
+
+int totalProductos (sqlite3 *db)
+{
+	list <Producto> productos = getProductos(db);
+	int total = productos.size();
+	return total;
+}
+
+void mostrarProductos(sqlite3 *db)
+{
+	list <Producto> productos = getProductos(db);
+
+	for (auto p: productos)
+	{
+		cout << p.getNombre() << endl;
+	}
+	//CLASES: falta cambiar el metodo
+}
+
+//CATEGORIA
+
+int totalCategoria (sqlite3 *db)
+{
+	list <Categoria> categorias = getCategorias(db);
+	int total = categorias.size();
+	return total;
+}
+
+void mostrarCategorias (sqlite3 *db)
+{
+	list <Categoria> categorias = getCategorias(db);
+
+	for (auto c: categorias)
+	{
+		cout << c.getNombre() << endl;
+	}
+	//CLASES: falta cambiar el metodo
+}
+
+
+//METODOS CAMARERO
+
 int MesaOcupada(int *cuentas[],int mesa,int nueva)
 {
 	if (cuentas[mesa][0]==0)		//!cuentas[mesa][0]) //saber que esta vacio sin que deje de funcionar
@@ -81,7 +126,7 @@ int MostrarProductosxCategoria (sqlite3 *db,string categoria)
 	list <Producto> productos;
 
 	linea();
-	cout << "    ** categoria **   \n" << endl;
+	cout << "    ** "<< categoria << " **   \n" << endl;
 	for (auto p: productos)
 	{
 		if (categoria == p.getCategoria())
@@ -101,7 +146,7 @@ int getProducto(sqlite3 *db,string categoria, int opcion)
 	int num=1;
 	int id;
 
-	list <Producto> productos; //BD: get productos
+	list <Producto> productos = getProducto (sqlite3 *db);
 
 	for (auto p: productos)
 	{
@@ -121,7 +166,7 @@ void ImprimirCuenta (sqlite3 *db,int **cuentas, int mesa)
 {
 	int posicion,id,cantidad;
 	float total;
-    list <Producto> productos; //BD: get productos
+    list <Producto> productos = getProducto()
 
    	linea();
 	cout << "\n ** RESTAURANTE MISAJO 2.0 ** " << endl;

@@ -16,7 +16,7 @@
 #include <list>
 using namespace std;
 
-int pedirDNI(sqlite3 *db)
+nt pedirDNI(sqlite3 *db)
 {
 	int dni;
 
@@ -34,7 +34,6 @@ int pedirDNI(sqlite3 *db)
 			return dni;
 		}
 	}
-
 	cout << " Error. No coincide con ningun DNI" << endl;
 	return 0;
 }
@@ -60,8 +59,8 @@ void AtenderMesa(sqlite3 *db,int *cuentas[],int mesa)
 	int opcion,id,totalPxCat,cantidad;
 	char str [4];
 
-	list <Producto> productos; //BD: get productos
-	list <Categoria> categorias; //BD: get categorias
+	list <Producto> productos = getProductos(db);
+	list <Categoria> categorias = getCategorias(db);
 
 	int posicion = (cuentas[mesa][0]);
 
@@ -71,6 +70,7 @@ void AtenderMesa(sqlite3 *db,int *cuentas[],int mesa)
 		{
 			totalPxCat = MostrarProductosxCategoria(db,c.getNombre());
 			opcion = introducirOpcion(totalPxCat+1);
+			cin.clear();
 			
 			if ((totalPxCat+1)!=opcion)
 			{
@@ -103,6 +103,6 @@ void AltaComanda(sqlite3 *db,int dni,int **cuentas, int mesa)
         }
     } while ((nota<0)||(nota>10));
     
-   	//total = calcular total de la cuenta  total = totalCuenta(cuentas,mesa,p,totalP);
-    //BD: dar de alta la comanda
+   	total = totalCuenta(db,cuentas,mesa);
+    altaComanda (db,dni,fechayhora,total,media) 
 }

@@ -91,10 +91,11 @@ void AltaCamarero(sqlite3 *db)
 
 void AltaCategoria()
 {
-	int total,orden;
+	int orden;
+	int total;
 	string nombre;
 
-	//total = las categorias que tenemos
+	total = totalCategorias(db);
 	//id = ultimo id bd +1
 
 	cout << "Nombre:" << endl;
@@ -106,9 +107,10 @@ void AltaCategoria()
 	{
 		do 
 		{
-			//MostrarCategorias;
+			mostrarCategorias(db);
 			cout << "Orden de la nueva categoria (1-" << total+1 << "):" << endl;
 			cin >> orden;
+			cin.clear();
 			if ((orden<0)||(orden>(total+1)))
 			{
 				cout << "Error. No hay tantas categorias" << endl;
@@ -122,14 +124,12 @@ void AltaCategoria()
 		}
 	}
 	else
-	{
 		orden = 1;
-	}
 
-	//BD: GUARDAR EN BASE DE DATOS
+	altaCategoria (db,id,nombre,orden);
 }
 
-void AltaProducto()
+void AltaProducto(sqlite3 *db)
 {
 	string nombre,categoria;
 	float precio;
@@ -146,22 +146,23 @@ void AltaProducto()
 	precio = pedirFloat();
 
 	cout << "Introduce el numero de la categoria deseada:" << endl;
-	//MostrarCategorias;
+	mostrarCategorias(db);
 	cin >> catnum;
+	cin.clear();
 	//nombre categoria correspondiente al orden
 	//categoria = cat
 
-	//BD: GUARDAR EN BASE DE DATOS
+	altaProducto (db,id,nombre,categoria,precio);
 }
 
-void EditarProducto()
+void EditarProducto(sqlite3 *db)
 {
 	int totalP, num, id, catnum;
 	string nombre, categoria;
 	float precio;
 
-	//BD: Mostrar productos
-	//BD: get total productos
+	mostrarProductos(db);
+	totalP = totalProductos(db);
 	num = introducirOpcion(totalP)-1;
 
 	cout << "Nombre:" << endl;
@@ -173,7 +174,7 @@ void EditarProducto()
 	precio = pedirFloat();
 	
 	cout << "Introduce el numero de la categoria deseada:" << endl;
-	//MostrarCategorias;
+	mostrarCategorias(db);
 	cin >> catnum;
 	//nombre categoria correspondiente al orden
 	//categoria = cat
@@ -185,8 +186,9 @@ void EliminarProducto()
 {
 	int num;
 	int totalP;
-	//BD: Mostrar productos
-	//BD: get total productos
+
+	mostrarProductos(db);
+	totalP = totalProductos(db);
 	num = introducirOpcion(totalP)-1;
 
 	//BD: eliminar producto
