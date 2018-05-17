@@ -118,5 +118,37 @@ list <Producto> getProducto (sqlite3 *db)
 	return listaProductos;
 }
 
+list <Camarero> getCategoria (sqlite3 *db)
+{
+	sqlite3_stmt *stmt;
+	
+	char sql[] = "SELECT ID,NOMBRE,ORDEN FROM CATEGORIAS";
+	int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) ;
+	if (result != SQLITE_OK) 
+		cout << sqlite3_errmsg(db) << endl;
+
+	list <Categoria> listaCategorias;
+	int orden,id;
+	char str [100];
+	do
+	{
+		result = sqlite3_step(stmt);
+		if (result == SQLITE_ROW) 
+		{
+			id = sqlite3_column_int(stmt, 0);
+			strcpy(str, (char *) sqlite3_column_text(stmt, 1));
+			string nombre (str);
+			tel = sqlite3_column_int(stmt, 2);
+			Categoria a (id,nombre,orden);
+			listaCategorias.push_back(a);
+		}
+	} while (result == SQLITE_ROW);
+
+	result = sqlite3_finalize(stmt);
+	if (result != SQLITE_OK) 
+		cout << sqlite3_errmsg(db) << endl;
+
+	return listaCategorias;
+}
 //GET PRODUCTOS
 //...
