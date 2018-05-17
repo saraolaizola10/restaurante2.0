@@ -7,6 +7,7 @@
 using namespace std;
 
 void iniciarBD(sqlite3 *db);
+
 int altaCamarero (sqlite3 *db,int dni, string nombre, string apellido, int tel);
 int altaPersona (sqlite3 *db,int dni, string nombre,string apellido, int tel) ;
 int altaProducto (sqlite3 *db,int id, string nombre,string categoria, float precio);

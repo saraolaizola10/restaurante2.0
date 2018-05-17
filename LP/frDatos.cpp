@@ -25,8 +25,13 @@ using namespace std;
 
 int totalCamareros (sqlite3 *db)
 {
+	int total=0;
+
 	list <Camarero> camareros = getCamareros(db);
-	int total = camareros.size();
+	
+	if(!camareros.empty())
+		total = camareros.size();
+	
 	return total;
 }
 
@@ -36,23 +41,28 @@ int nuevoCamarero (sqlite3 *db, int dni)
 	int nuevo=0;
 	list <Camarero> camareros = getCamareros(db);
 	
-	for (auto c: camareros)
+	if(!camareros.empty())
 	{
-		if (dni == c.getDni())
+		for (auto c: camareros)
 		{
-			nuevo++;
+			if (dni==c.getDni())
+			{
+				nuevo++;
+			}
 		}
 	}
-	return nuevo;
 }
 
 void mostrarCamareros(sqlite3 *db)
 {
 	list <Camarero> camareros = getCamareros(db);
 
-	for (auto c: camareros)
+	if(!camareros.empty())
 	{
-		cout << c << endl;
+		for (auto c: camareros)
+		{
+			cout << c.getNombre() << endl;
+		}
 	}
 }
 
@@ -60,8 +70,13 @@ void mostrarCamareros(sqlite3 *db)
 
 int totalProductos (sqlite3 *db)
 {
+	int total = 0;
+
 	list <Producto> productos = getProductos(db);
-	int total = productos.size();
+	
+	if (!productos.empty())
+		total = productos.size();
+	
 	return total;
 }
 
@@ -69,19 +84,27 @@ void mostrarProductos(sqlite3 *db)
 {
 	list <Producto> productos = getProductos(db);
 
-	for (auto p: productos)
+	if(!productos.empty())
 	{
-		cout << p.getNombre() << endl;
+		for (auto p: productos)
+		{
+			cout << p.getNombre() << endl;
+		}
 	}
 	//CLASES: falta cambiar el metodo
 }
 
 //CATEGORIA
 
-int totalCategoria (sqlite3 *db)
+int totalCategorias (sqlite3 *db)
 {
+	int total = 0;
+
 	list <Categoria> categorias = getCategorias(db);
-	int total = categorias.size();
+
+	if (!categorias.empty())
+		total = categorias.size();
+	
 	return total;
 }
 
@@ -89,11 +112,197 @@ void mostrarCategorias (sqlite3 *db)
 {
 	list <Categoria> categorias = getCategorias(db);
 
-	for (auto c: categorias)
+	if(!categorias.empty())
 	{
-		cout << c.getNombre() << endl;
+		for (auto c: categorias)
+		{
+			cout << c.getNombre() << endl;
+		}
 	}
 	//CLASES: falta cambiar el metodo
+}
+
+//METODOS ADMINISTRADOR
+
+int ultimoIDProducto (sqlite3 *db)
+{
+	int id=0;
+
+	list <Producto> productos = getProductos(db);
+
+	if (!productos.empty())
+	{
+		Producto a = productos.back();
+		id = a.getId();
+	}
+	return id;
+}
+
+int ultimoIDCategoria (sqlite3 *db)
+{
+	int id=0;
+
+	list <Categoria> categorias = getCategorias(db);
+
+	if (!categorias.empty())
+	{
+		Categoria a = categorias.back();
+		id=a.getId();
+	}
+	return id;
+}
+
+// ESTADISTICAS
+
+void listaPlantilla(sqlite3 *db)
+{
+	list <Persona> personas;
+
+	for (auto p: personas)
+	{
+        cout << p;
+		cout << "\n" << endl;
+	}
+}
+
+void mediaCamarero(sqlite3 *db)
+{
+    int dni,cantidad;
+    float total;
+    list <Camarero> camareros = getCamareros(db);
+    list <Comanda> comandas = getComandas(db);
+
+    linea();
+    cout << "\n   ** NOTA MEDIA DE LOS CAMAREROS ** \n\n" << endl;
+
+	for (auto c: camareros)
+	{
+        dni = c.getDni();
+        cantidad=0;
+        total=0,0;
+
+		for (auto co: comandas) 
+        {
+            if(dni==co.getDni())
+            {
+                total += co.getMedia();   
+                cantidad++;    
+            }
+        }
+        total= total/cantidad;
+        cout << c.getNombre() << " " << c.getApellido() << " " << total << endl;
+	}
+    linea();
+}
+
+void actividadCamarero (sqlite3 *db)
+{
+    int dni,cantidad;
+    float total;
+    list <Camarero> camareros = getCamareros(db);
+    list <Comanda> comandas = getComandas(db);
+
+    linea();
+  	cout << "\n  ** ACTIVIDAD DE LOS CAMAREROS ** \n" << endl;
+    cout << " (Camarero/Num.Comandas/Imp.Total)\n\n" << endl;
+
+    for (auto c: camareros)
+    {
+        dni = c.getDni();
+        cantidad=0;
+        total=0,0;
+
+        for (auto co: comandas) 
+        {
+            if(dni==co.getDni())
+            {
+                total += co.getTotal();   
+                cantidad++;    
+            }
+        }
+        cout << c.getNombre() << " " << c.getApellido() <<"   x"<< cantidad << " " << total << "char(36)" << endl;
+    }
+    linea();
+}
+
+void valorMedioComandas (sqlite3 *db)
+{
+    float total, precio;
+    list <Comanda> comandas = getComandas(db);
+
+    linea();
+    cout << "\n  ** PRECIO MEDIO GASTADO POR MESA ** \n\n" << endl;
+        
+    total=0,0;
+
+    for (auto c: comandas)
+	{
+		total += c.getTotal();
+	}
+
+    precio= total/comandas.size();
+
+    cout << "\n  HAN GASTADO UNA MEDIA DE " << precio << " POR MESA \n" << endl;
+    linea();
+}
+
+void mediaServicio (sqlite3 *db)
+{
+    float total, media;
+    list <Comanda> comandas = getComandas(db);
+
+    linea();
+    cout << "\n  ** MEDIA DEL SERVICIO DEL RESTAURANTE ** \n\n" << endl;
+        
+    total=0,0;
+
+    for (auto c: comandas)
+    {
+        total+=c.getMedia();
+        
+    }
+    media= total/comandas.size();
+
+    cout << " La valoracion del servicio por parte de los \n cliente ha logrado un "<< media/10 <<" de media \n" << endl;
+    linea();
+}
+
+void importeXmes (sqlite3 *db)
+{
+	//POR HACER
+}
+
+void PrecioMedioProductosxCategoria (sqlite3 *db)
+{
+    int cant;
+    float med, precioTot;
+
+    list <Producto> productos;
+    list <Categoria> categorias;
+    //BD: inicializar
+
+    linea();
+    cout << "\n   ** PRECIO MEDIO DE PRODUCTOS POR CATEGORIA ** \n\n" << endl;
+    
+    for (auto c: categorias)
+    {
+        med=0;
+        cant=0;
+        precioTot=0;
+
+        for (auto p: productos)
+        {
+            if (c.getNombre()==p.getCategoria())
+            {
+                precioTot += p.getPrecio();
+                cant++;
+            }
+        }
+        med = precioTot/cant;
+        cout << " " <<c.getNombre() << " : " << med << char(36) << endl;
+    }
+
+    linea();
 }
 
 
@@ -146,7 +355,7 @@ int getProducto(sqlite3 *db,string categoria, int opcion)
 	int num=1;
 	int id;
 
-	list <Producto> productos = getProducto (sqlite3 *db);
+	list <Producto> productos = getProductos(db);
 
 	for (auto p: productos)
 	{
@@ -166,7 +375,7 @@ void ImprimirCuenta (sqlite3 *db,int **cuentas, int mesa)
 {
 	int posicion,id,cantidad;
 	float total;
-    list <Producto> productos = getProducto()
+    list <Producto> productos = getProductos(db);
 
    	linea();
 	cout << "\n ** RESTAURANTE MISAJO 2.0 ** " << endl;

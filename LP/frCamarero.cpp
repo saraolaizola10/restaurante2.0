@@ -4,6 +4,7 @@
 #include "../COMUN/Utilidades.h"
 #include "../LD/sqlite3.h"
 #include "../LD/LecturaBD.h"
+#include "../LD/EscrituraBD.h"
 #include "../LN/Camarero.h"
 #include "../LN/Producto.h"
 #include "../LN/Comanda.h"
@@ -16,7 +17,7 @@
 #include <list>
 using namespace std;
 
-nt pedirDNI(sqlite3 *db)
+int pedirDNI(sqlite3 *db)
 {
 	int dni;
 
@@ -104,5 +105,5 @@ void AltaComanda(sqlite3 *db,int dni,int **cuentas, int mesa)
     } while ((nota<0)||(nota>10));
     
    	total = totalCuenta(db,cuentas,mesa);
-    altaComanda (db,dni,fechayhora,total,media) 
+    altaComanda (db,dni,fechayhora,total,nota); 
 }

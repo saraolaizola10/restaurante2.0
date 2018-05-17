@@ -1,6 +1,9 @@
 #include "LecturaBD.h"
 #include "../LN/Persona.h"
 #include "../LN/Camarero.h"
+#include "../LN/Producto.h"
+#include "../LN/Categoria.h"
+#include "../LN/Comanda.h"
 #include "sqlite3.h"
 #include <fstream>
 #include <stdio.h>
@@ -19,7 +22,7 @@ list <Camarero> getCamareros (sqlite3 *db)
 	if (result != SQLITE_OK) 
 		cout << sqlite3_errmsg(db) << endl;
 
-	list <Camarero> listaCamareros;
+	list <Camarero> listaCamareros {};
 	int tel, dni;
 	float salario;
 	char str [100];
@@ -56,7 +59,7 @@ list <Persona> getPersonas (sqlite3 *db)
 	if (result != SQLITE_OK) 
 		cout << sqlite3_errmsg(db) << endl;
 
-	list <Persona> listaPersonas;
+	list <Persona> listaPersonas {};
 	int tel, dni;
 	char str [100];
 	do
@@ -91,7 +94,7 @@ list <Producto> getProductos (sqlite3 *db)
 	if (result != SQLITE_OK) 
 		cout << sqlite3_errmsg(db) << endl;
 
-	list <Producto> listaProductos;
+	list <Producto> listaProductos {};
 	int id;
 	float precio;
 	char str [100];
@@ -127,7 +130,7 @@ list <Categoria> getCategorias (sqlite3 *db)
 	if (result != SQLITE_OK) 
 		cout << sqlite3_errmsg(db) << endl;
 
-	list <Categoria> listaCategorias;
+	list <Categoria> listaCategorias {};
 	int orden,id;
 	char str [100];
 	do
@@ -138,7 +141,7 @@ list <Categoria> getCategorias (sqlite3 *db)
 			id = sqlite3_column_int(stmt, 0);
 			strcpy(str, (char *) sqlite3_column_text(stmt, 1));
 			string nombre (str);
-			tel = sqlite3_column_int(stmt, 2);
+			orden = sqlite3_column_int(stmt, 2);
 			Categoria a (id,nombre,orden);
 			listaCategorias.push_back(a);
 		}
@@ -160,7 +163,7 @@ list <Comanda> getComandas (sqlite3 *db)
 	if (result != SQLITE_OK) 
 		cout << sqlite3_errmsg(db) << endl;
 
-	list <Comanda> listaComandas;
+	list <Comanda> listaComandas {};
 	int dni, fechayhora;
 	float total, media;
 	char str [100];
