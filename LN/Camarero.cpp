@@ -24,7 +24,7 @@ Camarero::Camarero(const string nombre, const string apellido, int dni, int tel,
 //{
 //	return this->tel;
 //}
-float Camarero::getSalario()
+float Camarero::getSalario() const
 {
 	return this->salario;
 }

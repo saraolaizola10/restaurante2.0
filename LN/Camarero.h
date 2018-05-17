@@ -21,7 +21,7 @@ class Camarero: public Persona
 		//string getApellido();
 		//int getDni();
 		//int getTel();
-		float getSalario();
+		float getSalario() const;
 
 		//void setNombre(const string nom);
 		//void setApellido(const string ape);
@@ -29,7 +29,13 @@ class Camarero: public Persona
 		//void setTel(int tel);
 		//void setSalario(float salario);
 
-
+		friend ostream &operator<<(ostream &os, const Camarero &c);
 };
+
+ostream &operator<<(ostream &os, const Camarero &c) 
+{ 
+     os << "Nombre:" << c.nombre << " " << c.apellido << ", dni: " << c.dni << ". Tel: "<< c.tel << ". Salario: "<< c.salario << "€" << endl;
+     return os;
+}
 
 #endif

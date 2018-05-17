@@ -6,26 +6,18 @@ using namespace std;
 
 Categoria:: Categoria(int id, const string nombre, int orden): id(id), nombre(nombre), orden(orden){}
 
-Categoria::Categoria(const Categoria &c)
-{
-	this->id = c.id;
-	this->nombre = c.nombre;
-	this->orden = c.orden;
-}
-Categoria:: ~Categoria()
-{
-	
-}
 
-int Categoria::getId()
+Categoria:: ~Categoria(){}
+
+int Categoria::getId()  const
 {
 	return this->id;
 }
-string Categoria::getNombre()
+string Categoria::getNombre() const
 {
 	return this->nombre;
 }
-int Categoria::getOrden()
+int Categoria::getOrden() const
 {
 	return this->orden;
 }

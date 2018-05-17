@@ -14,21 +14,26 @@ private:
 
 public:
 	Producto(int id, string nombre, float precio, string categoria);
-	Producto(const Producto &p);
 	virtual ~Producto();
 
-	int getId();
-	string getNombre();
-	float getPrecio();
-	string getCategoria();
+	int getId() const;
+	string getNombre() const;
+	float getPrecio() const;
+	string getCategoria() const;
 
 	void setId(const int id);
 	void setNombre(const string nom);
 	void setPrecio(const float precio);		
 	void setCategoria(const string cat);
 	
-
+	friend ostream &operator<<(ostream &os, const Producto &p);
 
 };
+
+ostream &operator<<(ostream &os, const Producto &p) 
+{ 
+     os << "ID:" << p.id << ", " << p.nombre << " -> : " << p.precio << "€, de la categoria: "<< p.categoria << endl;
+     return os;
+}
 
 #endif

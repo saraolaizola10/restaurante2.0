@@ -11,13 +11,12 @@ private:
 
 public:
 	Comanda(int dni, int fechayhora, float total, float media);
-	Comanda(const Comanda &c);
 	virtual ~Comanda();	
 
-	int getDni();
-	int getFechayhora();
-	float getTotal();
-	float getMedia();
+	int getDni() const;
+	int getFechayhora() const;
+	float getTotal() const;
+	float getMedia() const;
 
 	void setDni(const int dni);
 	void setFechayhora(const int fyh);

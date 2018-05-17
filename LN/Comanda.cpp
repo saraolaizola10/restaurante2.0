@@ -7,34 +7,27 @@ using namespace std;
 Comanda:: Comanda(int dni, int fechayhora, float total, float media): dni(dni), fechayhora(fechayhora), total(total), media(media){}
 
 
-Comanda:: Comanda(const Comanda &c)
-{
-	this->dni= c.dni;
-	this->fechayhora = c.fechayhora;
-	this->total= c.total;
-	this->media = c.media;
-}
-Comanda:: ~Comanda()
-{
-	
-}
 
-int Comanda::getDni()
+Comanda:: ~Comanda(){}
+
+int Comanda::getDni() const
 {
 	return this->dni;
 }
-int Comanda::getFechayhora()
+int Comanda::getFechayhora() const
 {
 	return this->fechayhora;
 }
-float Comanda::getTotal()
+float Comanda::getTotal() const
 {
 	return this->total;
 }
-float Comanda::getMedia()
+float Comanda::getMedia() const
 {
 	return this->media;
 }
+
+
 
 void Comanda::setDni(const int dni)
 {

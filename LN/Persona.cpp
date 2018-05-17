@@ -4,30 +4,24 @@
 #include <iostream>
 using namespace std;
 
-Persona::Persona(const string nombre, const string apellido, int dni, int tel)
-{
-	this->nombre = nombre;
-	this->apellido = apellido;
-	this->tel = tel;
-	this->dni = dni;
-}
+Persona::Persona(const string nombre, const string apellido, int dni, int tel): nombre(nombre), apellido(apellido), dni(dni), tel(tel){}
 
-const string Persona::getNombre()
+string Persona::getNombre() const
 {
 	return this->nombre;
 }
 
-const string Persona::getApellido()
+string Persona::getApellido() const
 {
 	return this->apellido;
 }
 
-int Persona::getTel()
+int Persona::getTel() const
 {
 	return this->tel;
 }
 
-int Persona::getDni()
+int Persona::getDni() const
 {
 	return this->dni;
 }

@@ -15,15 +15,18 @@ private:
 public:
 	Persona(const string nombre, const string apellido, int dni, int tel);
 
-	friend std::ostream &operator<<(std::ostream &os, Persona const &p) 
-	{ 
-        return os << p.nombre << " " << p.apellido << " , dni: " << p.dni << " tel: "<< p.tel << endl;
-    }
+	string getNombre() const;
+	string getApellido() const;
+	int getTel() const;
+	int getDni() const;
 
-	const string getNombre();
-	const string getApellido();
-	int getTel();
-	int getDni();
+	//friend ostream &operator<<(ostream &os, const Persona &p);
 };
+
+//ostream &operator<<(ostream &os, const Persona &p) 
+//{ 
+//     os << "Nombre:" << p.nombre << " " << p.apellido << ", dni: " << p.dni << ". Tel: "<< p.tel << endl;
+//     return os;
+//}
 
 #endif

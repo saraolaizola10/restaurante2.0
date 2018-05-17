@@ -6,31 +6,24 @@ using namespace std;
 
 Producto:: Producto(int id, string nombre, float precio, string categoria): id(id), nombre(nombre), precio(precio), categoria(categoria) {}
 
-Producto:: Producto(const Producto &p)
-{
-	this->id = p.id;
-	this->nombre = p.nombre;
-	this->precio = p.precio;
-	this->categoria = p.categoria;
-}
 Producto:: ~Producto()
 {
 	
 }
 
-int Producto::getId()
+int Producto::getId() const
 {
 	return this->id;
 }
-string Producto::getNombre()
+string Producto::getNombre() const
 {
 	return this->nombre;
 }
-float Producto::getPrecio()
+float Producto::getPrecio() const
 {
 	return this->precio;
 }
-string Producto::getCategoria()
+string Producto::getCategoria() const
 {
 	return this->categoria;
 }
