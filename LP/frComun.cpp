@@ -14,16 +14,14 @@ void linea()
 
 int introducirOpcion(int opciones)
 {
-    int n;
-
+    int n=0;
     cout << "Introduzca opcion (1-" << opciones << "): " << endl;
     do
     {
         n = pedirNumero(0);
-
         if ((n<0)||(n>opciones))
         {
-            cout << "Error. Introducir valor valido\n" << endl;
+            cout << "Error. Introducir valor valido" << endl;
         }
     } while ((n<0)||(n>opciones));
     return n;

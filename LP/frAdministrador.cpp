@@ -26,24 +26,8 @@ int comprobarClave()
 	cin >> clave;
 	cin.clear();
 
-	//while (!myfile)
-	//{
-	//	in >> clave;
-	//
-	//	if (line==clave)
-	//	{
-	//		return 0;
-	//	}
-	//	else
-	//	{
-	//		cout << "Error, la clave no conicide" << endl;
-	//		return -1;
-	//	}
-	//}
-	//NO ENTRAA
 	while (getline(myfile,line))
 	{
-		cout << "entro"<< endl;
 		if (line==clave)
 		{
 			return 0;

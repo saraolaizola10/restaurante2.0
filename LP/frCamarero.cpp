@@ -19,13 +19,16 @@ using namespace std;
 int pedirDNI(sqlite3 *db)
 {
 	int dni;
+
 	list <Camarero> camareros = getCamareros(db);
 
 	cout << " Introduzca su DNI:" << endl;
 	cin >> dni;
+	cin.clear();
 
 	for (auto c: camareros)
 	{
+		cout << c.getDni();
 		if (c.getDni() == dni)
 		{
 			return dni;

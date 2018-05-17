@@ -34,6 +34,7 @@ float pedirFloat ()
 	int num,lenght,punto;
 	float input=0;
 
+	clear_if_needed(str);
 	do
 	{
 		num=0;
@@ -69,6 +70,8 @@ int pedirNumero (int condicion)
 {
 	char str[MAX_LEN];
 	int input,length,num;;
+
+	clear_if_needed(str);
 
 	do
 	{
