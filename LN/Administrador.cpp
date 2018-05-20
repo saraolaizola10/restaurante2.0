@@ -29,23 +29,8 @@ Administrador::Administrador(const string nombre, const string apellido, int dni
 //	return this->salario;
 //}
 
-//void Administrador::setNombre(const string nom)
-//{
-//	this->nombre=nom;
-//}
-//void Administrador::setApellido(const string ape)
-//{
-//	this->apellido=ape;
-//}
-//void Administrador::setDni(int dni)
-//{
-//	this->dni=dni;
-//}
-//void Administrador::setTel(int tel)
-//{
-//	this->tel=tel;
-//}
-//void Administrador::setSalario(float salario)
-//{
-//	this->salario=salario;
-//}
+ostream &operator<<(ostream &os, const Administrador &a) 
+{ 
+     os << "Nombre:" << a.getNombre() << " " << a.getApellido() << ", dni: " << a.getDni() << ". Tel: "<< a.getTel();
+     return os;
+}

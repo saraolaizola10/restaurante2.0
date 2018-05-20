@@ -6,14 +6,16 @@ extern "C"
 {
 	#endif
 
-	void clear_if_needed(char *str);
+	int getLongitud (int num);
 	char* ComaAPunto (char* input);
-	int pedirNumero (int condicion);
-	float pedirFloat ();
+
+	int getHora();
+	void mostrarHora();
+	int getMes(int f);
+	void mostrarAnyo(int f);
 
 	#ifdef __cplusplus
 }
-
 #endif 
 
 #endif

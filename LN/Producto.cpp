@@ -4,43 +4,16 @@
 #include <iostream>
 using namespace std;
 
-Producto:: Producto(int id, string nombre, float precio, string categoria): id(id), nombre(nombre), precio(precio), categoria(categoria) {}
-
-Producto:: ~Producto()
-{
-	
-}
-
-int Producto::getId() const
-{
-	return this->id;
-}
-string Producto::getNombre() const
-{
-	return this->nombre;
-}
-float Producto::getPrecio() const
-{
-	return this->precio;
-}
-string Producto::getCategoria() const
-{
-	return this->categoria;
-}
-
-void Producto::setId(const int id)
+Producto:: Producto(int id, string nombre, float precio, string categoria): id(id), nombre(nombre), precio(precio), categoria(categoria) 
 {
 	this->id=id;
-}
-void Producto::setNombre(const string nom)
-{
-	this->nombre=nom;
-}
-void Producto::setPrecio(const float precio)
-{
+	this->nombre=nombre;
 	this->precio=precio;
+	this->categoria=categoria;
 }
-void Producto::setCategoria(const string cat)
-{
-	this->categoria=cat;
+
+ostream& operator<<(ostream &os, const Producto &p) 
+{ 
+    os << "ID:" << p.getId() << ", " << p.getNombre() << " -> " << p.getPrecio() << char(156) << " de la categoria: "<< p.getCategoria();
+    return os;
 }

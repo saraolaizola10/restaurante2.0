@@ -2,17 +2,16 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <string.h>
-
+#include <math.h>
+#include <stdlib.h>
+#include <time.h>
 
 #define MAX_LEN 50
 
-void clear_if_needed(char *str)
+int getLongitud (int num)
 {
-	if (str[strlen(str)-1] != '\n')
-	{
-		int c;    
-    	while ( (c = getchar()) != EOF && c != '\n');
-    }
+	int longitud = floor(log10(abs(num))) + 1;
+	return longitud;
 }
 
 char* ComaAPunto (char* input)                                         
@@ -28,82 +27,45 @@ char* ComaAPunto (char* input)
    	return input;
 }
 
-float pedirFloat ()
+int getHora()
 {
-	char str[MAX_LEN];
-	int num,lenght,punto;
-	float input=0;
-
-	clear_if_needed(str);
-	do
-	{
-		num=0;
-		punto=0;
-
-		fgets(str,50,stdin);
-		
-		clear_if_needed(str);
-		ComaAPunto(str);
-		lenght = strlen(str)-1;;
-
-		for (int i=0;i<lenght;i++)
-		{
-			if ((!isdigit(str[i])&&(str[i]!='.')))
-			{	
-				num=1;
-				break;
-			}
-			if (str[i]=='.')
-				punto++;
-		}
-		if ((num!=0)||(punto>1))
-			printf("Error. Asegurate de introducir un numero\n");
-
-	} while ((num!=0)||(punto>1));
-	
-	sscanf(str,"%f",&input);
-
-	return input;
+  time_t now = time(0);
+  int fyh = (int) now;
+  return fyh;
 }
 
-int pedirNumero (int condicion)
+void mostrarHora()
 {
-	char str[MAX_LEN];
-	int input,length,num;
-
-	clear_if_needed(str);
-	do
-	{
-		num=0;
-		fgets(str,50,stdin);
-		printf("%s\n",str);
-		length = strlen(str)-1;
-
-		for (int i=0;i<length;i++)
-		{
-			if (!isdigit(str[i]))
-			{
-				num=1;
-				break;
-			}	
-		}
-		if (num!=0)
-		{
-			printf("Error. Asegurate de introducir un numero\n");
-		}
-		if (condicion!=0)
-		{
-			if (length!=condicion)
-			{
-				num=1;
-				printf("Error. Introducir %d numeros\n",condicion);
-			}
-		}
-
-	} while (num!=0);
-
-	sscanf(str,"%d",&input);
-	clear_if_needed(str);
-
-	return input;
+  time_t now = time(0);
+  struct tm *tm;
+  tm = localtime (&now);
+  printf ("    %04d/%02d/%02d %02d:%02d \n",tm->tm_year+1900,tm->tm_mon+1,tm->tm_mday,tm->tm_hour,tm->tm_min);
 }
+
+int getMes (int f)
+{
+  int mes;
+
+  time_t fecha;
+  struct tm *tm;
+
+  fecha = (time_t) f;
+  tm = localtime (&fecha);
+  mes = tm->tm_mon;
+
+  return mes;
+}
+
+void mostrarAnyo(int f)
+{
+  int anyo;
+  time_t fecha;
+  struct tm *tm;
+
+  fecha = (time_t) f;
+  tm = localtime (&fecha);
+  anyo = tm->tm_year+1900;
+
+  printf("%04d",anyo);
+}
+

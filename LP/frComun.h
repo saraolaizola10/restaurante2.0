@@ -3,5 +3,7 @@
 
 void linea();
 int introducirOpcion(int opciones);
+int pedirNumero(int condicion);
+float pedirFloat();
 
 #endif

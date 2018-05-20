@@ -70,6 +70,7 @@ void AtenderMesa(sqlite3 *db,int *cuentas[],int mesa)
 		do
 		{
 			totalPxCat = MostrarProductosxCategoria(db,c.getNombre());
+
 			opcion = introducirOpcion(totalPxCat+1);
 			cin.clear();
 			
@@ -93,7 +94,8 @@ void AltaComanda(sqlite3 *db,int dni,int **cuentas, int mesa)
 	float total=0;
     float nota;
 
-    int fechayhora; //Utilidades: devolver int con fecha
+    int fechayhora = getHora();
+    cin.ignore();
     cout << "Nota media del servicio (1-10):"<< endl;
     do
     {   
@@ -105,5 +107,7 @@ void AltaComanda(sqlite3 *db,int dni,int **cuentas, int mesa)
     } while ((nota<0)||(nota>10));
     
    	total = totalCuenta(db,cuentas,mesa);
+
+
     altaComanda (db,dni,fechayhora,total,nota); 
 }

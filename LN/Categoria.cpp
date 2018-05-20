@@ -4,10 +4,12 @@
 #include <iostream>
 using namespace std;
 
-Categoria:: Categoria(int id, const string nombre, int orden): id(id), nombre(nombre), orden(orden){}
-
-
-Categoria:: ~Categoria(){}
+Categoria:: Categoria(int id, const string nombre, int orden): id(id), nombre(nombre), orden(orden)
+{
+	this->id = id;
+	this->nombre = nombre;
+	this->orden = orden;
+}
 
 int Categoria::getId()  const
 {
@@ -22,15 +24,8 @@ int Categoria::getOrden() const
 	return this->orden;
 }
 
-void Categoria::setId(const int id)
-{
-	this->id=id;
-}
-void Categoria::setNombre(const string nom)
-{
-	this->nombre=nom;
-}
-void Categoria::setOrden(const int orden)
-{
-	this->orden=orden;
+ostream &operator<<(ostream &os, const Categoria &c) 
+{ 
+     os << c.getOrden() << " " << c.getNombre();
+     return os;
 }

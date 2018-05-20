@@ -4,11 +4,14 @@
 #include <iostream>
 using namespace std;
 
-Comanda:: Comanda(int dni, int fechayhora, float total, float media): dni(dni), fechayhora(fechayhora), total(total), media(media){}
+Comanda:: Comanda(int dni, int fechayhora, float total, float media): dni(dni), fechayhora(fechayhora), total(total), media(media)
+{
+	this->dni=dni;
+	this->fechayhora=fechayhora;
+	this->total=total;
+	this->media=media;
+}
 
-
-
-Comanda:: ~Comanda(){}
 
 int Comanda::getDni() const
 {
@@ -25,23 +28,4 @@ float Comanda::getTotal() const
 float Comanda::getMedia() const
 {
 	return this->media;
-}
-
-
-
-void Comanda::setDni(const int dni)
-{
-	this->dni = dni;
-}
-void Comanda::setFechayhora(const int fyh)
-{
-	this->fechayhora = fyh;
-}
-void Comanda::setTotal(const float tot)
-{
-	this->total = tot;
-}		
-void Comanda::setMedia(const float med)
-{
-	this->media = med;
 }

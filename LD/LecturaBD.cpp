@@ -158,7 +158,7 @@ list <Comanda> getComandas (sqlite3 *db)
 {
 	sqlite3_stmt *stmt;
 	
-	char sql[] = "SELECT DNI,FECHAYHO,TOTAL,MEDIA FROM COMANDAS";
+	char sql[] = "SELECT DNI,FECHAYHORA,TOTAL,MEDIA FROM COMANDAS";
 	int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) ;
 	if (result != SQLITE_OK) 
 		cout << sqlite3_errmsg(db) << endl;

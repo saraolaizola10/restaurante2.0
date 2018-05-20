@@ -10,7 +10,6 @@
 #include <stdio.h>
 #include <string.h>
 
-
 using namespace std;
 
 #define PARAM "admin"
@@ -38,7 +37,7 @@ int main (int argc, char *argv[])
 		cuentas[i][0] = 0; 
 	}
 
-	cout << "Bienvenido al Restaurante" << endl;
+	cout << "\n\nBienvenido al Restaurante" << endl;
 	
 	if (((argc < 2)||strcmp(argv[1],PARAM)!=0))
 	{
@@ -126,27 +125,27 @@ int main (int argc, char *argv[])
 							break;
 
 							case 2:
-							//Nota media por camarero
+							mediaCamarero(db);//Nota media por camarero
 							break;
 
 							case 3:
-							//Actividad camareros
+							actividadCamarero(db);
 							break;
 
 							case 4:
-							//Precio medio por mesa
+							valorMedioComandas(db);
 							break;
 
 							case 5:
-							
+							mediaServicio(db);
 							break;
 
 							case 6:
-							
+							importeXmes(db);
 							break;
 
 							case 7:
-							
+							PrecioMedioProductosxCategoria(db);
 							break;
 						}
 					}while(m!=8);

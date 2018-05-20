@@ -1,4 +1,6 @@
 #include "EscrituraBD.h"
+#include "LecturaBD.h"
+#include "../LN/Categoria.h"
 #include "sqlite3.h"
 #include <fstream>
 #include <sstream>
@@ -6,6 +8,7 @@
 #include <ctype.h>
 #include <string.h>
 #include <iostream>
+#include <list>
 using namespace std;
 
 void iniciarBD(sqlite3 *db)
@@ -15,29 +18,18 @@ void iniciarBD(sqlite3 *db)
 
 	const char *sql_query = "CREATE TABLE CAMAREROS (DNI INT PRIMARY KEY NOT NULL, NOMBRE TEXT, APELLIDO TEXT, TEL INT, SALARIO FLOAT);";
   	rc = sqlite3_exec(db, sql_query, 0, 0, &err_message);
-  	if (rc != SQLITE_OK ) 
-  		cout << sqlite3_errmsg(db) << endl;
 
   	const char *sql_query1 = "CREATE TABLE PERSONAS (DNI INT PRIMARY KEY NOT NULL, NOMBRE TEXT, APELLIDO TEXT, TEL INT);";
   	rc = sqlite3_exec(db, sql_query1, 0, 0, &err_message);
-  	if (rc != SQLITE_OK ) 
-  		cout << sqlite3_errmsg(db) << endl;
 
   	const char *sql_query2 = "CREATE TABLE PRODUCTOS (ID INT PRIMARY KEY NOT NULL, NOMBRE TEXT, CATEGORIA TEXT, PRECIO FLOAT);";
   	rc = sqlite3_exec(db, sql_query2, 0, 0, &err_message);
-  	if (rc != SQLITE_OK ) 
-  		cout << sqlite3_errmsg(db) << endl;
 
   	const char *sql_query3 = "CREATE TABLE CATEGORIAS (ID INT PRIMARY KEY NOT NULL, NOMBRE TEXT, ORDEN INT);";
   	rc = sqlite3_exec(db, sql_query3, 0, 0, &err_message);
-  	if (rc != SQLITE_OK ) 
-  		cout << sqlite3_errmsg(db) << endl;
 
-  	const char *sql_query4 = "CREATE TABLE COMANDAS (DNI INT PRIMARY KEY NOT NULL, FECHYHO INT, TOTAL FLOAT, MEDIA FLOAT);";
+  	const char *sql_query4 = "CREATE TABLE COMANDAS (DNI INT, FECHAYHORA INT PRIMARY KEY NOT NULL, TOTAL FLOAT, MEDIA FLOAT);";
   	rc = sqlite3_exec(db, sql_query4, 0, 0, &err_message);
-  	if (rc != SQLITE_OK ) 
-  		cout << sqlite3_errmsg(db) << endl;
-
 }
 
 
@@ -52,19 +44,7 @@ int altaCamarero (sqlite3 *db,int dni, string nombre,string apellido, int tel)
 	strcpy(sql, ssql.c_str());
 	
 	int result = sqlite3_prepare_v2(db,sql,-1,&stmt, NULL) ;
-	if (result != SQLITE_OK) 
-	{
-		cout << sqlite3_errmsg(db) << endl;
-		return result;
-	}
-
 	result = sqlite3_step(stmt);
-	if (result != SQLITE_DONE) 
-	{
-		cout << "ERROR. El DNI ya existe.\n" << endl;
-		return result;
-	}
-
 	result = sqlite3_finalize(stmt);
 	if (result != SQLITE_OK) 
 	{
@@ -85,19 +65,7 @@ int altaPersona (sqlite3 *db,int dni, string nombre,string apellido, int tel)
 	strcpy(sql, ssql.c_str());
 	
 	int result = sqlite3_prepare_v2(db,sql,-1,&stmt, NULL) ;
-	if (result != SQLITE_OK) 
-	{
-		cout << sqlite3_errmsg(db) << endl;
-		return result;
-	}
-
 	result = sqlite3_step(stmt);
-	if (result != SQLITE_DONE) 
-	{
-		cout << "ERROR. El DNI ya existe.\n" << endl;
-		return result;
-	}
-
 	result = sqlite3_finalize(stmt);
 	if (result != SQLITE_OK) 
 	{
@@ -117,20 +85,8 @@ int altaProducto (sqlite3 *db,int id, string nombre,string categoria, float prec
 	char* sql = new char[ssql.length() + 1];
 	strcpy(sql, ssql.c_str());
 	
-	int result = sqlite3_prepare_v2(db,sql,-1,&stmt, NULL) ;
-	if (result != SQLITE_OK) 
-	{
-		cout << sqlite3_errmsg(db) << endl;
-		return result;
-	}
-
+	int result = sqlite3_prepare_v2(db,sql,-1,&stmt, NULL);
 	result = sqlite3_step(stmt);
-	if (result != SQLITE_DONE) 
-	{
-		cout << "ERROR. El ID ya existe.\n" << endl;
-		return result;
-	}
-
 	result = sqlite3_finalize(stmt);
 	if (result != SQLITE_OK) 
 	{
@@ -151,19 +107,7 @@ int altaCategoria (sqlite3 *db,int id, string nombre, int orden)
 	strcpy(sql, ssql.c_str());
 	
 	int result = sqlite3_prepare_v2(db,sql,-1,&stmt, NULL) ;
-	if (result != SQLITE_OK) 
-	{
-		cout << sqlite3_errmsg(db) << endl;
-		return result;
-	}
-
 	result = sqlite3_step(stmt);
-	if (result != SQLITE_DONE) 
-	{
-		cout << "ERROR. El DNI ya existe.\n" << endl;
-		return result;
-	}
-
 	result = sqlite3_finalize(stmt);
 	if (result != SQLITE_OK) 
 	{
@@ -171,6 +115,31 @@ int altaCategoria (sqlite3 *db,int id, string nombre, int orden)
 		return result;
 	}
 	return SQLITE_OK;
+}
+
+int ordenarCategorias (sqlite3 *db,Categoria newCat)
+{
+	char *errMsg=0;
+	int antes=0;
+
+	list <Categoria> categorias = getCategorias(db);
+
+	int rc = sqlite3_exec (db, "DROP TABLE CATEGORIAS", NULL, NULL, &errMsg);
+	const char *sql_query = "CREATE TABLE CATEGORIAS (ID INT PRIMARY KEY NOT NULL, NOMBRE TEXT, ORDEN INT);";
+  	rc = sqlite3_exec(db, sql_query, 0, 0, &errMsg);
+	
+	for (auto c: categorias)
+	{
+		if (c.getOrden()==newCat.getOrden())
+		{
+			altaCategoria(db,newCat.getId(),newCat.getNombre(),newCat.getOrden());
+			antes++;
+		}
+		if (antes==0)
+			altaCategoria(db,c.getId(),c.getNombre(),c.getOrden());
+		else
+			altaCategoria(db,c.getId(),c.getNombre(),c.getOrden()+1);
+	}
 }
 
 int altaComanda (sqlite3 *db,int dni, int fechayhora, float total, float media) 
@@ -184,19 +153,7 @@ int altaComanda (sqlite3 *db,int dni, int fechayhora, float total, float media)
 	strcpy(sql, ssql.c_str());
 	
 	int result = sqlite3_prepare_v2(db,sql,-1,&stmt, NULL) ;
-	if (result != SQLITE_OK) 
-	{
-		cout << sqlite3_errmsg(db) << endl;
-		return result;
-	}
-
 	result = sqlite3_step(stmt);
-	if (result != SQLITE_DONE) 
-	{
-		cout << "ERROR. El DNI ya existe.\n" << endl;
-		return result;
-	}
-
 	result = sqlite3_finalize(stmt);
 	if (result != SQLITE_OK) 
 	{

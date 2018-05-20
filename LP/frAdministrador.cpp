@@ -30,15 +30,17 @@ int comprobarClave()
 	{
 		if (line==clave)
 		{
+			myfile.close();
 			return 0;
+
 		}
 		else
 		{
+			myfile.close();
 			cout << "Error, la clave no conicide" << endl;
 			return -1;
 		}
 	}
-	myfile.close();
 }
 
 void cambiarClave()
@@ -60,14 +62,15 @@ void AltaCamarero(sqlite3 *db)
 	int dni,tel,unica;
 	float sueldo;
 
+	cin.ignore();
 	cout << "Nombre: " << endl;
 	getline(cin, nombre);
-	//cin.clear();
+	cin.clear();
 	transform(nombre.begin(), nombre.end(), nombre.begin(),::toupper);
 	
 	cout << "Apellido: " << endl;
 	getline(cin, apellido);
-	//cin.clear();
+	cin.clear();
 	transform(apellido.begin(), apellido.end(), apellido.begin(),::toupper);
 	
 	cout << "DNI (sin letra): " << endl;
@@ -96,6 +99,7 @@ void AltaCategoria(sqlite3 *db)
 	total = totalCategorias(db);
 	id = ultimoIDCategoria(db)+1;
 
+	cin.ignore();
 	cout << "Nombre:" << endl;
 	getline(cin, nombre);
 	transform(nombre.begin(), nombre.end(), nombre.begin(), ::toupper);
@@ -114,16 +118,18 @@ void AltaCategoria(sqlite3 *db)
 			}
 		} while ((orden<0)||(orden>(total+1)));
 		
-		if ((orden<total)||(orden==total))
+		if(orden>total)
 		{
-			//OrdenarCategorias(categorias,orden,total);
-			//en la base de datos
+			altaCategoria (db,id,nombre,orden);
+		}
+		else
+		{
+			Categoria newCat (id,nombre,orden);
+			ordenarCategorias (db,newCat);
 		}
 	}
 	else
-		orden = 1;
-
-	altaCategoria (db,id,nombre,orden);
+		altaCategoria (db,id,nombre,1);
 }
 
 void AltaProducto(sqlite3 *db)
@@ -132,6 +138,7 @@ void AltaProducto(sqlite3 *db)
 	float precio;
 	int id,catnum;
 
+	cin.ignore();
 	id = ultimoIDProducto(db)+1;
 
 	cout << "Nombre:" << endl;
@@ -142,12 +149,12 @@ void AltaProducto(sqlite3 *db)
 	cout << "Precio:" <<endl;
 	precio = pedirFloat();
 
+	//FALTA: confirmar que esta dentro del total
 	cout << "Introduce el numero de la categoria deseada:" << endl;
 	mostrarCategorias(db);
 	cin >> catnum;
 	cin.clear();
-	//nombre categoria correspondiente al orden
-	//categoria = cat
+	categoria = getNombreCategoria(db,catnum);
 
 	altaProducto (db,id,nombre,categoria,precio);
 }
@@ -162,6 +169,7 @@ void EditarProducto(sqlite3 *db)
 	totalP = totalProductos(db);
 	num = introducirOpcion(totalP)-1;
 
+	cin.ignore();
 	cout << "Nombre:" << endl;
 	getline(cin, nombre);
 	cin.clear();
