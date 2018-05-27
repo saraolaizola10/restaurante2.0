@@ -20,16 +20,10 @@ public:
 	int getTel() const;
 	int getDni() const;
 
-	//friend ostream &operator<<(ostream &os, const Persona &p);
-
 	virtual void diPuesto();
 	virtual float getSalario() = 0;
 };
 
-//ostream &operator<<(ostream &os, const Persona &p) 
-//{ 
-//     os << "Nombre:" << p.nombre << " " << p.apellido << ", dni: " << p.dni << ". Tel: "<< p.tel << endl;
-//     return os;
-//}
+ostream &operator<<(ostream &os, const Persona &p);
 
 #endif

@@ -68,6 +68,23 @@ void mostrarCamareros(sqlite3 *db)
 	}
 }
 
+//PERSONAS
+
+void mostrarPersonas (sqlite3 *db)
+{
+	list<Persona*> personas = getPersonas(db);
+
+	if(!personas.empty())
+	{
+		for (auto p: personas)
+		{
+			cout << (*p) << " ";
+			p->diPuesto();
+			cout << endl;
+		}
+	}
+}
+
 //PRODUCTOS
 
 int totalProductos (sqlite3 *db)
@@ -368,6 +385,19 @@ void importeXmes (sqlite3 *db)
    		cout << " : " << total << char(36)<< endl;
 	    linea();
     }
+}
+
+void mostrarSalarios (sqlite3 *db)
+{
+	list<Persona*> personas = getPersonas(db);
+
+	if(!personas.empty())
+	{
+		for (auto p: personas)
+		{
+			cout << p->getNombre() << " " << p->getApellido() << " -> " << p->getSalario() << char(36) << endl;
+		}
+	}
 }
 
 

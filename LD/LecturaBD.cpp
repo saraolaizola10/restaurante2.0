@@ -12,6 +12,7 @@
 #include <string.h>
 #include <iostream>
 #include <list>
+
 using namespace std;
 
 list <Camarero> getCamareros (sqlite3 *db)
@@ -88,30 +89,32 @@ list <Administrador> getAdministradores (sqlite3 *db)
 
 	return listaAdministradores;
 }
+
+
 list <Persona*> getPersonas (sqlite3 *db)
 {
     sqlite3_stmt *stmt1;
     sqlite3_stmt *stmt2;
     
     char sql1[] = "SELECT DNI,NOMBRE,APELLIDO,TEL,TURNO FROM CAMAREROS";
-    int result = sqlite3_prepare_v2(db, sql1, -1, &stmt1, NULL) ;
-    if (result != SQLITE_OK) 
+    int result1 = sqlite3_prepare_v2(db, sql1, -1, &stmt1, NULL) ;
+    if (result1 != SQLITE_OK) 
         cout << sqlite3_errmsg(db) << endl;
 
     char sql2[] = "SELECT DNI,NOMBRE,APELLIDO,TEL,CARGO FROM ADMINISTRADORES";
-    result = sqlite3_prepare_v2(db, sql2, -1, &stmt2, NULL) ;
-    if (result != SQLITE_OK) 
+    int result2 = sqlite3_prepare_v2(db, sql2, -1, &stmt2, NULL) ;
+    if (result2 != SQLITE_OK) 
         cout << sqlite3_errmsg(db) << endl;
 
-    list <Persona*> listaPersonas {};
+   	list <Persona*> listaPersonas {};
     int tel, dni;
     float salario;
     char str [100];
 
     do
     {
-        result = sqlite3_step(stmt1);
-        if (result == SQLITE_ROW) 
+        result1 = sqlite3_step(stmt1);
+        if (result1 == SQLITE_ROW) 
         {
             dni = sqlite3_column_int(stmt1, 0);
             strcpy(str, (char *) sqlite3_column_text(stmt1, 1));
@@ -122,14 +125,14 @@ list <Persona*> getPersonas (sqlite3 *db)
             strcpy(str, (char *) sqlite3_column_text(stmt1, 4));
             string turno (str);
             Persona *b =  new Camarero (nombre,apellido,dni,tel,turno);
-            listaPersonas.push_back((*b));
+            listaPersonas.push_back(b);
         }
-    } while (result == SQLITE_ROW);
+    } while (result1 == SQLITE_ROW);
 
     do
     {
-        result = sqlite3_step(stmt2);
-        if (result == SQLITE_ROW) 
+        result2 = sqlite3_step(stmt2);
+        if (result2 == SQLITE_ROW) 
         {
             dni = sqlite3_column_int(stmt2, 0);
             strcpy(str, (char *) sqlite3_column_text(stmt2, 1));
@@ -140,15 +143,15 @@ list <Persona*> getPersonas (sqlite3 *db)
             strcpy(str, (char *) sqlite3_column_text(stmt2, 4));
             string cargo (str);
             Persona *b = new Administrador (nombre,apellido,tel,dni,cargo);
-            listaPersonas.push_back((*b));
+            listaPersonas.push_back(b);
         }
-    } while (result == SQLITE_ROW);
+    } while (result2 == SQLITE_ROW);
 
-    result = sqlite3_finalize(stmt1);
-    if (result != SQLITE_OK) 
+    result1 = sqlite3_finalize(stmt1);
+    if (result1 != SQLITE_OK) 
         cout << sqlite3_errmsg(db) << endl;
-    result = sqlite3_finalize(stmt2);
-    if (result != SQLITE_OK) 
+    result2 = sqlite3_finalize(stmt2);
+    if (result2 != SQLITE_OK) 
         cout << sqlite3_errmsg(db) << endl;
 
     return listaPersonas;

@@ -11,6 +11,8 @@ int totalCamareros (sqlite3 *db);
 int nuevoCamarero (sqlite3 *db, int dni);
 void mostrarCamareros(sqlite3 *db);
 
+void mostrarPersonas (sqlite3 *db);
+
 int totalComandas (sqlite3 *db);
 void mostrarComandas(sqlite3 *db);
 
@@ -35,5 +37,6 @@ void valorMedioComandas (sqlite3 *db);
 void mediaServicio (sqlite3 *db);
 void PrecioMedioProductosxCategoria (sqlite3 *db);
 void importeXmes (sqlite3 *db);
+void mostrarSalarios(sqlite3 *db);
 
 #endif

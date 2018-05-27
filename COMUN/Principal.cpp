@@ -113,7 +113,7 @@ int main (int argc, char *argv[])
 						cout <<"\n 2. Nota media camareros";
 						cout <<"\n 3. Actividad camareros";
 						cout <<"\n 4. Precio medio gastado por mesa";
-						cout <<"\n 5. Media del servicio del restaurante";
+						cout <<"\n 5. Salarios de la plantilla";
 						cout <<"\n 6. Ingresos por mes";
 						cout <<"\n 7. Media de precios por categoria";
 						cout <<"\n 8. Salir"<< endl;
@@ -121,7 +121,7 @@ int main (int argc, char *argv[])
 						switch(m)
 						{
 							case 1:
-							mostrarCamareros(db);
+							mostrarPersonas(db);
 							break;
 
 							case 2:
@@ -137,7 +137,7 @@ int main (int argc, char *argv[])
 							break;
 
 							case 5:
-							mediaServicio(db);
+							mostrarSalarios(db);
 							break;
 
 							case 6:
