@@ -58,9 +58,10 @@ void cambiarClave()
 
 void AltaCamarero(sqlite3 *db)
 {
-	string nombre, apellido;
-	int dni,tel,unica;
-	float sueldo;
+	string nombre, apellido,turno;
+	int dni,tel,unica,t;
+
+	cout << "\n\n ** ALTA CAMARERO **" << endl;
 
 	cin.ignore();
 	cout << "Nombre: " << endl;
@@ -88,7 +89,55 @@ void AltaCamarero(sqlite3 *db)
 	cout << "Telefono:" <<endl;
 	tel = pedirNumero(9);
 
-	altaCamarero(db,dni,nombre,apellido,tel);
+	cout << "Turno de \n 1. MEDIODIA \n 2. NOCHE" << endl;
+	cin >> t; 
+	if (t==1)
+		turno = "MEDIODIA";
+	else
+		turno = "NOCHE";
+		
+	altaCamarero(db,dni,nombre,apellido,tel,turno);
+}
+
+void AltaAdministrador(sqlite3 *db)
+{
+	string nombre, apellido,cargo;
+	int dni,tel,unica,t;
+
+	cout << "\n\n ** ALTA ADMINISTRADOR **" << endl;
+
+	cin.ignore();
+	cout << "Nombre: " << endl;
+	getline(cin, nombre);
+	cin.clear();
+	transform(nombre.begin(), nombre.end(), nombre.begin(),::toupper);
+	
+	cout << "Apellido: " << endl;
+	getline(cin, apellido);
+	cin.clear();
+	transform(apellido.begin(), apellido.end(), apellido.begin(),::toupper);
+	
+	cout << "DNI (sin letra): " << endl;
+	do
+	{
+		dni = pedirNumero(8);
+		unica = nuevoCamarero(db,dni);
+		if (unica!=0)
+		{
+			//FALLAAAAA
+			cout << "Error. DNI ya existente. "<<endl;
+		}
+	} while (unica!=0);
+
+	cout << "Telefono:" <<endl;
+	tel = pedirNumero(9);
+
+	cout << "Cargo:" << endl;
+	getline(cin, cargo);
+	cin.clear();
+	transform(cargo.begin(), cargo.end(), cargo.begin(),::toupper);
+		
+	altaAdministrador(db,dni,nombre,apellido,tel,cargo);
 }
 
 void AltaCategoria(sqlite3 *db)
@@ -98,6 +147,8 @@ void AltaCategoria(sqlite3 *db)
 
 	total = totalCategorias(db);
 	id = ultimoIDCategoria(db)+1;
+
+	cout << "\n\n ** ALTA CATEGORIA **" << endl;
 
 	cin.ignore();
 	cout << "Nombre:" << endl;
@@ -136,7 +187,9 @@ void AltaProducto(sqlite3 *db)
 {
 	string nombre,categoria;
 	float precio;
-	int id,catnum;
+	int id,catnum,totalCat;
+
+	cout << "\n\n ** ALTA PRODUCTO **" << endl;
 
 	cin.ignore();
 	id = ultimoIDProducto(db)+1;
@@ -152,7 +205,8 @@ void AltaProducto(sqlite3 *db)
 	//FALTA: confirmar que esta dentro del total
 	cout << "Introduce el numero de la categoria deseada:" << endl;
 	mostrarCategorias(db);
-	cin >> catnum;
+	totalCat = totalCategorias(db);
+	catnum = introducirOpcion(totalCat);
 	cin.clear();
 	categoria = getNombreCategoria(db,catnum);
 

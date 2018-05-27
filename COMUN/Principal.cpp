@@ -95,7 +95,7 @@ int main (int argc, char *argv[])
 			do
 			{
 				cout << "\n 1. Consultar estad"<< char(161) << "sticas" ;
-				cout <<"\n 2. A"<< char(164) << "adir camarero" ;
+				cout <<"\n 2. A"<< char(164) << "adir nuevo empleado" ;
 				cout <<"\n 3. A"<< char(164) << "adir categoria" ;
 				cout <<"\n 4. A"<< char(164) << "adir producto";
 				cout <<"\n 5. Editar producto";
@@ -109,7 +109,7 @@ int main (int argc, char *argv[])
 					case 1:
 					do
 					{
-						cout <<"\n 1. Lista de los camareros";
+						cout <<"\n 1. Ver plantilla";
 						cout <<"\n 2. Nota media camareros";
 						cout <<"\n 3. Actividad camareros";
 						cout <<"\n 4. Precio medio gastado por mesa";
@@ -125,7 +125,7 @@ int main (int argc, char *argv[])
 							break;
 
 							case 2:
-							mediaCamarero(db);//Nota media por camarero
+							mediaCamarero(db);
 							break;
 
 							case 3:
@@ -152,7 +152,7 @@ int main (int argc, char *argv[])
 					break;
 
 					case 2:
-					AltaCamarero(db);
+					nuevoEmpleado(db);
 					break;
 
 					case 3:
@@ -160,15 +160,24 @@ int main (int argc, char *argv[])
 					break;
 
 					case 4:	
-					AltaProducto(db);
+					if (totalCategorias(db)!=0)
+						AltaProducto(db);
+					else
+						cout << "Error. Debes a"<<char(164)<<"adir alguna categoria." << endl;
 					break;
 
 					case 5:
-					EditarProducto(db);
+					if (totalProductos(db)!=0)
+						EditarProducto(db);
+					else
+						cout<<"Error. No hay productos."<<endl;
 					break;
 
 					case 6:
-					EliminarProducto(db);
+					if (totalProductos(db)!=0)
+						EliminarProducto(db);
+					else
+						cout<<"Error. No hay productos."<< endl;
 					break;
 
 					case 7:

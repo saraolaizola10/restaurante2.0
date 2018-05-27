@@ -2,6 +2,7 @@
 #include "frComun.h"
 #include "../COMUN/Utilidades.h"
 #include "../LN/Persona.h"
+#include "../LN/Administrador.h"
 #include "../LN/Camarero.h"
 #include "../LN/Comanda.h"
 #include "../LN/Producto.h"
@@ -51,9 +52,6 @@ int nuevoCamarero (sqlite3 *db, int dni)
 			}
 		}
 	}
-
-	cout << nuevo << endl;
-
 	return nuevo;
 }
 
@@ -119,7 +117,7 @@ void mostrarCategorias (sqlite3 *db)
 	{
 		for (auto c: categorias)
 		{
-			cout << c << "  00"<<c.getId()<< endl; //PRUEBA
+			cout << c << endl; 
 		}
 	}
 }
@@ -150,16 +148,17 @@ int ultimoIDProducto (sqlite3 *db)
 
 	list <Producto> productos = getProductos(db);
 
-	for (auto p: productos)
-	{
-		if(p.getId()>id)
-			id = p.getId();
-	}
-	//if(!productos.empty())
+	//for (auto p: productos)
 	//{
-	//	Producto a = productos.back();
-	// 	id = a.getId();
+	//	if(p.getId()>id)
+	//		id = p.getId();
 	//}
+	
+	if(!productos.empty())
+	{
+		Producto a = productos.back();
+	 	id = a.getId();
+	}
 
 	return id;
 }
@@ -180,6 +179,14 @@ int ultimoIDCategoria (sqlite3 *db)
 
 // ESTADISTICAS
 
+void listaPlantilla (sqlite3 *db)
+{
+	list <Camarero> camareros = getCamareros(db);
+    list <Administrador> administradores = getAdministradores(db);
+
+    
+}
+
 void mediaCamarero(sqlite3 *db)
 {
     int dni,cantidad;
@@ -188,7 +195,7 @@ void mediaCamarero(sqlite3 *db)
     list <Comanda> comandas = getComandas(db);
 
     linea();
-    cout << "\n   ** NOTA MEDIA DE LOS CAMAREROS ** \n\n" << endl;
+    cout << "\n  ** NOTA MEDIA DE LOS CAMAREROS ** \n\n" << endl;
 
 	for (auto c: camareros)
 	{
@@ -235,7 +242,7 @@ void actividadCamarero (sqlite3 *db)
                 cantidad++;    
             }
         }
-        cout << c.getNombre() << " " << c.getApellido() <<"   x"<< cantidad << " " << total << char(36) << endl;
+        cout << " - " << c.getNombre() << " " << c.getApellido() <<"   x"<< cantidad << " " << total << char(36) << endl;
     }
     linea();
 }
@@ -257,7 +264,7 @@ void valorMedioComandas (sqlite3 *db)
 
     precio= total/comandas.size();
 
-    cout << "\n  HAN GASTADO UNA MEDIA DE " << precio << " POR MESA \n" << endl;
+    cout << "  Han gastado una media de " << precio << char(36) << "\n por mesa \n" << endl;
     linea();
 }
 
@@ -267,7 +274,7 @@ void mediaServicio (sqlite3 *db)
     list <Comanda> comandas = getComandas(db);
 
     linea();
-    cout << "\n  ** MEDIA DEL SERVICIO DEL RESTAURANTE ** \n\n" << endl;
+    cout << "\n  ** MEDIA DEL SERVICIO ** \n\n" << endl;
         
     total=0.0;
 
@@ -278,7 +285,7 @@ void mediaServicio (sqlite3 *db)
     }
     media= total/comandas.size();
     
-    cout << " La valoracion del servicio por parte de los \n cliente ha logrado un "<< media<<"/10" <<" de media \n" << endl;
+    cout << " La valoracion del servicio \n por parte de los cliente ha \n logrado un "<< media<<"/10" <<" de media \n" << endl;
     linea();
 }
 
@@ -291,7 +298,7 @@ void PrecioMedioProductosxCategoria (sqlite3 *db)
     list <Categoria> categorias = getCategorias(db);
 
     linea();
-    cout << "\n   ** PRECIO MEDIO DE PRODUCTOS POR CATEGORIA ** \n\n" << endl;
+    cout << "\n  ** PRECIO MEDIO DE PRODUCTOS ** \n\n" << endl;
     
     for (auto c: categorias)
     {
@@ -330,7 +337,7 @@ void importeXmes (sqlite3 *db)
     }
 
     linea();
-    cout << "\n   ** INGRESOS POR MES ** \n\n" << endl;
+    cout << "\n  ** INGRESOS POR MES ** \n\n" << endl;
 
     for (auto c: comandas)
     {
@@ -368,7 +375,7 @@ void importeXmes (sqlite3 *db)
 
 int MesaOcupada(int *cuentas[],int mesa,int nueva)
 {
-	if (cuentas[mesa][0]==0)		//!cuentas[mesa][0]) //saber que esta vacio sin que deje de funcionar
+	if (cuentas[mesa][0]==0)		
 	{
 		if (nueva==0)
 		{
@@ -437,8 +444,9 @@ void ImprimirCuenta (sqlite3 *db,int **cuentas, int mesa)
 
    	linea();
 	cout << "\n ** RESTAURANTE MISAJO 2.0 ** " << endl;
-	cout << "      Cuenta de la mesa "<< mesa+1 ;
-   //Utilidades: imprimir fecha
+	cout << "     Cuenta de la mesa "<< mesa+1 << endl;
+   	cout << "   ";
+   	mostrarHora();
 	linea();
 	
 	posicion=cuentas[mesa][0];

@@ -3,34 +3,28 @@
 #include <string.h>
 using namespace std;
 
-Administrador::Administrador(const string nombre, const string apellido, int dni, int tel/*, float salario*/): Persona(nombre, apellido, dni, tel)
+Administrador::Administrador(const string nombre, const string apellido, int dni, int tel, const string cargo): Persona(nombre, apellido, dni, tel)
 {
-	//this-> salario = 100;
+	this-> cargo = cargo;
 }
 
-//string Administrador::getNombre() const
-//{
-//	return this->nombre;
-//}
-//string Administrador::getApellido() const
-//{
-//	return this->apellido;
-//}
-//int Administrador::getDni() const
-//{
-//	return this->dni;
-//}
-//int Administrador::getTel() const
-//{
-//	return this->tel;
-//}
-//float Administrador::getSalario() const
-//{
-//	return this->salario;
-//}
+string Administrador::getCargo() const
+{
+	return this->cargo;
+}
 
 ostream &operator<<(ostream &os, const Administrador &a) 
 { 
      os << "Nombre:" << a.getNombre() << " " << a.getApellido() << ", dni: " << a.getDni() << ". Tel: "<< a.getTel();
      return os;
+}
+
+void Administrador::diPuesto()
+{
+	cout << "ADMINISTRADOR";
+}
+
+float Administrador::getSalario()
+{
+	return 1000;
 }

@@ -7,6 +7,7 @@ int comprobarClave();
 void cambiarClave();
 
 void AltaCamarero(sqlite3 *db);
+void AltaAdministrador(sqlite3 *db);
 void AltaCategoria(sqlite3 *db);
 void AltaProducto(sqlite3 *db);
 void EditarProducto(sqlite3 *db);

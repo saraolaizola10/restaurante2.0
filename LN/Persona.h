@@ -21,6 +21,9 @@ public:
 	int getDni() const;
 
 	//friend ostream &operator<<(ostream &os, const Persona &p);
+
+	virtual void diPuesto();
+	virtual float getSalario() = 0;
 };
 
 //ostream &operator<<(ostream &os, const Persona &p) 

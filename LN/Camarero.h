@@ -12,13 +12,13 @@ class Camarero: public Persona
 		string apellido;
 		int tel;
 		int dni;
-		float salario;
+		string turno;
 
 	public:
-		Camarero(const string nombre, const string apellido, int dni, int tel, float salario);
-
-		float getSalario() const;
-
+		Camarero(const string nombre, const string apellido, int dni, int tel, const string turno);
+		string getTurno() const;
+		virtual void diPuesto();
+		virtual float getSalario();
 };
 
 ostream &operator<<(ostream &os, const Camarero &c);

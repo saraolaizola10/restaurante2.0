@@ -29,7 +29,6 @@ int pedirDNI(sqlite3 *db)
 
 	for (auto c: camareros)
 	{
-		cout << c.getDni();
 		if (c.getDni() == dni)
 		{
 			return dni;

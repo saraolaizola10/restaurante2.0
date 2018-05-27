@@ -6,7 +6,26 @@
 #include <sstream>
 #include "../COMUN/Utilidades.h"
 #include "frComun.h"
+#include "../LD/sqlite3.h"
+#include "frAdministrador.h"
+#include "frCamarero.h"
 using namespace std;
+
+void nuevoEmpleado(sqlite3 *db)
+{
+    int opcion;
+
+    cout << "\n\n El nuevo empleado es...\n" << endl;
+    cout << "1. Administrador" << endl;
+    cout << "2. Camarero\n" << endl;
+
+    opcion = introducirOpcion (2);
+
+    if (opcion==1)
+        AltaAdministrador(db);
+    else
+        AltaCamarero(db);
+}
 
 void linea()
 {

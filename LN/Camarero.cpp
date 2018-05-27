@@ -3,18 +3,28 @@
 #include <string.h>
 using namespace std;
 
-Camarero::Camarero(const string nombre, const string apellido, int dni, int tel, float salario): Persona(nombre, apellido, dni, tel)
+Camarero::Camarero(const string nombre, const string apellido, int dni, int tel, const string turno): Persona(nombre, apellido, dni, tel)
 {
-	this-> salario = 100;
+	this->turno = turno;
 }
 
-float Camarero::getSalario() const
+string Camarero::getTurno() const
 {
-	return this->salario;
+	return this->turno;
 }
 
 ostream &operator<<(ostream &os, const Camarero &c) 
 { 
-     os << c.getNombre() << " " << c.getApellido() << ", dni: " << c.getDni() << ", tel: "<< c.getTel() << ". Salario: "<< c.getSalario() << char(156);
+     os << c.getNombre() << " " << c.getApellido() << ", dni: " << c.getDni() << ", tel: "<< c.getTel() << ". Turno de "<< c.getTurno();
      return os;
+}
+
+void Camarero::diPuesto()
+{
+	cout << "CAMARERO";
+}
+
+float Camarero::getSalario()
+{
+	return 500;
 }

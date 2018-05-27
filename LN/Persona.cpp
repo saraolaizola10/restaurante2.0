@@ -4,7 +4,13 @@
 #include <iostream>
 using namespace std;
 
-Persona::Persona(const string nombre, const string apellido, int dni, int tel): nombre(nombre), apellido(apellido), dni(dni), tel(tel){}
+Persona::Persona(const string nombre, const string apellido, int dni, int tel): nombre(nombre), apellido(apellido), dni(dni), tel(tel)
+{
+	this->nombre = nombre;
+	this->apellido = apellido;
+	this-> dni = dni;
+	this->tel=tel;	
+}
 
 string Persona::getNombre() const
 {
@@ -24,4 +30,8 @@ int Persona::getTel() const
 int Persona::getDni() const
 {
 	return this->dni;
+}
+void Persona::diPuesto()
+{
+	cout << "sin definir";
 }
