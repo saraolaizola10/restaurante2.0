@@ -16,10 +16,10 @@ void iniciarBD(sqlite3 *db)
 	char *err_message=0;
 	int rc;
 
-	const char *sql_query = "CREATE TABLE CAMAREROS (DNI INT PRIMARY KEY NOT NULL, NOMBRE TEXT, APELLIDO TEXT, TEL INT, TURNO TEXT);";
+	const char *sql_query = "CREATE TABLE CAMAREROS (DNI INT PRIMARY KEY NOT NULL, NOMBRE TEXT, APELLIDO TEXT, TEL INT, TURNO TEXT, SUELDO FLOAT);";
   	rc = sqlite3_exec(db, sql_query, 0, 0, &err_message);
 
-  	const char *sql_query1 = "CREATE TABLE ADMINISTRADORES (DNI INT PRIMARY KEY NOT NULL, NOMBRE TEXT, APELLIDO TEXT, TEL INT, CARGO TEXT);";
+  	const char *sql_query1 = "CREATE TABLE ADMINISTRADORES (DNI INT PRIMARY KEY NOT NULL, NOMBRE TEXT, APELLIDO TEXT, TEL INT, CARGO TEXT, SUELDO FLOAT);";
   	rc = sqlite3_exec(db, sql_query1, 0, 0, &err_message);
 
   	const char *sql_query2 = "CREATE TABLE PRODUCTOS (ID INT PRIMARY KEY NOT NULL, NOMBRE TEXT, CATEGORIA TEXT, PRECIO FLOAT);";
@@ -32,12 +32,12 @@ void iniciarBD(sqlite3 *db)
   	rc = sqlite3_exec(db, sql_query4, 0, 0, &err_message);
 }
 
-int altaCamarero (sqlite3 *db,int dni, string nombre,string apellido, int tel, string turno) 
+int altaCamarero (sqlite3 *db,int dni, string nombre,string apellido, int tel, string turno, float sueldo) 
 {
 	sqlite3_stmt *stmt;
 
 	std::stringstream ss;
-	ss << "INSERT INTO CAMAREROS (dni,nombre,apellido,tel,turno) values (" << dni << ",'" << nombre << "','" << apellido << "'," << tel << ",'"<<turno<<"');";
+	ss << "INSERT INTO CAMAREROS (dni,nombre,apellido,tel,turno,sueldo) values (" << dni << ",'" << nombre << "','" << apellido << "'," << tel << ",'"<<turno<<"',"<<sueldo<<");";
 	std::string ssql = ss.str();
 	char* sql = new char[ssql.length() + 1];
 	strcpy(sql, ssql.c_str());
@@ -53,12 +53,12 @@ int altaCamarero (sqlite3 *db,int dni, string nombre,string apellido, int tel, s
 	return SQLITE_OK;
 }
 
-int altaAdministrador (sqlite3 *db,int dni, string nombre,string apellido, int tel,string cargo) 
+int altaAdministrador (sqlite3 *db,int dni, string nombre,string apellido, int tel,string cargo, float sueldo) 
 {
 	sqlite3_stmt *stmt;
 
 	std::stringstream ss;
-	ss << "INSERT INTO ADMINISTRADORES (dni,nombre,apellido,tel,cargo) values (" << dni << ",'" << nombre << "','" << apellido << "'," << "'"<<cargo<<"');";
+	ss << "INSERT INTO ADMINISTRADORES (dni,nombre,apellido,tel,cargo,sueldo) values (" << dni << ",'" << nombre << "','" << apellido << "'," << tel << ",'" << cargo<<"',"<<sueldo<<");";
 	std::string ssql = ss.str();
 	char* sql = new char[ssql.length() + 1];
 	strcpy(sql, ssql.c_str());
@@ -66,11 +66,7 @@ int altaAdministrador (sqlite3 *db,int dni, string nombre,string apellido, int t
 	int result = sqlite3_prepare_v2(db,sql,-1,&stmt, NULL) ;
 	result = sqlite3_step(stmt);
 	result = sqlite3_finalize(stmt);
-	if (result != SQLITE_OK) 
-	{
-		cout << sqlite3_errmsg(db) << endl;
-		return result;
-	}
+	
 	return SQLITE_OK;
 }
 

@@ -11,11 +11,13 @@
 #include <iostream>
 #include <fstream>
 #include <list>
-#include <vector>
 #include <iomanip>
 #include <cstdlib>
 #include <time.h>
+
 using namespace std;
+
+#define SUELDO 1000
 
 int comprobarClave()
 {
@@ -60,6 +62,7 @@ void AltaCamarero(sqlite3 *db)
 {
 	string nombre, apellido,turno;
 	int dni,tel,unica,t;
+	float sueldo;
 
 	cout << "\n\n ** ALTA CAMARERO **" << endl;
 
@@ -89,20 +92,33 @@ void AltaCamarero(sqlite3 *db)
 	cout << "Telefono:" <<endl;
 	tel = pedirNumero(9);
 
-	cout << "Turno de \n 1. MEDIODIA \n 2. NOCHE" << endl;
-	cin >> t; 
-	if (t==1)
-		turno = "MEDIODIA";
+	cout << "Turno de \n 1. MEDIODIA \n 2. NOCHE \n 3. COMPLETO" << endl;
+	t = introducirOpcion(2);
+	switch (t)
+	{
+		case 1:		turno="MEDIODIA";
+					break;
+
+		case 2:		turno="NOCHE";
+					break;
+
+		case 3:		turno="COMPLETO";
+					break;
+	}
+
+	if (t==3)
+		sueldo = SUELDO;
 	else
-		turno = "NOCHE";
+		sueldo = SUELDO/2;
 		
-	altaCamarero(db,dni,nombre,apellido,tel,turno);
+	altaCamarero(db,dni,nombre,apellido,tel,turno,sueldo);
 }
 
 void AltaAdministrador(sqlite3 *db)
 {
 	string nombre, apellido,cargo;
 	int dni,tel,unica,t;
+	float sueldo;
 
 	cout << "\n\n ** ALTA ADMINISTRADOR **" << endl;
 
@@ -132,12 +148,16 @@ void AltaAdministrador(sqlite3 *db)
 	cout << "Telefono:" <<endl;
 	tel = pedirNumero(9);
 
+	cin.ignore();
 	cout << "Cargo:" << endl;
 	getline(cin, cargo);
 	cin.clear();
 	transform(cargo.begin(), cargo.end(), cargo.begin(),::toupper);
+
+	cout << "Sueldo:" << endl;
+	sueldo=pedirFloat();
 		
-	altaAdministrador(db,dni,nombre,apellido,tel,cargo);
+	altaAdministrador(db,dni,nombre,apellido,tel,cargo,sueldo);
 }
 
 void AltaCategoria(sqlite3 *db)

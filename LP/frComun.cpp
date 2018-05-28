@@ -49,69 +49,59 @@ int introducirOpcion(int opciones)
 float pedirFloat()
 {
     string str;
-    float d;
-    int v;
+    int ok;
+    float num;
     char *cstr;
-    do
+
+    do 
     {
-        v=0;
-        getline(cin, str);
-        
+        ok=0;
+        cin >> str;
+        cin.clear();
+
         cstr = new char[str.length() + 1];
         strcpy(cstr, str.c_str());
         cstr = ComaAPunto (cstr);
-        string s (cstr);
-        stringstream ss(s);
 
-        //float d = atof(after);
-            if (ss >> d)
-            {
-                if (ss.eof())
-                {   
-                    break;
-                }
-            }
-            cout << "Error. Introducir valor valido" << std::endl;
-            v++;
-    } while(v!=0);
+        if(sscanf(cstr,"%f",&num)!=1)
+        {
+            ok++;
+            cout << "Error. Asegurate de introducir solo numeros"<<endl;
+            break;
+        }
 
-    delete[]cstr;
-    cin.clear();
-    return d;
+    } while (ok!=0);
+
+    return num;
 }
 
 int pedirNumero(int condicion)
 {
-    string line;
-    int d, v;
-    cin>>d;
-    //do
-    //{
-    //    v=0;
-    //    cin.ignore();
-        //while (getline(cin, line))
-        //{
-        //    stringstream ss(line) ;
-        //    if (ss >> d)
-        //    {
-        //        if (ss.eof())
-        //        {   
-        //            if (condicion!=0)
-        //            {
-        //                if (getLongitud(d)!=condicion)
-        //                    cout << "Error. Introducir "<<condicion<<" digitos"<<endl;
-        //                else
-        //                    break;
-        //            }
-        //            else
-        //                break;
-        //        }
-        //    }
-        //    cout << "Error. Introducir valor valido" << endl;
-        //    v++;
-        //}
-    //} while (v!=0);
+    string str;
+    int num,ok;
 
-    cin.clear();
-    return d;
+    do 
+    {
+        ok=0;
+        cin >> str;
+        cin.clear();
+
+        const char *c = str.c_str();
+
+        if ((condicion!=0)&&(str.size()!=condicion))
+        {
+            ok++;
+            cout<<"Error. Asegurate de introducir "<<condicion<<" numeros"<<endl;
+            break;
+        }    
+        if(sscanf(c,"%d",&num)!=1)
+        {
+            ok++;
+            cout << "Error. Asegurate de introducir solo numeros"<<endl;
+            break;
+        }
+
+    } while (ok!=0);
+
+    return num;
 }

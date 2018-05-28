@@ -11,6 +11,7 @@
 #include <ctype.h>
 #include <string.h>
 #include <iostream>
+#include <algorithm>
 #include <list>
 
 using namespace std;
@@ -19,14 +20,14 @@ list <Camarero> getCamareros (sqlite3 *db)
 {
 	sqlite3_stmt *stmt;
 	
-	char sql[] = "SELECT DNI,NOMBRE,APELLIDO,TEL,TURNO FROM CAMAREROS";
+	char sql[] = "SELECT DNI,NOMBRE,APELLIDO,TEL,TURNO,SUELDO FROM CAMAREROS";
 	int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) ;
 	if (result != SQLITE_OK) 
 		cout << sqlite3_errmsg(db) << endl;
 
 	list <Camarero> listaCamareros {};
 	int tel, dni;
-	float salario;
+	float sueldo;
 	char str [100];
 	do
 	{
@@ -41,7 +42,8 @@ list <Camarero> getCamareros (sqlite3 *db)
 			tel = sqlite3_column_int(stmt, 3);
 			strcpy(str, (char *) sqlite3_column_text(stmt, 4));
 			string turno (str);
-			Camarero a (nombre,apellido,dni,tel,turno);
+			sueldo = sqlite3_column_double(stmt, 5);
+			Camarero a (nombre,apellido,dni,tel,turno,sueldo);
 			listaCamareros.push_back(a);
 		}
 	} while (result == SQLITE_ROW);
@@ -57,13 +59,14 @@ list <Administrador> getAdministradores (sqlite3 *db)
 {
 	sqlite3_stmt *stmt;
 	
-	char sql[] = "SELECT DNI,NOMBRE,APELLIDO,TEL,CARGO FROM ADMINISTRADORES";
+	char sql[] = "SELECT DNI,NOMBRE,APELLIDO,TEL,CARGO,SUELDO FROM ADMINISTRADORES";
 	int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) ;
 	if (result != SQLITE_OK) 
 		cout << sqlite3_errmsg(db) << endl;
 
 	list <Administrador> listaAdministradores {};
 	int tel, dni;
+	float sueldo;
 	char str [100];
 	do
 	{
@@ -78,7 +81,8 @@ list <Administrador> getAdministradores (sqlite3 *db)
 			tel = sqlite3_column_int(stmt, 3);
 			strcpy(str, (char *) sqlite3_column_text(stmt, 4));
 			string cargo (str);
-			Administrador a (nombre,apellido,tel,dni,cargo);
+			sueldo = sqlite3_column_double(stmt, 5);
+			Administrador a (nombre,apellido,tel,dni,cargo,sueldo);
 			listaAdministradores.push_back(a);
 		}
 	} while (result == SQLITE_ROW);
@@ -91,24 +95,24 @@ list <Administrador> getAdministradores (sqlite3 *db)
 }
 
 
-list <Persona*> getPersonas (sqlite3 *db)
+vector <Persona*> getPersonas (sqlite3 *db)
 {
     sqlite3_stmt *stmt1;
     sqlite3_stmt *stmt2;
     
-    char sql1[] = "SELECT DNI,NOMBRE,APELLIDO,TEL,TURNO FROM CAMAREROS";
+    char sql1[] = "SELECT DNI,NOMBRE,APELLIDO,TEL,TURNO,SUELDO FROM CAMAREROS";
     int result1 = sqlite3_prepare_v2(db, sql1, -1, &stmt1, NULL) ;
     if (result1 != SQLITE_OK) 
         cout << sqlite3_errmsg(db) << endl;
 
-    char sql2[] = "SELECT DNI,NOMBRE,APELLIDO,TEL,CARGO FROM ADMINISTRADORES";
+    char sql2[] = "SELECT DNI,NOMBRE,APELLIDO,TEL,CARGO,SUELDO FROM ADMINISTRADORES";
     int result2 = sqlite3_prepare_v2(db, sql2, -1, &stmt2, NULL) ;
     if (result2 != SQLITE_OK) 
         cout << sqlite3_errmsg(db) << endl;
 
-   	list <Persona*> listaPersonas {};
+   	vector <Persona*> listaPersonas {};
     int tel, dni;
-    float salario;
+    float sueldo;
     char str [100];
 
     do
@@ -124,7 +128,8 @@ list <Persona*> getPersonas (sqlite3 *db)
             tel = sqlite3_column_int(stmt1, 3);
             strcpy(str, (char *) sqlite3_column_text(stmt1, 4));
             string turno (str);
-            Persona *b =  new Camarero (nombre,apellido,dni,tel,turno);
+            sueldo = sqlite3_column_double(stmt1, 5);
+            Persona *b =  new Camarero (nombre,apellido,dni,tel,turno,sueldo);
             listaPersonas.push_back(b);
         }
     } while (result1 == SQLITE_ROW);
@@ -142,7 +147,8 @@ list <Persona*> getPersonas (sqlite3 *db)
             tel = sqlite3_column_int(stmt2, 3);
             strcpy(str, (char *) sqlite3_column_text(stmt2, 4));
             string cargo (str);
-            Persona *b = new Administrador (nombre,apellido,tel,dni,cargo);
+            sueldo = sqlite3_column_double(stmt2, 5);
+            Persona *b = new Administrador (nombre,apellido,tel,dni,cargo,sueldo);
             listaPersonas.push_back(b);
         }
     } while (result2 == SQLITE_ROW);
@@ -153,6 +159,8 @@ list <Persona*> getPersonas (sqlite3 *db)
     result2 = sqlite3_finalize(stmt2);
     if (result2 != SQLITE_OK) 
         cout << sqlite3_errmsg(db) << endl;
+
+    sort(listaPersonas.begin(), listaPersonas.end());
 
     return listaPersonas;
 }

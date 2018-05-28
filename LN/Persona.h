@@ -2,6 +2,7 @@
 #define _PERSONA_H
 
 #include <iostream>
+
 using namespace std;
 
 class Persona
@@ -11,17 +12,19 @@ private:
 	string apellido;
 	int tel;
 	int dni;
+	float sueldo;
 	
 public:
-	Persona(const string nombre, const string apellido, int dni, int tel);
+	Persona(const string nombre, const string apellido, int dni, int tel, float sueldo);
 
 	string getNombre() const;
 	string getApellido() const;
 	int getTel() const;
 	int getDni() const;
-
-	virtual void diPuesto();
-	virtual float getSalario() = 0;
+	
+	virtual float getSueldo();
+	virtual void diPuesto()=0;
+	
 };
 
 ostream &operator<<(ostream &os, const Persona &p);

@@ -68,11 +68,24 @@ void mostrarCamareros(sqlite3 *db)
 	}
 }
 
+void mostrarAdministradores(sqlite3 *db)
+{
+	list <Administrador> administradores = getAdministradores(db);
+
+	if(!administradores.empty())
+	{
+		for (auto a: administradores)
+		{
+			cout << a << endl;
+		}
+	}
+}
+
 //PERSONAS
 
 void mostrarPersonas (sqlite3 *db)
 {
-	list<Persona*> personas = getPersonas(db);
+	vector <Persona*> personas = getPersonas(db);
 
 	if(!personas.empty())
 	{
@@ -389,17 +402,22 @@ void importeXmes (sqlite3 *db)
 
 void mostrarSalarios (sqlite3 *db)
 {
-	list<Persona*> personas = getPersonas(db);
+	vector <Persona*> personas = getPersonas(db);
 
+	linea();
+
+	cout << "\n  ** SUELDO DE LOS CAMAREROS ** \n\n" << endl;
+	
 	if(!personas.empty())
 	{
 		for (auto p: personas)
 		{
-			cout << p->getNombre() << " " << p->getApellido() << " -> " << p->getSalario() << char(36) << endl;
+			cout << " - " << p->getNombre() << " " << p->getApellido() << " : " << p->getSueldo() << char(36) << endl;
 		}
 	}
-}
 
+	linea();
+}
 
 //METODOS CAMARERO
 

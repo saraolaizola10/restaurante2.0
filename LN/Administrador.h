@@ -13,12 +13,14 @@ class Administrador: public Persona
 		int tel;
 		int dni;
 		string cargo;
+		float sueldo;
 
 	public:
-		Administrador(const string nombre, const string apellido, int dni, int tel, const string cargo);
+		Administrador(const string nombre, const string apellido, int dni, int tel, const string cargo, float sueldo);
 		string getCargo() const;
+		virtual float getSueldo() ;
 		virtual void diPuesto();
-		virtual float getSalario();
+		
 };
 
 ostream &operator<<(ostream &os, const Administrador &a);
