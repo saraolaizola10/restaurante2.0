@@ -37,7 +37,9 @@ int main (int argc, char *argv[])
 		cuentas[i][0] = 0; 
 	}
 
-	cout << "\n\nBienvenido al Restaurante" << endl;
+	linea();
+
+	cout << "\n\n ** BIENVENIDO A MISAJO 2.0 ** \n" << endl;
 	
 	if (((argc < 2)||strcmp(argv[1],PARAM)!=0))
 	{
@@ -46,6 +48,7 @@ int main (int argc, char *argv[])
 		{
 			do
 			{
+				cout << "\n  -- Menu Camarero -- ";
 				cout << "\n 1. Nueva comanda";
 				cout <<"\n 2. A" << char(164) << "adir a comanda";
 				cout <<"\n 3. Imprimir cuenta";
@@ -94,6 +97,7 @@ int main (int argc, char *argv[])
 		{
 			do
 			{
+				cout << "\n  -- Menu Administrador -- ";
 				cout << "\n 1. Consultar estad"<< char(161) << "sticas" ;
 				cout <<"\n 2. A"<< char(164) << "adir nuevo empleado" ;
 				cout <<"\n 3. A"<< char(164) << "adir categoria" ;
@@ -109,6 +113,7 @@ int main (int argc, char *argv[])
 					case 1:
 					do
 					{
+						cout << "\n  -- Estad"<<char(161)<<"sticas -- ";
 						cout <<"\n 1. Ver plantilla";
 						cout <<"\n 2. Nota media camareros";
 						cout <<"\n 3. Actividad camareros";

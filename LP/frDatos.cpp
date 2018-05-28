@@ -198,7 +198,7 @@ void mostrarPersonas (sqlite3 *db)
 
 	linea();
 
-	cout << "\n   ** EMPLEADOS ** \n" << endl;
+	cout << "\n       ** EMPLEADOS ** \n" << endl;
 	if(!personas.empty())
 	{
 		for (auto p: personas)
