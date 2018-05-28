@@ -17,7 +17,7 @@
 
 using namespace std;
 
-#define SUELDO 1000
+#define SUELDO 1000.00
 
 int comprobarClave()
 {
@@ -84,7 +84,6 @@ void AltaCamarero(sqlite3 *db)
 		unica = nuevoCamarero(db,dni);
 		if (unica!=0)
 		{
-			//FALLAAAAA
 			cout << "Error. DNI ya existente. "<<endl;
 		}
 	} while (unica!=0);
@@ -93,7 +92,7 @@ void AltaCamarero(sqlite3 *db)
 	tel = pedirNumero(9);
 
 	cout << "Turno de \n 1. MEDIODIA \n 2. NOCHE \n 3. COMPLETO" << endl;
-	t = introducirOpcion(2);
+	t = introducirOpcion(3);
 	switch (t)
 	{
 		case 1:		turno="MEDIODIA";

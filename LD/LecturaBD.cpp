@@ -82,7 +82,7 @@ list <Administrador> getAdministradores (sqlite3 *db)
 			strcpy(str, (char *) sqlite3_column_text(stmt, 4));
 			string cargo (str);
 			sueldo = sqlite3_column_double(stmt, 5);
-			Administrador a (nombre,apellido,tel,dni,cargo,sueldo);
+			Administrador a (nombre,apellido,dni,tel,cargo,sueldo);
 			listaAdministradores.push_back(a);
 		}
 	} while (result == SQLITE_ROW);
@@ -129,6 +129,7 @@ vector <Persona*> getPersonas (sqlite3 *db)
             strcpy(str, (char *) sqlite3_column_text(stmt1, 4));
             string turno (str);
             sueldo = sqlite3_column_double(stmt1, 5);
+            
             Persona *b =  new Camarero (nombre,apellido,dni,tel,turno,sueldo);
             listaPersonas.push_back(b);
         }
@@ -148,7 +149,7 @@ vector <Persona*> getPersonas (sqlite3 *db)
             strcpy(str, (char *) sqlite3_column_text(stmt2, 4));
             string cargo (str);
             sueldo = sqlite3_column_double(stmt2, 5);
-            Persona *b = new Administrador (nombre,apellido,tel,dni,cargo,sueldo);
+            Persona *b = new Administrador (nombre,apellido,dni,tel,cargo,sueldo);
             listaPersonas.push_back(b);
         }
     } while (result2 == SQLITE_ROW);

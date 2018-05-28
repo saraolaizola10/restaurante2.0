@@ -37,7 +37,7 @@ int altaCamarero (sqlite3 *db,int dni, string nombre,string apellido, int tel, s
 	sqlite3_stmt *stmt;
 
 	std::stringstream ss;
-	ss << "INSERT INTO CAMAREROS (dni,nombre,apellido,tel,turno,sueldo) values (" << dni << ",'" << nombre << "','" << apellido << "'," << tel << ",'"<<turno<<"',"<<sueldo<<");";
+	ss << "INSERT INTO CAMAREROS (dni,nombre,apellido,tel,turno,sueldo) values (" << dni << ",'" << nombre << "','" << apellido << "'," << tel << ",'" << turno << "'," << sueldo << ");";
 	std::string ssql = ss.str();
 	char* sql = new char[ssql.length() + 1];
 	strcpy(sql, ssql.c_str());
@@ -58,7 +58,7 @@ int altaAdministrador (sqlite3 *db,int dni, string nombre,string apellido, int t
 	sqlite3_stmt *stmt;
 
 	std::stringstream ss;
-	ss << "INSERT INTO ADMINISTRADORES (dni,nombre,apellido,tel,cargo,sueldo) values (" << dni << ",'" << nombre << "','" << apellido << "'," << tel << ",'" << cargo<<"',"<<sueldo<<");";
+	ss << "INSERT INTO ADMINISTRADORES (dni,nombre,apellido,tel,cargo,sueldo) values (" << dni << ",'" << nombre << "','" << apellido << "'," << tel << ",'" << cargo <<"'," << sueldo << ");";
 	std::string ssql = ss.str();
 	char* sql = new char[ssql.length() + 1];
 	strcpy(sql, ssql.c_str());
@@ -66,7 +66,11 @@ int altaAdministrador (sqlite3 *db,int dni, string nombre,string apellido, int t
 	int result = sqlite3_prepare_v2(db,sql,-1,&stmt, NULL) ;
 	result = sqlite3_step(stmt);
 	result = sqlite3_finalize(stmt);
-	
+	if (result != SQLITE_OK) 
+	{
+		cout << sqlite3_errmsg(db) << endl;
+		return result;
+	}
 	return SQLITE_OK;
 }
 

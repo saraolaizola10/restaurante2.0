@@ -5,6 +5,7 @@ using namespace std;
 
 Camarero::Camarero(const string nombre, const string apellido, int dni, int tel, const string turno, float sueldo): Persona(nombre, apellido, dni, tel,sueldo)
 {
+	this->sueldo=sueldo;
 	this->turno = turno;
 }
 

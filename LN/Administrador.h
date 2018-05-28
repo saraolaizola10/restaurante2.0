@@ -18,7 +18,7 @@ class Administrador: public Persona
 	public:
 		Administrador(const string nombre, const string apellido, int dni, int tel, const string cargo, float sueldo);
 		string getCargo() const;
-		virtual float getSueldo() ;
+		virtual float getSueldo();
 		virtual void diPuesto();
 		
 };

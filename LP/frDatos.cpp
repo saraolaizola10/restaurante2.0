@@ -81,23 +81,6 @@ void mostrarAdministradores(sqlite3 *db)
 	}
 }
 
-//PERSONAS
-
-void mostrarPersonas (sqlite3 *db)
-{
-	vector <Persona*> personas = getPersonas(db);
-
-	if(!personas.empty())
-	{
-		for (auto p: personas)
-		{
-			cout << (*p) << " ";
-			p->diPuesto();
-			cout << endl;
-		}
-	}
-}
-
 //PRODUCTOS
 
 int totalProductos (sqlite3 *db)
@@ -209,12 +192,24 @@ int ultimoIDCategoria (sqlite3 *db)
 
 // ESTADISTICAS
 
-void listaPlantilla (sqlite3 *db)
+void mostrarPersonas (sqlite3 *db)
 {
-	list <Camarero> camareros = getCamareros(db);
-    list <Administrador> administradores = getAdministradores(db);
+	vector <Persona*> personas = getPersonas(db);
 
-    
+	linea();
+
+	cout << "\n   ** EMPLEADOS ** \n" << endl;
+	if(!personas.empty())
+	{
+		for (auto p: personas)
+		{
+			cout << " - " << p->getNombre() << " "<< p->getApellido() << ", ";
+			p->diPuesto();
+			cout << endl;
+		}
+	}
+
+	linea();
 }
 
 void mediaCamarero(sqlite3 *db)
@@ -225,7 +220,7 @@ void mediaCamarero(sqlite3 *db)
     list <Comanda> comandas = getComandas(db);
 
     linea();
-    cout << "\n  ** NOTA MEDIA DE LOS CAMAREROS ** \n\n" << endl;
+    cout << "\n ** NOTA MEDIA DE LOS CAMAREROS ** \n\n" << endl;
 
 	for (auto c: camareros)
 	{
@@ -242,7 +237,7 @@ void mediaCamarero(sqlite3 *db)
             }
         }
         total= total/cantidad;
-        cout << c.getNombre() << " " << c.getApellido() << " " << total << endl;
+        cout <<" - "<< c.getNombre() << " " << c.getApellido() << " " << total << endl;
 	}
     linea();
 }
@@ -255,7 +250,7 @@ void actividadCamarero (sqlite3 *db)
     list <Comanda> comandas = getComandas(db);
 
     linea();
-  	cout << "\n  ** ACTIVIDAD DE LOS CAMAREROS ** \n" << endl;
+  	cout << "\n ** ACTIVIDAD DE LOS CAMAREROS ** \n" << endl;
     cout << " (Camarero/Num.Comandas/Imp.Total)\n\n" << endl;
 
     for (auto c: camareros)
@@ -283,7 +278,7 @@ void valorMedioComandas (sqlite3 *db)
     list <Comanda> comandas = getComandas(db);
 
     linea();
-    cout << "\n  ** PRECIO MEDIO GASTADO POR MESA ** \n\n" << endl;
+    cout << "\n ** PRECIO MEDIO POR COMANDA ** \n\n" << endl;
         
     total=0,0;
 
@@ -328,7 +323,7 @@ void PrecioMedioProductosxCategoria (sqlite3 *db)
     list <Categoria> categorias = getCategorias(db);
 
     linea();
-    cout << "\n  ** PRECIO MEDIO DE PRODUCTOS ** \n\n" << endl;
+    cout << "\n ** PRECIO MEDIO DE PRODUCTOS ** \n\n" << endl;
     
     for (auto c: categorias)
     {
@@ -345,7 +340,7 @@ void PrecioMedioProductosxCategoria (sqlite3 *db)
             }
         }
         med = precioTot/cant;
-        cout << " " <<c.getNombre() << " : " << med << char(36) << endl;
+        cout << " - " <<c.getNombre() << " : " << med << char(36) << endl;
     }
 
     linea();
@@ -402,17 +397,18 @@ void importeXmes (sqlite3 *db)
 
 void mostrarSalarios (sqlite3 *db)
 {
+	float sueldo;
 	vector <Persona*> personas = getPersonas(db);
 
 	linea();
 
-	cout << "\n  ** SUELDO DE LOS CAMAREROS ** \n\n" << endl;
+	cout << "\n ** SUELDO DE LOS EMPLEADOS ** \n\n" << endl;
 	
 	if(!personas.empty())
 	{
 		for (auto p: personas)
 		{
-			cout << " - " << p->getNombre() << " " << p->getApellido() << " : " << p->getSueldo() << char(36) << endl;
+			cout << " - " << p->getNombre() << " " << p->getApellido() << " : "<< p->getSueldo() << char(36) << endl;
 		}
 	}
 
