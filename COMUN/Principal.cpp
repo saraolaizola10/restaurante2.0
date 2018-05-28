@@ -24,7 +24,7 @@ int main (int argc, char *argv[])
 	int result = sqlite3_open("BD.sqlite", &db);
 	if (result != SQLITE_OK) 
 	{
-		cout << "Error opening database\n" << endl;
+		cout << "Error al abrir la base de datos\n" << endl;
 		return result;
 	}
 	iniciarBD(db);//CREACION DE TABLAS BD
@@ -48,7 +48,7 @@ int main (int argc, char *argv[])
 		{
 			do
 			{
-				cout << "\n  -- Menu Camarero -- ";
+				cout << "\n\n  -- Menu Camarero -- " << endl;
 				cout << "\n 1. Nueva comanda";
 				cout <<"\n 2. A" << char(164) << "adir a comanda";
 				cout <<"\n 3. Imprimir cuenta";
@@ -97,7 +97,7 @@ int main (int argc, char *argv[])
 		{
 			do
 			{
-				cout << "\n  -- Menu Administrador -- ";
+				cout << "\n\n  -- Menu Administrador -- " << endl;
 				cout << "\n 1. Consultar estad"<< char(161) << "sticas" ;
 				cout <<"\n 2. A"<< char(164) << "adir nuevo empleado" ;
 				cout <<"\n 3. A"<< char(164) << "adir categoria" ;
@@ -113,7 +113,7 @@ int main (int argc, char *argv[])
 					case 1:
 					do
 					{
-						cout << "\n  -- Estad"<<char(161)<<"sticas -- ";
+						cout << "\n\n  -- Estad"<<char(161)<<"sticas -- "<<endl;
 						cout <<"\n 1. Ver plantilla";
 						cout <<"\n 2. Nota media camareros";
 						cout <<"\n 3. Actividad camareros";
