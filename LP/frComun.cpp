@@ -40,7 +40,8 @@ int introducirOpcion(int opciones)
     do
     {
         n=pedirNumero(0);
-
+        if((n<0)||(n>opciones))
+            cout << "Error. Introducir un numero entre 1 y "<<opciones<< "." << endl;
     } while ((n<0)||(n>opciones));
     return n;
 }
