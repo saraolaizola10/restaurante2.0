@@ -5,7 +5,6 @@ using namespace std;
 
 Camarero::Camarero(const string nombre, const string apellido, int dni, int tel, const string turno, float sueldo): Persona(nombre, apellido, dni, tel,sueldo)
 {
-	this->sueldo=sueldo;
 	this->turno = turno;
 }
 
@@ -14,10 +13,6 @@ string Camarero::getTurno() const
 	return this->turno;
 }
 
-float Camarero::getSueldo() 
-{
-	return this->sueldo;
-}
 
 ostream &operator<<(ostream &os, const Camarero &c) 
 { 
@@ -28,4 +23,9 @@ ostream &operator<<(ostream &os, const Camarero &c)
 void Camarero::diPuesto()
 {
 	cout << "CAMARERO";
+}
+
+void Camarero::bienvenido(Persona *p)
+{
+	cout<<"Bienvenido camarero, "<<p->getNombre()<<endl;
 }

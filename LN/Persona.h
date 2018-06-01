@@ -21,7 +21,9 @@ public:
 	string getApellido() const;
 	int getTel() const;
 	int getDni() const;
+
 	
+	virtual void bienvenido(Persona *p);
 	virtual float getSueldo();
 	virtual void diPuesto()=0;
 	
