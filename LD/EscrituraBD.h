@@ -18,5 +18,6 @@ int altaComanda (sqlite3 *db,int dni, int fechayhora, float total, float media);
 int updateProducto (sqlite3 *db,int id, string nombre, float precio);
 int updateAdministrador (sqlite3 *db,int dni, int tel,string cargo, float sueldo);
 int deleteProducto (sqlite3 *db,int id);
+int deleteCamarero (sqlite3 *db,int dni);
 
 #endif
