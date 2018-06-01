@@ -43,3 +43,8 @@ ostream &operator<<(ostream &os, const Persona &p)
     os << p.getNombre() << " " << p.getApellido() << ", dni: " << p.getDni() << ". Tel: "<< p.getTel();
     return os;
 }
+
+void bienvenido(Persona *p)
+{
+	cout<<"Bienvenido/a"<<endl;
+}
