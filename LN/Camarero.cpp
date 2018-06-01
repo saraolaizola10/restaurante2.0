@@ -62,16 +62,9 @@ istream& operator>> (istream& in, Camarero &c)
 	transform(apellido.begin(), apellido.end(), apellido.begin(),::toupper);
 	
 	cout << "DNI (sin letra): " << endl;
-	do
-	{
-		dni = pedirNumero(8);
-		//unica = nuevoCamarero(db,dni);
-		if (unica!=0)
-		{
-			cout << "Error. DNI ya existente. "<<endl;
-		}
-	} while (unica!=0);
 
+	dni = pedirNumero(8);
+	
 	cout << "Telefono:" <<endl;
 	tel = pedirNumero(9);
 
