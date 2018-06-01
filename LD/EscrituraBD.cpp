@@ -242,7 +242,7 @@ int deleteCamarero (sqlite3 *db,int dni)
 	sqlite3_stmt *stmt;
 
 	std::stringstream ss;
-	ss << "DELETE FROM CAMAREROS where (dni="<<id<<");";
+	ss << "DELETE FROM CAMAREROS where (dni="<<dni<<");";
 	std::string ssql = ss.str();
 	char* sql = new char[ssql.length() + 1];
 	strcpy(sql, ssql.c_str());
