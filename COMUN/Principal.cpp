@@ -105,8 +105,10 @@ int main (int argc, char *argv[])
 		  dni = pedirDNIa(db);
 		  if(dni!=0)
 		  {
+		  	Persona *adm= getAdministrador(db, dni);
 			do
 			{
+				adm->bienvenido(adm);
 				cout << "\n\n  -- Menu Administrador -- " << endl;
 				cout << "\n 1. Consultar estad"<< char(161) << "sticas" ;
 				cout <<"\n 2. A"<< char(164) << "adir nuevo empleado" ;
