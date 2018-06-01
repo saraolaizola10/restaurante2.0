@@ -206,6 +206,26 @@ int updateAdministrador (sqlite3 *db,int dni, int tel,string cargo, float sueldo
 
 }
 
+int deleteProducto (sqlite3 *db,int id)
+{
+	sqlite3_stmt *stmt;
+
+	std::stringstream ss;
+	ss << "DELETE FROM PRODUCTOS where (id="<<id<<");";
+	std::string ssql = ss.str();
+	char* sql = new char[ssql.length() + 1];
+	strcpy(sql, ssql.c_str());
+	
+	int result = sqlite3_prepare_v2(db,sql,-1,&stmt, NULL) ;
+	result = sqlite3_step(stmt);
+	result = sqlite3_finalize(stmt);
+	if (result != SQLITE_OK) 
+	{
+		cout << sqlite3_errmsg(db) << endl;
+		return result;
+	}
+	return SQLITE_OK;
+}
 
 
  
