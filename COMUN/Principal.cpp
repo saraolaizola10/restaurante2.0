@@ -43,11 +43,15 @@ int main (int argc, char *argv[])
 	
 	if (((argc < 2)||strcmp(argv[1],PARAM)!=0))
 	{
+		
 		dni = pedirDNI(db);
+		Persona *cam= getCamarero(db, dni);
+
 		if (dni!=0)
 		{
 			do
 			{
+				cam->bienvenido(cam);
 				cout << "\n\n  -- Menu Camarero -- " << endl;
 				cout << "\n 1. Nueva comanda";
 				cout <<"\n 2. A" << char(164) << "adir a comanda";

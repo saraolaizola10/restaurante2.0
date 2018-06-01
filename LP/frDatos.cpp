@@ -68,6 +68,23 @@ void mostrarCamareros(sqlite3 *db)
 	}
 }
 
+Camarero* getCamarero(sqlite3 *db, int dni)
+{
+	list<Camarero> camareros= getCamareros(db);
+	if(!camareros.empty())
+	{
+		for (auto c: camareros)
+		{
+			if(c.getDni()==dni)
+			{
+				return &c;
+			}
+		}
+
+	}
+	return NULL;
+}
+
 void mostrarAdministradores(sqlite3 *db)
 {
 	list <Administrador> administradores = getAdministradores(db);

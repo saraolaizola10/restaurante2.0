@@ -2,6 +2,7 @@
 #define _FRDATOS_H
 
 #include "../LD/sqlite3.h"
+#include "../LN/Camarero.h"
 #include <string.h>
 #include <stdio.h>
 #include <iostream>
@@ -10,6 +11,7 @@ using namespace std;
 int totalCamareros (sqlite3 *db);
 int nuevoCamarero (sqlite3 *db, int dni);
 void mostrarCamareros(sqlite3 *db);
+Camarero* getCamarero(sqlite3 *db, int dni);
 
 void mostrarAdministradores(sqlite3 *db);
 void mostrarPersonas (sqlite3 *db);
