@@ -4,6 +4,9 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include "../LD/EscrituraBD.h"
+#include "../LD/LecturaBD.h"
+#include "../LN/Camarero.h"
 #include "../COMUN/Utilidades.h"
 #include "frComun.h"
 #include "../LD/sqlite3.h"
@@ -24,7 +27,12 @@ void nuevoEmpleado(sqlite3 *db)
     if (opcion==1)
         AltaAdministrador(db);
     else
-        AltaCamarero(db);
+    {
+        Camarero *a=new Camarero();
+        cin>> *a;
+        altaCamarero(db,a->getDni(),a->getNombre(),a->getApellido(),a->getTel(),a->getTurno(),a->getSueldo());
+        delete a;
+    }
 }
 
 void linea()

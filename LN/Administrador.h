@@ -12,11 +12,14 @@ class Administrador: public Persona
 
 	public:
 		Administrador(const string nombre, const string apellido, int dni, int tel, const string cargo, float sueldo);
+		Administrador(){};
 		string getCargo() const;
+		void setCargo(string cargo);
 
 		virtual void bienvenido(Persona *p);
 		virtual void diPuesto();
 		
+		friend istream& operator>> (istream& in, const Administrador &a);
 };
 
 ostream &operator<<(ostream &os, const Administrador &a);

@@ -38,11 +38,33 @@ float Persona::getSueldo()
 	return this->sueldo;
 }
 
+void Persona::setNombre(string nombre)
+{
+	this->nombre=nombre;
+}
+void Persona::setApellido(string apellido)
+{
+	this->apellido=apellido;
+}
+void Persona::setTel(int tel)
+{
+	this->tel=tel;
+}
+void Persona::setDni(int dni)
+{
+	this->dni=dni;
+}
+void Persona::setSueldo(float sueldo)
+{
+	this->sueldo=sueldo;
+}
+
 ostream &operator<<(ostream &os, const Persona &p) 
 { 
     os << p.getNombre() << " " << p.getApellido() << ", dni: " << p.getDni() << ". Tel: "<< p.getTel();
     return os;
 }
+
 
 void Persona::bienvenido(Persona *p)
 {

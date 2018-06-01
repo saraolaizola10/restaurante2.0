@@ -14,11 +14,20 @@ string Administrador::getCargo() const
 	return this->cargo;
 }
 
+void Administrador::setCargo(string cargo)
+{
+	this->cargo=cargo;
+}
 
 ostream &operator<<(ostream &os, const Administrador &a) 
 { 
      os << "Nombre:" << a.getNombre() << " " << a.getApellido() << ", dni: " << a.getDni() << ". Tel: "<< a.getTel();
      return os;
+}
+
+istream& operator>> (istream& in, const Administrador &a)
+{
+
 }
 
 void Administrador::diPuesto()
