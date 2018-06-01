@@ -26,7 +26,7 @@ void Administrador::diPuesto()
 	cout << "ADMINISTRADOR";
 }
 
-void bienvenido(Persona *p)
+void Administrador::bienvenido(Persona *p)
 {
 	cout<< "Bienvenido administrador, "<<p->getNombre()<<endl;
 }

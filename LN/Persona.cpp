@@ -44,7 +44,7 @@ ostream &operator<<(ostream &os, const Persona &p)
     return os;
 }
 
-void bienvenido(Persona *p)
+void Persona::bienvenido(Persona *p)
 {
 	cout<<"Bienvenido/a"<<endl;
 }
