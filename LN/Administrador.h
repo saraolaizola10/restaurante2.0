@@ -19,7 +19,7 @@ class Administrador: public Persona
 		virtual void bienvenido(Persona *p);
 		virtual void diPuesto();
 		
-		friend istream& operator>> (istream& in, const Administrador &a);
+		friend istream& operator>> (istream& in, Administrador &a);
 };
 
 ostream &operator<<(ostream &os, const Administrador &a);

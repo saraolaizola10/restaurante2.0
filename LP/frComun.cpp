@@ -25,13 +25,18 @@ void nuevoEmpleado(sqlite3 *db)
     opcion = introducirOpcion (2);
 
     if (opcion==1)
-        AltaAdministrador(db);
+    {
+        Administrador *a=new Administrador();
+        cin>> *a;
+        altaAdministrador(db,a->getDni(),a->getNombre(),a->getApellido(),a->getTel(),a->getCargo(),a->getSueldo());
+        delete a;
+    }
     else
     {
-        Camarero *a=new Camarero();
-        cin>> *a;
-        altaCamarero(db,a->getDni(),a->getNombre(),a->getApellido(),a->getTel(),a->getTurno(),a->getSueldo());
-        delete a;
+        Camarero *c=new Camarero();
+        cin>> *c;
+        altaCamarero(db,c->getDni(),c->getNombre(),c->getApellido(),c->getTel(),c->getTurno(),c->getSueldo());
+        delete c;
     }
 }
 

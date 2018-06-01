@@ -1,8 +1,24 @@
 #include "Administrador.h"
-#include <iostream>
+#include "../LP/frAdministrador.h"
+#include "../LP/frComun.h"
+#include "../LP/frDatos.h"
+#include "../COMUN/Utilidades.h"
+#include "../LD/EscrituraBD.h"
+#include "../LD/LecturaBD.h"
+#include <algorithm>
+#include <stdio.h>
+#include <ctype.h>
 #include <string.h>
-
+#include <iostream>
+#include <fstream>
+#include <list>
+#include <iomanip>
+#include <cstdlib>
+#include <time.h>
 using namespace std;
+
+#define SUELDO 1000.00
+
 
 Administrador::Administrador(const string nombre, const string apellido, int dni, int tel, const string cargo, float sueldo): Persona(nombre, apellido, dni, tel,sueldo)
 {
@@ -25,7 +41,7 @@ ostream &operator<<(ostream &os, const Administrador &a)
      return os;
 }
 
-istream& operator>> (istream& in, const Administrador &a)
+istream& operator>> (istream& in, Administrador &a)
 {
 	string nombre, apellido,cargo;
 	int dni,tel,unica,t;
@@ -75,7 +91,7 @@ istream& operator>> (istream& in, const Administrador &a)
 	a.setCargo(cargo);
 	a.setSueldo(sueldo);	
 
-	altaAdministrador(db,dni,nombre,apellido,tel,cargo,sueldo);
+	return in;
 }
 
 void Administrador::diPuesto()
