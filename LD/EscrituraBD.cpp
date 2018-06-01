@@ -174,6 +174,11 @@ int updateProducto (sqlite3 *db,int id, string nombre, float precio)
 	
 	int result = sqlite3_prepare_v2(db,sql,-1,&stmt, NULL) ;
 	result = sqlite3_step(stmt);
+	if (result != SQLITE_OK) 
+	{
+		cout << "Id no encontrado." << endl;
+		return result;
+	}
 	result = sqlite3_finalize(stmt);
 	if (result != SQLITE_OK) 
 	{
@@ -196,6 +201,11 @@ int updateAdministrador (sqlite3 *db,int dni, int tel,string cargo, float sueldo
 	
 	int result = sqlite3_prepare_v2(db,sql,-1,&stmt, NULL) ;
 	result = sqlite3_step(stmt);
+	if (result != SQLITE_OK) 
+	{
+		cout << "Dni no encontrado." << endl;
+		return result;
+	}
 	result = sqlite3_finalize(stmt);
 	if (result != SQLITE_OK) 
 	{
