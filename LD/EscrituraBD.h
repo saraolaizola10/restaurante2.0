@@ -15,6 +15,7 @@ int altaProducto (sqlite3 *db,int id, string nombre,string categoria, float prec
 int altaCategoria (sqlite3 *db,int id, string nombre, int orden);
 int ordenarCategorias (sqlite3 *db,Categoria newCat);
 int altaComanda (sqlite3 *db,int dni, int fechayhora, float total, float media);
-int updateProducto (sqlite3 *db,int id1,int id2, string nombre,string categoria, float precio);
+int updateProducto (sqlite3 *db,int id, string nombre, float precio);
+int updateAdministrador (sqlite3 *db,int dni, int tel,string cargo, float sueldo);
 
 #endif

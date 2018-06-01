@@ -205,4 +205,7 @@ int updateAdministrador (sqlite3 *db,int dni, int tel,string cargo, float sueldo
 	return SQLITE_OK;
 
 }
+
+
+
  
