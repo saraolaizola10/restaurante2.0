@@ -161,3 +161,27 @@ int altaComanda (sqlite3 *db,int dni, int fechayhora, float total, float media)
 	}
 	return SQLITE_OK;
 }
+
+int updateProducto (sqlite3 *db,int id1,int id2, string nombre,string categoria, float precio)
+{
+	sqlite3_stmt *stmt;
+
+	std::stringstream ss;
+	ss << "UPDATE PRODUCTOS SET id="<<id2<<",nombre='"<<nombre<<",categoria='"<<categoria<<",precio="<<precio<<") where (id="<<id1<<");";
+	std::string ssql = ss.str();
+	char* sql = new char[ssql.length() + 1];
+	strcpy(sql, ssql.c_str());
+	
+	int result = sqlite3_prepare_v2(db,sql,-1,&stmt, NULL) ;
+	result = sqlite3_step(stmt);
+	result = sqlite3_finalize(stmt);
+	if (result != SQLITE_OK) 
+	{
+		cout << sqlite3_errmsg(db) << endl;
+		return result;
+	}
+	return SQLITE_OK;
+
+
+
+}
