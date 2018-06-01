@@ -98,6 +98,23 @@ void mostrarAdministradores(sqlite3 *db)
 	}
 }
 
+Administrador* getAdministrador(sqlite3 *db, int dni)
+{
+	list<Administrador> administradores= getAdministradores(db);
+	if(!administradores.empty())
+	{
+		for (auto a: administradores)
+		{
+			if(a.getDni()==dni)
+			{
+				return &a;
+			}
+		}
+
+	}
+	return NULL;
+}
+
 //PRODUCTOS
 
 int totalProductos (sqlite3 *db)

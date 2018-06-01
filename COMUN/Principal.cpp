@@ -45,10 +45,11 @@ int main (int argc, char *argv[])
 	{
 		
 		dni = pedirDNI(db);
-		Persona *cam= getCamarero(db, dni);
+		
 
 		if (dni!=0)
 		{
+			Persona *cam= getCamarero(db, dni);
 			do
 			{
 				cam->bienvenido(cam);
@@ -96,9 +97,14 @@ int main (int argc, char *argv[])
 	}
 	else
 	{
-		c = comprobarClave();	//NO FUNCIONA
+
+	   c = comprobarClave();
+	   
 		if (c==0)	
 		{
+		  dni = pedirDNIa(db);
+		  if(dni!=0)
+		  {
 			do
 			{
 				cout << "\n\n  -- Menu Administrador -- " << endl;
@@ -195,6 +201,7 @@ int main (int argc, char *argv[])
 				}
 
 			} while (n!=8);
+		  }
 		}
 	}	
 

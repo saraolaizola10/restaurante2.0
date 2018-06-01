@@ -58,6 +58,27 @@ void cambiarClave()
 	myfile.close();
 }
 
+int pedirDNIa(sqlite3 *db)
+{
+	int dni;
+
+	list <Administrador> administradores = getAdministradores(db);
+
+	cout << " Introduzca su DNI:" << endl;
+	cin >> dni;
+	cin.clear();
+
+	for (auto a: administradores)
+	{
+		if (a.getDni() == dni)
+		{
+			return dni;
+		}
+	}
+	cout << " Error. No coincide con ningun DNI" << endl;
+	return 0;
+}
+
 void AltaCamarero(sqlite3 *db)
 {
 	string nombre, apellido,turno;

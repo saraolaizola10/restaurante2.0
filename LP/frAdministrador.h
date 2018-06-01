@@ -5,6 +5,7 @@
 
 int comprobarClave();
 void cambiarClave();
+int pedirDNIa(sqlite3 *db);
 
 void AltaCamarero(sqlite3 *db);
 void AltaAdministrador(sqlite3 *db);

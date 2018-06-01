@@ -3,6 +3,7 @@
 
 #include "../LD/sqlite3.h"
 #include "../LN/Camarero.h"
+#include "../LN/Administrador.h"
 #include <string.h>
 #include <stdio.h>
 #include <iostream>
@@ -15,6 +16,7 @@ Camarero* getCamarero(sqlite3 *db, int dni);
 
 void mostrarAdministradores(sqlite3 *db);
 void mostrarPersonas (sqlite3 *db);
+Administrador* getAdministrador(sqlite3 *db, int dni);
 
 int totalComandas (sqlite3 *db);
 void mostrarComandas(sqlite3 *db);
