@@ -162,12 +162,12 @@ int altaComanda (sqlite3 *db,int dni, int fechayhora, float total, float media)
 	return SQLITE_OK;
 }
 
-int updateProducto (sqlite3 *db,int id1,int id2, string nombre,string categoria, float precio)
+int updateProducto (sqlite3 *db,int id, string nombre, float precio)
 {
 	sqlite3_stmt *stmt;
 
 	std::stringstream ss;
-	ss << "UPDATE PRODUCTOS SET id="<<id2<<",nombre='"<<nombre<<"',categoria='"<<categoria<<"',precio="<<precio<<") where (id="<<id1<<");";
+	ss << "UPDATE PRODUCTOS SET nombre='"<<nombre<<"',precio="<<precio<<") where (id="<<id<<");";
 	std::string ssql = ss.str();
 	char* sql = new char[ssql.length() + 1];
 	strcpy(sql, ssql.c_str());
@@ -184,12 +184,12 @@ int updateProducto (sqlite3 *db,int id1,int id2, string nombre,string categoria,
 
 }
 
-int updateAdministrador (sqlite3 *db,int dni1, int dni2 string nombre,string apellido, int tel,string cargo, float sueldo) 
+int updateAdministrador (sqlite3 *db,int dni, int tel,string cargo, float sueldo) 
 {
 	sqlite3_stmt *stmt;
 
 	std::stringstream ss;
-	ss << "UPDATE PRODUCTOS SET dni="<<dni2<<",nombre='"<<nombre<<"',apellido='"<<apellido<<"',tel="<<tel<<",cargo='"<<cargo<<"',sueldo="<<sueldo<<") where (dni="<<dni1<<");";
+	ss << "UPDATE PRODUCTOS SET tel="<<tel<<",cargo='"<<cargo<<"',sueldo="<<sueldo<<") where (dni="<<dni<<");";
 	std::string ssql = ss.str();
 	char* sql = new char[ssql.length() + 1];
 	strcpy(sql, ssql.c_str());
