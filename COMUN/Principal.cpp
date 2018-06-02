@@ -115,7 +115,9 @@ int main (int argc, char *argv[])
 				cout <<"\n 3. A"<< char(164) << "adir categoria" ;
 				cout <<"\n 4. A"<< char(164) << "adir producto";
 				cout <<"\n 5. Editar producto";
-				cout <<"\n 6. Eliminar producto";
+				cout <<"\n 6. Editar Administrador";
+				cout <<"\n 7. Eliminar producto";
+				cout <<"\n 8. Eliminar camarero";
 				cout <<"\n 7. Cambiar clave";
 				cout <<"\n 8. Salir"<< endl;
 			
@@ -191,18 +193,34 @@ int main (int argc, char *argv[])
 					break;
 
 					case 6:
+					if (getAdministradores.empty()=1)
+						cout<<"Error. No hay administradores."<< endl;
+					else
+						EliminarAdministrador(db);
+					break;
+
+					case 7:
 					if (totalProductos(db)!=0)
 						EliminarProducto(db);
 					else
 						cout<<"Error. No hay productos."<< endl;
 					break;
 
-					case 7:
+					case 8:
+					if (getcCamareros.empty()=1)
+						cout<<"Error. No hay camareros."<< endl;
+						EliminarCamarero(db);
+					else
+						EliminarCamarero(db);
+					break;
+
+
+					case 9:
 					cambiarClave();
 					break;
 				}
 
-			} while (n!=8);
+			} while (n!=10);
 		  }
 		}
 	}	

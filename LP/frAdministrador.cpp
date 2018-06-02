@@ -155,13 +155,12 @@ void AltaProducto(sqlite3 *db)
 
 void EditarProducto(sqlite3 *db)
 {
-	int totalP, num, id, catnum;
-	string nombre, categoria;
+	int id;
+	string nombre;
 	float precio;
 
 	mostrarProductos(db);
-	totalP = totalProductos(db);
-	num = introducirOpcion(totalP)-1;
+	id= pedirNumero(0);
 
 	cin.ignore();
 	cout << "Nombre:" << endl;
@@ -172,23 +171,61 @@ void EditarProducto(sqlite3 *db)
 	cout << "Precio:" <<endl;
 	precio = pedirFloat();
 	
-	cout << "Introduce el numero de la categoria deseada:" << endl;
-	mostrarCategorias(db);
-	cin >> catnum;
-	//nombre categoria correspondiente al orden
-	//categoria = cat
+	
+	updateProducto(db,id,nombre,precio);
 
-	//BD: editar producto
+	
+}
+
+void EditarAdministrador(sqlite3 *db)
+{
+	int dni,tel;
+	string cargo;
+	float sueldo;
+
+	mostrarProductos(db);
+	dni= pedirDNIa(db);
+
+	cin.ignore();
+	cout << "Cargo:" << endl;
+	getline(cin, nombre);
+	cin.clear();
+	transform(cargo.begin(), cargo.end(), cargo.begin(), ::toupper);
+
+	cout << "sueldo:" <<endl;
+	sueldo = pedirFloat();
+
+	cout << "sueldo:" <<endl;
+	sueldo = pedirNumero(8);
+
+
+	
+	
+	updateAdministrador(db,dni,tel,cargo,sueldo);
+
+	
 }
 
 void EliminarProducto(sqlite3 *db)
 {
-	int num;
-	int totalP;
+	int id;
 
 	mostrarProductos(db);
-	totalP = totalProductos(db);
-	num = introducirOpcion(totalP)-1;
+	
+	id = pedirNumero(0);
 
-	//BD: eliminar producto
+	deleteProducto(db, id);
+
+	
+}
+
+void EliminarCamarero(sqlite3 *db)
+{
+	int dni;
+
+	mostrarCamareros(db);
+
+	dni = pedirDNI(db);
+
+	deleteCamarero(db, dni);
 }
