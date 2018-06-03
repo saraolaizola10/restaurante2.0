@@ -147,11 +147,10 @@ int main (int argc, char *argv[])
 						cout <<"\n 4. Precio medio gastado por mesa";
 						cout <<"\n 5. Salarios de la plantilla";
 						cout <<"\n 6. Ingresos por mes";
-						cout <<"\n 7. Ingresos por dia";
-						cout <<"\n 8. Actividad del dia";
-						cout <<"\n 9. Media de precios por categoria";
-						cout <<"\n 10. Atras"<< endl;
-						m = introducirOpcion(10);
+						cout <<"\n 7. Actividad del dia";
+						cout <<"\n 8. Media de precios por categoria";
+						cout <<"\n 9. Atras"<< endl;
+						m = introducirOpcion(9);
 						switch(m)
 						{
 							case 1:
@@ -179,18 +178,14 @@ int main (int argc, char *argv[])
 							break;
 
 							case 7:
-							importeXdias(db);
-							break;
-
-							case 8:
 							comandasHoy(db);
 							break;
 
-							case 9:
+							case 8:
 							PrecioMedioProductosxCategoria(db);
 							break;
 						}
-					}while(m!=10);
+					}while(m!=9);
 					break;
 					
 					case 2:

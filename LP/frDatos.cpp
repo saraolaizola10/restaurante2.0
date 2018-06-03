@@ -472,54 +472,6 @@ void importeXmes (sqlite3 *db)
     }
 }
 
-void importeXdias (sqlite3 *db)
-{
-    float total=0;
-    int f,dia1,dia2;
-    string meses[] = {"ENERO","FEBRERO","MARZO","ABRIL","MAYO","JUNIO","JULIO","AGOSTO","SEPTIEMBRE","OCTUBRE","NOVIEMBRE","DICIEMBRE"};
-
-    list <Comanda> comandas = getComandas(db);
-
-    if (!comandas.empty())
-    {
-    	Comanda a = comandas.front();
-    	f = a.getFechayhora();
-    	dia1 = getDia(f);
-    }
-
-    linea();
-    cout << "\n  ** INGRESOS POR DIA ** \n\n" << endl;
-
-    for (auto c: comandas)
-    {
-    	f = c.getFechayhora();
-        dia2 = getDia(f);
-
-        if (dia2==dia1)
-        {
-            total += c.getTotal();
-        }
-        else
-        {
-        	cout << " - " << meses[dia2] << " ";
-        	mostrarAnyo(f);
-        	cout << " : " << total << char(36)<< endl;
-            dia1=dia2;
-            total=0;
-        }
-    }
-
-    if (!comandas.empty())
-    {
-    	Comanda b = comandas.back();
-    	f = b.getFechayhora();
-    	dia2 = getDia(f);
-    	cout << " - " << meses[dia2] << " ";
-    	mostrarAnyo(f);
-   		cout << " : " << total << char(36)<< endl;
-	    linea();
-    }
-}
 
 void comandasHoy (sqlite3 *db)
 {

@@ -47,7 +47,6 @@ void valorMedioComandas (sqlite3 *db);
 void mediaServicio (sqlite3 *db);
 void PrecioMedioProductosxCategoria (sqlite3 *db);
 void importeXmes (sqlite3 *db);
-void importeXdias (sqlite3 *db);
 void comandasHoy (sqlite3 *db);
 void mostrarSalarios(sqlite3 *db);
 
