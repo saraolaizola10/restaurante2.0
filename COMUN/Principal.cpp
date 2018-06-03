@@ -151,7 +151,7 @@ int main (int argc, char *argv[])
 						cout <<"\n 8. Actividad del dia";
 						cout <<"\n 9. Media de precios por categoria";
 						cout <<"\n 10. Atras"<< endl;
-						m = introducirOpcion(9);
+						m = introducirOpcion(10);
 						switch(m)
 						{
 							case 1:
