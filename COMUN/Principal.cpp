@@ -128,7 +128,7 @@ int main (int argc, char *argv[])
 			do
 			{
 				cout << "\n   --    MENU    -- \n" << endl;
-				cout << " 1. Consultar estad"<< char(161) << "sticas" << endl;
+				cout << " 1. Consultar estado"<< char(161) << "sticas" << endl;
 				cout << " 2. Gestionar plantilla" << endl;
 				cout << " 3. Gestionar oferta" << endl;
 				cout << " 4. Cambiar clave" << endl;
@@ -147,9 +147,10 @@ int main (int argc, char *argv[])
 						cout <<"\n 4. Precio medio gastado por mesa";
 						cout <<"\n 5. Salarios de la plantilla";
 						cout <<"\n 6. Ingresos por mes";
-						cout <<"\n 7. Actividad del dia";
-						cout <<"\n 8. Media de precios por categoria";
-						cout <<"\n 9. Atras"<< endl;
+						cout <<"\n 7. Ingresos por dia";
+						cout <<"\n 8. Actividad del dia";
+						cout <<"\n 9. Media de precios por categoria";
+						cout <<"\n 10. Atras"<< endl;
 						m = introducirOpcion(9);
 						switch(m)
 						{
@@ -178,14 +179,18 @@ int main (int argc, char *argv[])
 							break;
 
 							case 7:
-							comandasHoy(db);
+							importeXdias(db);
 							break;
 
 							case 8:
+							comandasHoy(db);
+							break;
+
+							case 9:
 							PrecioMedioProductosxCategoria(db);
 							break;
 						}
-					}while(m!=9);
+					}while(m!=10);
 					break;
 					
 					case 2:
