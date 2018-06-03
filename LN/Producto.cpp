@@ -14,6 +14,6 @@ Producto:: Producto(int id, string nombre, float precio, string categoria): id(i
 
 ostream& operator<<(ostream &os, const Producto &p) 
 { 
-    os << "ID:" << p.getId() << ", " << p.getNombre() << " -> " << p.getPrecio() << char(156) << " de la categoria: "<< p.getCategoria();
+    os << p.getNombre() << ", " << p.getPrecio() << char(156) << " de la categoria: "<< p.getCategoria();
     return os;
 }

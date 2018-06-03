@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <vector>
 #include "../LD/EscrituraBD.h"
 #include "../LD/LecturaBD.h"
 #include "../LN/Camarero.h"
@@ -19,8 +20,8 @@ void nuevoEmpleado(sqlite3 *db)
     int opcion;
 
     cout << "\n\n El nuevo empleado es...\n" << endl;
-    cout << "1. Administrador" << endl;
-    cout << "2. Camarero\n" << endl;
+    cout << " 1. Administrador" << endl;
+    cout << " 2. Camarero\n" << endl;
 
     opcion = introducirOpcion (2);
 
@@ -45,6 +46,11 @@ void linea()
     cout << "\n__________________________________\n" << endl;
 }
 
+void accesoDenegado()
+{
+    cout << "Error. Acceso denegado" << endl;
+}
+
 
 int introducirOpcion(int opciones)
 {
@@ -59,6 +65,26 @@ int introducirOpcion(int opciones)
     return n;
 }
 
+int pedirDNI(sqlite3 *db)
+{
+    int dni;
+
+    vector <Persona*> personas = getPersonas(db);
+
+    cout << "Introduzca su DNI:" << endl;
+    cin >> dni;
+    cin.clear();
+
+    for (auto p: personas)
+    {
+        if (p->getDni() == dni)
+        {
+            return dni;
+        }
+    }
+    cout << " Error. No coincide con ningun DNI" << endl;
+    return 0;
+}
 
 float pedirFloat()
 {
@@ -81,7 +107,6 @@ float pedirFloat()
         {
             ok++;
             cout << "Error. Asegurate de introducir solo numeros"<<endl;
-            break;
         }
 
     } while (ok!=0);
@@ -106,15 +131,12 @@ int pedirNumero(int condicion)
         {
             ok++;
             cout<<"Error. Asegurate de introducir "<<condicion<<" numeros"<<endl;
-            break;
         }    
         if(sscanf(c,"%d",&num)!=1)
         {
             ok++;
             cout << "Error. Asegurate de introducir solo numeros"<<endl;
-            break;
         }
-
     } while (ok!=0);
 
     return num;

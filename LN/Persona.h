@@ -19,6 +19,7 @@ public:
 	Persona(){};
 	string getNombre() const;
 	string getApellido() const;
+	float getSueldo() const;
 	int getTel() const;
 	int getDni() const;
 
@@ -28,12 +29,9 @@ public:
 	void setDni(int dni);
 	void setSueldo(float sueldo);
 	
-	virtual void bienvenido(Persona *p);
-	virtual float getSueldo();
+	virtual void bienvenido();
 	virtual void diPuesto()=0;
-
-	
-	
+	virtual int tieneAcceso(string lugar)=0;
 };
 
 ostream &operator<<(ostream &os, const Persona &p);

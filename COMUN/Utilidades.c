@@ -34,14 +34,6 @@ int getHora()
   return fyh;
 }
 
-void mostrarHora()
-{
-  time_t now = time(0);
-  struct tm *tm;
-  tm = localtime (&now);
-  printf ("    %04d/%02d/%02d %02d:%02d \n",tm->tm_year+1900,tm->tm_mon+1,tm->tm_mday,tm->tm_hour,tm->tm_min);
-}
-
 int getMes (int f)
 {
   int mes;
@@ -54,6 +46,28 @@ int getMes (int f)
   mes = tm->tm_mon;
 
   return mes;
+}
+
+int getDia(int f)
+{
+  int dia;
+
+  time_t fecha;
+  struct tm *tm;
+
+  fecha = (time_t) f;
+  tm = localtime (&fecha);
+  dia = tm->tm_mday;
+
+  return dia;
+}
+
+void mostrarHora()
+{
+  time_t now = time(0);
+  struct tm *tm;
+  tm = localtime (&now);
+  printf ("    %04d/%02d/%02d %02d:%02d \n",tm->tm_year+1900,tm->tm_mon+1,tm->tm_mday,tm->tm_hour,tm->tm_min);
 }
 
 void mostrarAnyo(int f)
@@ -69,3 +83,31 @@ void mostrarAnyo(int f)
   printf("%04d",anyo);
 }
 
+void mostrarDia()
+{
+  char *meses[] = {"ENERO","FEBRERO","MARZO","ABRIL","MAYO","JUNIO","JULIO","AGOSTO","SEPTIEMBRE","OCTUBRE","NOVIEMBRE","DICIEMBRE"};
+  int dia,mes;
+
+  time_t now = time(0);
+  struct tm *tm;
+  tm = localtime (&now);
+  dia = tm->tm_mday;
+  mes = tm->tm_mon+1;
+
+  printf("%02d de %s",dia,meses[mes]);
+
+}
+
+void mostrarHorayMinuto(int f)
+{
+  int hora,minuto;
+  time_t fecha;
+  struct tm *tm;
+
+  fecha = (time_t) f;
+  tm = localtime (&fecha);
+  hora = tm->tm_hour;
+  minuto = tm->tm_min;
+
+  printf("%02d:%02d",hora,minuto);
+}

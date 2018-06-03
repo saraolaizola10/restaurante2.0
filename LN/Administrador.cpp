@@ -17,9 +17,6 @@
 #include <time.h>
 using namespace std;
 
-#define SUELDO 1000.00
-
-
 Administrador::Administrador(const string nombre, const string apellido, int dni, int tel, const string cargo, float sueldo): Persona(nombre, apellido, dni, tel,sueldo)
 {
 	this-> cargo = cargo;
@@ -37,7 +34,7 @@ void Administrador::setCargo(string cargo)
 
 ostream &operator<<(ostream &os, const Administrador &a) 
 { 
-     os << "Nombre:" << a.getNombre() << " " << a.getApellido() << ", dni: " << a.getDni() << ". Tel: "<< a.getTel();
+     os << a.getNombre() << " " << a.getApellido() << ", "<< a.getCargo() << ". Sueldo: "<<a.getSueldo() << char(36)<<". Tel: "<< a.getTel();
      return os;
 }
 
@@ -68,10 +65,19 @@ istream& operator>> (istream& in, Administrador &a)
 	tel = pedirNumero(9);
 
 	cin.ignore();
-	cout << "Cargo:" << endl;
-	getline(cin, cargo);
-	cin.clear();
-	transform(cargo.begin(), cargo.end(), cargo.begin(),::toupper);
+	cout << "Cargo \n 1. DIRECTOR \n 2. RRHH \n 3. COMERCIAL" << endl;
+	t = introducirOpcion(3);
+	switch (t)
+	{
+		case 1:		cargo="DIRECTOR";
+					break;
+
+		case 2:		cargo="RRHH";
+					break;
+
+		case 3:		cargo="COMERCIAL";
+					break;
+	}
 
 	cout << "Sueldo:" << endl;
 	sueldo=pedirFloat();
@@ -88,10 +94,28 @@ istream& operator>> (istream& in, Administrador &a)
 
 void Administrador::diPuesto()
 {
-	cout << "ADMINISTRADOR";
+	cout << this->getCargo();
 }
 
-void Administrador::bienvenido(Persona *p)
+void Administrador::bienvenido()
 {
-	cout<< "Bienvenido administrador, "<<p->getNombre()<<endl;
+	cout<< "BIENVENIDO "<<this->getCargo()<< " " <<this->getNombre() << endl;
+}
+
+int Administrador::tieneAcceso(string area)
+{
+	if (this->getCargo()=="DIRECTOR")
+		return 1;
+
+	if ((this->getCargo()=="RRHH")&&(area=="PLANTILLA"))
+		return 1;
+
+	if ((this->getCargo()=="COMERCIAL")&&(area=="OFERTA"))
+		return 1;
+
+	else if(area=="ADMINISTRACION")
+		return 1;
+
+	else
+		return 0;
 }

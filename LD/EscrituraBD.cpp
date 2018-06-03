@@ -32,6 +32,16 @@ void iniciarBD(sqlite3 *db)
   	rc = sqlite3_exec(db, sql_query4, 0, 0, &err_message);
 }
 
+void altaDirector(sqlite3 *db)
+{
+	sqlite3_stmt *stmt;
+	string ssql = "INSERT INTO ADMINISTRADORES (dni,nombre,apellido,tel,cargo,sueldo) values (11111111,'GORKA','AZKUNE',943123456,'DIRECTOR',5000);";
+	char* sql = new char[ssql.length() + 1];
+	strcpy(sql, ssql.c_str());
+	sqlite3_prepare_v2(db,sql,-1,&stmt, NULL);
+	sqlite3_step(stmt);
+	sqlite3_finalize(stmt);
+}
 int altaCamarero (sqlite3 *db,int dni, string nombre,string apellido, int tel, string turno, float sueldo) 
 {
 	sqlite3_stmt *stmt;
@@ -44,12 +54,12 @@ int altaCamarero (sqlite3 *db,int dni, string nombre,string apellido, int tel, s
 	
 	int result = sqlite3_prepare_v2(db,sql,-1,&stmt, NULL);
 	result = sqlite3_step(stmt);
-	result = sqlite3_finalize(stmt);
-	if (result != SQLITE_OK) 
+	if (result==19) 
 	{
-		cout << sqlite3_errmsg(db) << endl;
+		cout << "Error. DNI existente" << endl;
 		return result;
 	}
+	result = sqlite3_finalize(stmt);
 	return SQLITE_OK;
 }
 
@@ -65,12 +75,12 @@ int altaAdministrador (sqlite3 *db,int dni, string nombre,string apellido, int t
 	
 	int result = sqlite3_prepare_v2(db,sql,-1,&stmt, NULL) ;
 	result = sqlite3_step(stmt);
-	result = sqlite3_finalize(stmt);
-	if (result != SQLITE_OK) 
+	if (result==19) 
 	{
-		cout << sqlite3_errmsg(db) << endl;
+		cout << "Error. DNI existente" << endl;
 		return result;
 	}
+	result = sqlite3_finalize(stmt);
 	return SQLITE_OK;
 }
 
@@ -167,18 +177,13 @@ int updateProducto (sqlite3 *db,int id, string nombre, float precio)
 	sqlite3_stmt *stmt;
 
 	std::stringstream ss;
-	ss << "UPDATE PRODUCTOS SET nombre='"<<nombre<<"',precio="<<precio<<") where (id="<<id<<");";
+	ss << "UPDATE PRODUCTOS SET nombre='"<<nombre<<"',precio="<<precio<<" where (id="<<id<<");";
 	std::string ssql = ss.str();
 	char* sql = new char[ssql.length() + 1];
 	strcpy(sql, ssql.c_str());
 	
 	int result = sqlite3_prepare_v2(db,sql,-1,&stmt, NULL) ;
 	result = sqlite3_step(stmt);
-	if (result != SQLITE_OK) 
-	{
-		cout << "Id no encontrado." << endl;
-		return result;
-	}
 	result = sqlite3_finalize(stmt);
 	if (result != SQLITE_OK) 
 	{
@@ -194,18 +199,13 @@ int updateAdministrador (sqlite3 *db,int dni, int tel,string cargo, float sueldo
 	sqlite3_stmt *stmt;
 
 	std::stringstream ss;
-	ss << "UPDATE PRODUCTOS SET tel="<<tel<<",cargo='"<<cargo<<"',sueldo="<<sueldo<<") where (dni="<<dni<<");";
+	ss << "UPDATE ADMINISTRADORES SET tel="<<tel<<",cargo='"<<cargo<<"',sueldo="<<sueldo<<" where (dni="<< dni << ");";
 	std::string ssql = ss.str();
 	char* sql = new char[ssql.length() + 1];
 	strcpy(sql, ssql.c_str());
 	
-	int result = sqlite3_prepare_v2(db,sql,-1,&stmt, NULL) ;
+	int result = sqlite3_prepare_v2(db,sql,-1,&stmt, NULL);
 	result = sqlite3_step(stmt);
-	if (result != SQLITE_OK) 
-	{
-		cout << "Dni no encontrado." << endl;
-		return result;
-	}
 	result = sqlite3_finalize(stmt);
 	if (result != SQLITE_OK) 
 	{

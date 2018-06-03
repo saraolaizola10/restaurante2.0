@@ -13,11 +13,13 @@ class Camarero: public Persona
 	public:
 		Camarero(){};
 		Camarero(const string nombre, const string apellido, int dni, int tel, const string turno,float sueldo);
+		
 		string getTurno() const;
 		void setTurno(string turno);
 
-		virtual void bienvenido(Persona *p);
+		virtual void bienvenido();
 		virtual void diPuesto();
+		virtual int tieneAcceso(string lugar);
 
 		friend istream& operator>> (istream& in, Camarero &c);
 };

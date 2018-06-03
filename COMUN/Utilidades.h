@@ -10,9 +10,13 @@ extern "C"
 	char* ComaAPunto (char* input);
 
 	int getHora();
-	void mostrarHora();
+	int getDia(int f);
 	int getMes(int f);
+
+	void mostrarHora();
 	void mostrarAnyo(int f);
+	void mostrarDia();
+	void mostrarHorayMinuto(int f);
 
 	#ifdef __cplusplus
 }

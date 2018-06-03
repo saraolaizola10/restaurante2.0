@@ -101,7 +101,15 @@ void Camarero::diPuesto()
 	cout << "CAMARERO";
 }
 
-void Camarero::bienvenido(Persona *p)
+void Camarero::bienvenido()
 {
-	cout<<"Bienvenido camarero, "<<p->getNombre()<<endl;
+	cout<<"Bienvenido camarero, "<<this->getNombre()<<endl;
+}
+
+int Camarero::tieneAcceso(string lugar)
+{
+	if (lugar=="SERVICIO")
+		return 1;
+	else
+		return 0;
 }

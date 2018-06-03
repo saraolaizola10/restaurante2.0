@@ -36,85 +36,114 @@ int totalCamareros (sqlite3 *db)
 	return total;
 }
 
-//0 si es nuevo, sino ya existe
-int nuevoCamarero (sqlite3 *db, int dni)
-{
-	int nuevo=0;
-	list <Camarero> camareros = getCamareros(db);
-	
-	if(!camareros.empty())
-	{
-		for (auto c: camareros)
-		{
-			if (dni==c.getDni())
-			{
-				nuevo++;
-			}
-		}
-	}
-	return nuevo;
-}
-
 void mostrarCamareros(sqlite3 *db)
 {
+	int i=1;
 	list <Camarero> camareros = getCamareros(db);
 
 	if(!camareros.empty())
 	{
 		for (auto c: camareros)
 		{
-			cout << c << endl;
+			cout << i << ". "<< c << endl;
+			i++;
 		}
 	}
 }
 
-Camarero* getCamarero(sqlite3 *db, int dni)
+int totalAdministradores (sqlite3 *db)
 {
-	list<Camarero> camareros= getCamareros(db);
-	if(!camareros.empty())
-	{
-		for (auto c: camareros)
-		{
-			if(c.getDni()==dni)
-			{
-				return &c;
-			}
-		}
+	int total=0;
 
-	}
-	return NULL;
+	list <Administrador> administradores = getAdministradores(db);
+	
+	if(!administradores.empty())
+		total = administradores.size();
+	
+	return total;
 }
 
 void mostrarAdministradores(sqlite3 *db)
 {
+	int i=1;
 	list <Administrador> administradores = getAdministradores(db);
 
 	if(!administradores.empty())
 	{
 		for (auto a: administradores)
 		{
-			cout << a << endl;
+			cout << i << ". " << a << endl;
+			i++;
 		}
 	}
 }
 
-Administrador* getAdministrador(sqlite3 *db, int dni)
+void mostrarPersonas (sqlite3 *db)
 {
-	list<Administrador> administradores= getAdministradores(db);
-	if(!administradores.empty())
+	int i=1;
+	vector <Persona*> personas = getPersonas(db);
+	
+	if(!personas.empty())
 	{
-		for (auto a: administradores)
+		for (auto p: personas)
 		{
-			if(a.getDni()==dni)
-			{
-				return &a;
-			}
+			cout << i << ". " << (*p) << endl;
+			i++;
 		}
+	}
+}
 
+
+Persona* getPersona(sqlite3 *db,int dni)
+{
+	vector <Persona*> personas = getPersonas(db);
+
+	if(!personas.empty())
+	{
+		for (auto p: personas)
+		{
+			if(dni==p->getDni())
+				return p;
+		}
 	}
 	return NULL;
 }
 
+int getCamarero(sqlite3 *db,int opcion)
+{
+	int num=0;
+	int dni;
+	list <Camarero> camareros = getCamareros(db);
+
+	if(!camareros.empty())
+	{
+		for (auto c: camareros)
+		{
+			if (num==opcion)
+				dni = c.getDni();
+			num++;
+		}
+	}
+	return dni;
+}
+
+int getAdministrador(sqlite3 *db,int opcion)
+{
+	int num=0;
+	int dni;
+	list <Administrador> administradores = getAdministradores(db);
+
+	if(!administradores.empty())
+	{
+		for (auto a: administradores)
+		{
+			if (num==opcion)
+				dni = a.getDni();
+			num++;
+		}
+	}
+	return dni;
+}
 //PRODUCTOS
 
 int totalProductos (sqlite3 *db)
@@ -131,15 +160,35 @@ int totalProductos (sqlite3 *db)
 
 void mostrarProductos(sqlite3 *db)
 {
+	int i=1;
 	list <Producto> productos = getProductos(db);
 
 	if(!productos.empty())
 	{
 		for (auto p: productos)
 		{
-			cout << p << endl;
+			cout << i << ". " << p << endl;
+			i++;
 		}
 	}
+}
+
+int getIdProducto(sqlite3 *db, int opcion)
+{
+	int num=0;
+	int id;
+
+	list <Producto> productos = getProductos(db);
+
+	for (auto p: productos)
+	{
+		if (num==opcion)
+		{
+			id = p.getId();
+		}
+		num++;
+	}	
+	return id;
 }
 
 //CATEGORIA
@@ -195,12 +244,6 @@ int ultimoIDProducto (sqlite3 *db)
 
 	list <Producto> productos = getProductos(db);
 
-	//for (auto p: productos)
-	//{
-	//	if(p.getId()>id)
-	//		id = p.getId();
-	//}
-	
 	if(!productos.empty())
 	{
 		Producto a = productos.back();
@@ -226,7 +269,7 @@ int ultimoIDCategoria (sqlite3 *db)
 
 // ESTADISTICAS
 
-void mostrarPersonas (sqlite3 *db)
+void mostrarPlantilla (sqlite3 *db)
 {
 	vector <Persona*> personas = getPersonas(db);
 
@@ -426,6 +469,36 @@ void importeXmes (sqlite3 *db)
     	mostrarAnyo(f);
    		cout << " : " << total << char(36)<< endl;
 	    linea();
+    }
+}
+
+void comandasHoy (sqlite3 *db)
+{
+    float total=0;
+    int f,hoy,dia;
+   
+    list <Comanda> comandas = getComandas(db);
+
+
+    if (!comandas.empty())
+    {
+    	f = getHora();
+        hoy = getDia(f);
+    
+        linea();  
+        cout << "\n  ** COMANDAS DE HOY,"; 
+        mostrarDia();   
+        cout << " ***" << endl;
+        for (auto c: comandas)
+        {
+            f = c.getFechayhora();
+            if (getDia(f)==hoy)
+            {
+                mostrarHorayMinuto(f);
+                cout << " " << c.getTotal() << char(36) << " Valoracion "<<c.getMedia() << endl;
+            }
+        }
+        linea();
     }
 }
 

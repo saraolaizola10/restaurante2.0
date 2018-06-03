@@ -161,8 +161,7 @@ vector <Persona*> getPersonas (sqlite3 *db)
     if (result2 != SQLITE_OK) 
         cout << sqlite3_errmsg(db) << endl;
 
-    sort(listaPersonas.begin(), listaPersonas.end());
-
+    sort(listaPersonas.begin(),listaPersonas.end());
     return listaPersonas;
 }
 

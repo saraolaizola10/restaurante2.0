@@ -5,12 +5,11 @@
 
 int comprobarClave();
 void cambiarClave();
-int pedirDNIa(sqlite3 *db);
 
 void AltaCategoria(sqlite3 *db);
 void AltaProducto(sqlite3 *db);
 void EditarProducto(sqlite3 *db);
-void EditarCamarero(sqlite3 *db);
+void EditarAdministrador(sqlite3 *db);
 void EliminarProducto(sqlite3 *db);
 void EliminarCamarero (sqlite3 *db);
 

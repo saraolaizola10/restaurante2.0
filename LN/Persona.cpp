@@ -33,7 +33,7 @@ int Persona::getDni() const
 	return this->dni;
 }
 
-float Persona::getSueldo() 
+float Persona::getSueldo() const
 {
 	return this->sueldo;
 }
@@ -66,7 +66,7 @@ ostream &operator<<(ostream &os, const Persona &p)
 }
 
 
-void Persona::bienvenido(Persona *p)
+void Persona::bienvenido()
 {
 	cout<<"Bienvenido/a"<<endl;
 }

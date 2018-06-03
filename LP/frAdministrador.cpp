@@ -24,7 +24,7 @@ int comprobarClave()
 	string line, clave;
 	ifstream myfile("clave.txt");
 	
-	cout << "Introducir clave administrador:" << endl;
+	cout <<"Introducir clave administrador:" << endl;
 	cin >> clave;
 	cin.clear();
 
@@ -56,27 +56,6 @@ void cambiarClave()
 
 	myfile << clave;
 	myfile.close();
-}
-
-int pedirDNIa(sqlite3 *db)
-{
-	int dni;
-
-	list <Administrador> administradores = getAdministradores(db);
-
-	cout << " Introduzca su DNI:" << endl;
-	cin >> dni;
-	cin.clear();
-
-	for (auto a: administradores)
-	{
-		if (a.getDni() == dni)
-		{
-			return dni;
-		}
-	}
-	cout << " Error. No coincide con ningun DNI" << endl;
-	return 0;
 }
 
 
@@ -142,7 +121,6 @@ void AltaProducto(sqlite3 *db)
 	cout << "Precio:" <<endl;
 	precio = pedirFloat();
 
-	//FALTA: confirmar que esta dentro del total
 	cout << "Introduce el numero de la categoria deseada:" << endl;
 	mostrarCategorias(db);
 	totalCat = totalCategorias(db);
@@ -155,12 +133,15 @@ void AltaProducto(sqlite3 *db)
 
 void EditarProducto(sqlite3 *db)
 {
-	int id;
+	int id,num,totalP;
 	string nombre;
 	float precio;
 
+	cout << "Introduzca el numero del producto deseado:\n" << endl;
 	mostrarProductos(db);
-	id= pedirNumero(0);
+	totalP = totalProductos(db);
+	num = introducirOpcion(totalP);
+	id = getIdProducto(db,num-1);
 
 	cin.ignore();
 	cout << "Nombre:" << endl;
@@ -171,61 +152,65 @@ void EditarProducto(sqlite3 *db)
 	cout << "Precio:" <<endl;
 	precio = pedirFloat();
 	
-	
 	updateProducto(db,id,nombre,precio);
-
-	
 }
 
 void EditarAdministrador(sqlite3 *db)
 {
-	int dni,tel;
+	int dni,tel,totalA,num;
 	string cargo;
 	float sueldo;
 
-	mostrarProductos(db);
-	dni= pedirDNIa(db);
+	cout << "Introduzca el numero del administrador deseado:\n" << endl;
+	mostrarAdministradores(db);
+	totalA = totalAdministradores(db);
+	num = introducirOpcion(totalA);
+	dni = getAdministrador(db,num-1);
 
 	cin.ignore();
-	cout << "Cargo:" << endl;
-	getline(cin, nombre);
-	cin.clear();
-	transform(cargo.begin(), cargo.end(), cargo.begin(), ::toupper);
+	cout << "Cargo \n 1. DIRECTOR \n 2. RRHH \n 3. COMERCIAL" << endl;
+	int t = introducirOpcion(3);
+	switch (t)
+	{
+		case 1:		cargo="DIRECTOR";
+					break;
 
-	cout << "sueldo:" <<endl;
+		case 2:		cargo="RRHH";
+					break;
+
+		case 3:		cargo="COMERCIAL";
+					break;
+	}
+	
+	cout << "Sueldo:" <<endl;
 	sueldo = pedirFloat();
 
-	cout << "sueldo:" <<endl;
-	sueldo = pedirNumero(8);
+	cout << "Telefono:" <<endl;
+	tel = pedirNumero(9);
 
-
-	
-	
 	updateAdministrador(db,dni,tel,cargo,sueldo);
-
-	
 }
 
 void EliminarProducto(sqlite3 *db)
 {
-	int id;
+	int id,totalP,num;
 
+	cout << "Introduzca el numero del producto a eliminar:\n" << endl;
 	mostrarProductos(db);
-	
-	id = pedirNumero(0);
-
+	totalP = totalProductos(db);
+	num = introducirOpcion(totalP);
+	id = getIdProducto(db,num-1);
 	deleteProducto(db, id);
-
-	
 }
 
 void EliminarCamarero(sqlite3 *db)
 {
-	int dni;
+	int dni,num,totalC;
 
+	cout << "Introduzca el numero del camarero deseado:\n" << endl;
 	mostrarCamareros(db);
-
-	dni = pedirDNI(db);
-
+	totalC = totalCamareros(db);
+	num = introducirOpcion(totalC);
+	dni = getCamarero(db,num-1);
 	deleteCamarero(db, dni);
 }
