@@ -472,6 +472,58 @@ void importeXmes (sqlite3 *db)
     }
 }
 
+void importeXdias (sqlite3 *db)
+{
+    float total=0;
+    int f, hoy, dia1, dia2, mes1,mes2;
+    string meses[] = {"ENERO","FEBRERO","MARZO","ABRIL","MAYO","JUNIO","JULIO","AGOSTO","SEPTIEMBRE","OCTUBRE","NOVIEMBRE","DICIEMBRE"};
+
+    list <Comanda> comandas = getComandas(db);
+
+    if (!comandas.empty())
+    {
+    	Comanda a = comandas.front();
+    	f = a.getFechayhora();
+    	dia1= getDia(f);
+    	mes1 = getMes(f);
+
+    	hoy = getHora();
+    	mes2=getMes(hoy);
+
+    	if (mes1==mes2)
+    	{
+    		 linea();
+  			 cout << "\n  ** INGRESOS POR MES ** \n\n" << endl;
+
+    		for (auto c: comandas)
+    		{
+    			f = c.getFechayhora();
+       			 dia2 = getDia(f);
+
+       			if (dia2==dia1)
+       			{
+           		 total += c.getTotal();
+      		 	}
+       			else
+       		 	{
+        			cout << " - "<< dia1 << " de " << meses[mes1] << " : "<< total<<char(36)<<endl;
+        		
+          	  		dia1=dia2;
+         	   		total=0;
+       		 	}
+  			}
+
+  			cout<<" - "<< dia1 << " de " << meses[mes1] << " : "<< total<<char(36)<<endl;
+			linea();
+		}
+		else
+		{
+			cout<<"Poe ahora no hay actividad en "<< meses[mes1]<<endl;
+		}
+    }
+
+   
+}
 
 void comandasHoy (sqlite3 *db)
 {

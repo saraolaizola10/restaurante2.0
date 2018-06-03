@@ -178,14 +178,18 @@ int main (int argc, char *argv[])
 							break;
 
 							case 7:
-							comandasHoy(db);
+							importeXdias(db);
 							break;
 
 							case 8:
+							comandasHoy(db);
+							break;
+
+							case 9:
 							PrecioMedioProductosxCategoria(db);
 							break;
 						}
-					}while(m!=9);
+					}while(m!=10);
 					break;
 					
 					case 2:
