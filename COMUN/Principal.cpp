@@ -128,7 +128,7 @@ int main (int argc, char *argv[])
 			do
 			{
 				cout << "\n   --    MENU    -- \n" << endl;
-				cout << " 1. Consultar estado"<< char(161) << "sticas" << endl;
+				cout << " 1. Consultar estad"<< char(161) << "sticas" << endl;
 				cout << " 2. Gestionar plantilla" << endl;
 				cout << " 3. Gestionar oferta" << endl;
 				cout << " 4. Cambiar clave" << endl;
