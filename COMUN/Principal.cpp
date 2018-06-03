@@ -147,10 +147,11 @@ int main (int argc, char *argv[])
 						cout <<"\n 4. Precio medio gastado por mesa";
 						cout <<"\n 5. Salarios de la plantilla";
 						cout <<"\n 6. Ingresos por mes";
-						cout <<"\n 7. Actividad del dia";
-						cout <<"\n 8. Media de precios por categoria";
-						cout <<"\n 9. Atras"<< endl;
-						m = introducirOpcion(9);
+						cout <<"\n 7. Ingresos por dia";
+						cout <<"\n 8. Actividad del dia";
+						cout <<"\n 9. Media de precios por categoria";
+						cout <<"\n 10. Atras"<< endl;
+						m = introducirOpcion(10);
 						switch(m)
 						{
 							case 1:

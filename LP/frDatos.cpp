@@ -493,7 +493,7 @@ void importeXdias (sqlite3 *db)
     	if (mes1==mes2)
     	{
     		 linea();
-  			 cout << "\n  ** INGRESOS POR MES ** \n\n" << endl;
+  			 cout << "\n  ** INGRESOS POR DIAS ** \n\n" << endl;
 
     		for (auto c: comandas)
     		{
@@ -518,7 +518,7 @@ void importeXdias (sqlite3 *db)
 		}
 		else
 		{
-			cout<<"Poe ahora no hay actividad en "<< meses[mes1]<<endl;
+			cout<<"Por ahora no hay actividad en "<< meses[mes1]<<endl;
 		}
     }
 
